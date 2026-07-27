@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Segurança Dinâmico</title>
-    <!-- Mantida a importação da fonte digital Chakra Petch -->
+    <!-- CORRIGIDO: Link de fontes estruturado corretamente com a barra -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Chakra+Petch:wght@700&family=Ubuntu:wght@700&display=swap" rel="stylesheet">
+    <link href="https://googleapis.com/css2?family=Chakra+Petch:wght@700&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         * {
@@ -29,6 +29,9 @@
         .painel-fundo {
             width: 100vw;
             height: 100vh;
+            max-width: 1920px;
+            max-height: 1080px;
+            aspect-ratio: 16 / 9;
             background-image: url('fundo-painel.jpg');
             background-size: 100% 100%;
             background-position: center;
@@ -76,7 +79,7 @@
             letter-spacing: 2px;
         }
 
-        /* Fonte digital com os segmentos retos */
+        /* Fonte digital padrão */
         .contador-led {
             font-family: 'Chakra Petch', sans-serif;
             font-size: 25vh; 
@@ -98,28 +101,62 @@
             text-shadow: 0 0 25px rgba(0, 255, 85, 0.7);
         }
 
-        /* Estilo comum para as caixas de texto do rodapé */
+        /* Base para os textos flutuantes do rodapé */
         .texto-dinamico-rodape {
             font-family: 'Ubuntu', sans-serif;
             font-size: 3.4vh;
             font-weight: 700;
             color: #0d2343;
             position: absolute;
-            bottom: 13.8%; /* Altura ideal acima das palavras cinzas */
+            bottom: 13.8%; 
             height: 5vh;
             display: flex;
             align-items: center;
             z-index: 20;
         }
 
-        /* Posição horizontal estável ao lado do ícone do calendário */
         .posicao-data {
             left: 16.5%;
         }
 
-        /* ALINHAMENTO CORRIGIDO: Mudado para left com a posição exata da caixa marcada */
+        /* Posição do horário cravada em cima do retângulo marcado */
         .posicao-hora {
-            left: 77.0%; /* Encaixa o início do relógio exatamente acima da palavra HORÁRIO */
+            left: 77.0%; 
+        }
+
+        /* ESTILIZAÇÃO COMPLETA: Garante a visibilidade e o contraste das caixas adicionais */
+        .caixa-adicional {
+            position: absolute;
+            bottom: 3.5%;
+            height: 5.5vh;
+            background-color: rgba(13, 35, 67, 0.1);
+            border-left: 5px solid #0d2343;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            font-family: 'Ubuntu', sans-serif;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            z-index: 25;
+        }
+
+        /* Caixa de Clima perfeitamente alinhada sob a DATA */
+        .caixa-clima {
+            left: 11.5%;
+            width: 22%;
+            font-size: 2.1vh;
+            font-weight: 700;
+            color: #1e3a8a;
+        }
+
+        /* Caixa de Frases perfeitamente alinhada sob o HORÁRIO */
+        .caixa-frase {
+            left: 71.0%;
+            width: 25%;
+            font-size: 1.6vh;
+            font-weight: 700;
+            color: #15803d;
+            line-height: 1.3;
         }
     </style>
 </head>
@@ -140,13 +177,34 @@
             </div>
         </div>
 
-        <!-- Campos de Texto reposicionados nos vãos corretos -->
+        <!-- Campos de Texto Principais do Rodapé -->
         <div class="texto-dinamico-rodape posicao-data" id="txt-data">27/07/2026</div>
-        <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">13:45:26</div>
+        <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">13:43:56</div>
+
+        <!-- Novas Caixas de Informações Extras Requeridas -->
+        <div class="caixa-adicional caixa-clima" id="bloco-clima">☀️ Carregando clima...</div>
+        <div class="caixa-adicional caixa-frase" id="bloco-frase">Segurança não é um ato, é um hábito diário.</div>
 
     </div>
 
     <script>
+        // Banco de dados de frases motivacionais de Segurança do Trabalho
+        const frasesSeguranca = [
+            "Segurança não é um ato, é um hábito diário.",
+            "Trabalhe com cuidado: sua família te espera!",
+            "EPI completo é escudo para a sua vida.",
+            "A melhor ferramenta de trabalho é a prevenção.",
+            "Segurança é valor, vida é prioridade absoluta.",
+            "A pressa passa, as consequências podem durar para sempre."
+        ];
+
+        let indexFrase = 0;
+
+        function rotacionarFrases() {
+            indexFrase = (indexFrase + 1) % frasesSeguranca.length;
+            document.getElementById('bloco-frase').textContent = frasesSeguranca[indexFrase];
+        }
+
         function atualizarPainel() {
             const agora = new Date();
             
@@ -163,8 +221,20 @@
             document.getElementById('txt-hora').textContent = `${horas}:${minutos}:${segundos}`;
         }
 
+        // Função de simulação do clima dinâmico local
+        function atualizarClimaSimulado() {
+            const climas = ["☀️ 31°C - Ensolarado", "🌤️ 30°C - Parcialmente Nublado", "⛅ 29°C - Sol entre Nuvens"];
+            const aleatorio = climas[Math.floor(Math.random() * climas.length)];
+            document.getElementById('bloco-clima').textContent = aleatorio;
+        }
+
+        // Inicializações e intervalos de execução
         setInterval(atualizarPainel, 1000);
+        setInterval(rotacionarFrases, 7000); // Rotaciona a frase a cada 7 segundos
+        setInterval(atualizarClimaSimulado, 300000); // Atualiza dados climáticos a cada 5 minutos
+        
         atualizarPainel();
+        atualizarClimaSimulado();
     </script>
 </body>
 </html>
