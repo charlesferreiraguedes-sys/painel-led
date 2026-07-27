@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Segurança Dinâmico</title>
-    <!-- Fonte digital idêntica para os números do painel -->
+    <!-- Fonte digital para os números do painel -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Orbitron:wght@700&family=Ubuntu:wght@700&display=swap" rel="stylesheet">
@@ -26,7 +26,7 @@
             font-family: 'Ubuntu', sans-serif;
         }
 
-        /* Container proporcional travado em 16:9 usando a foto limpa como base */
+        /* Container proporcional travado em 16:9 chamando o seu arquivo correto */
         .painel-fundo {
             width: 100vw;
             height: 100vh;
@@ -34,8 +34,8 @@
             max-height: 1080px;
             aspect-ratio: 16 / 9;
             
-            /* Link direto da sua imagem original para evitar fundo preto */
-            background-image: url('https://squarespace-cdn.com');
+            /* Puxa exatamente o arquivo fundo-painel.jpg do seu repositório */
+            background-image: url('fundo-painel.jpg');
             background-size: 100% 100%;
             background-position: center;
             background-repeat: no-repeat;
@@ -45,7 +45,7 @@
         /* Estilo e tamanho dos grandes números em LED */
         .contador-digital {
             font-family: 'Orbitron', sans-serif;
-            font-size: 19.5vh; /* Ajustado para preencher perfeitamente os blocos escuros */
+            font-size: 19.5vh;
             font-weight: 700;
             position: absolute;
             left: 51.5%;
@@ -92,15 +92,15 @@
 </head>
 <body>
 
-    <div class="fundo-painel">
+    <div class="painel-fundo">
         
-        <!-- Apenas os valores que mudam em tempo real são injetados aqui -->
+        <!-- Valores numéricos em tempo real -->
         <div class="contador-digital dias-sem-acidente" id="num-dias">609</div>
         <div class="contador-digital nosso-recorde" id="num-recorde">609</div>
 
-        <!-- Dados dinâmicos do rodapé perfeitamente encaixados -->
+        <!-- Dados dinâmicos do rodapé -->
         <div class="texto-rodape campo-data" id="txt-data">27/07/2026</div>
-        <div class="texto-rodape campo-hora" id="txt-hora">08:43:17</div>
+        <div class="texto-rodape campo-hora" id="txt-hora">11:58:29</div>
 
     </div>
 
