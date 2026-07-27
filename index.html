@@ -6,12 +6,6 @@
     <title>Painel de Segurança Dinâmico</title>
     
     <style>
-        /* IMPORTAÇÃO VIA DATA-URI: Garante a fonte de LED digital de 7 segmentos mesmo offline */
-        @font-face {
-            font-family: 'Digital7Segment';
-            src: url('https://cloudflare.com') format('woff');
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -73,17 +67,17 @@
             color: #ffffff;
             font-size: 2.8vh;
             font-weight: 700;
-            font-family: Arial, sans-serif;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
 
-        /* FONTE DIGITAL: Visual reto e segmentado estilo cronômetro industrial */
+        /* FONTE DIGITAL SEGMENTADA VIA CSS: Cantos retos e visual de relógio eletrônico */
         .contador-led {
-            font-family: 'Digital7Segment', monospace;
-            font-size: 26vh; 
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            font-size: 24vh; 
             font-weight: 900;
-            letter-spacing: 6px;
+            letter-spacing: 12px; /* Espaço entre os dígitos para simular blocos de LED */
             line-height: 0.75;
             text-align: center;
             width: 100%;
@@ -99,31 +93,32 @@
             text-shadow: 0 0 25px rgba(0, 255, 85, 0.8);
         }
 
-        /* ENQUADRAMENTO DEFINITIVO DO RODAPÉ (Invisível, usa o cinza do seu fundo) */
+        /* ALINHAMENTO DO RODAPÉ: Subido para liberar totalmente as palavras fixas de baixo */
         .texto-dinamico-rodape {
-            font-family: Arial, sans-serif;
-            font-size: 3.5vh;
-            font-weight: 700;
+            font-family: 'Impact', 'Arial Black', sans-serif; /* Fonte robusta e quadrada para a data/hora */
+            font-size: 4vh;
+            font-weight: 900;
             color: #0d2343;
             position: absolute;
-            bottom: 11.2%; /* Eleva o texto para não encavalar com o texto cinza "DATA" de baixo */
-            height: 6vh;
+            bottom: 13.5%; /* Movido mais para cima para desgrudar dos textos "DATA" e "HORÁRIO" */
+            height: 5vh;
             display: flex;
             align-items: center;
+            letter-spacing: 1px;
             z-index: 20;
         }
 
-        /* Coordenada cirúrgica para ficar logo após o desenho do calendário */
+        /* Posição horizontal milimétrica ao lado do ícone do calendário */
         .posicao-data {
-            left: 16.8%;
+            left: 16.5%;
             width: 15%;
         }
 
-        /* Coordenada cirúrgica para ficar logo após o desenho do relógio azul */
+        /* Posição horizontal milimétrica ao lado do ícone do relógio azul */
         .posicao-hora {
-            right: 7.2%;
+            right: 8.5%;
             width: 15%;
-            justify-content: flex-start;
+            justify-content: flex-end;
         }
     </style>
 </head>
@@ -144,9 +139,9 @@
             </div>
         </div>
 
-        <!-- Campos de Texto Alinhados por sobreposição nativa -->
+        <!-- Campos de Texto reposicionados para cima -->
         <div class="texto-dinamico-rodape posicao-data" id="txt-data">27/07/2026</div>
-        <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">13:35:19</div>
+        <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">13:38:13</div>
 
     </div>
 
@@ -154,11 +149,13 @@
         function atualizarPainel() {
             const agora = new Date();
             
+            // Atualiza data
             const dia = String(agora.getDate()).padStart(2, '0');
             const mes = String(agora.getMonth() + 1).padStart(2, '0');
             const ano = agora.getFullYear();
             document.getElementById('txt-data').textContent = `${dia}/${mes}/${ano}`;
             
+            // Atualiza hora
             const horas = String(agora.getHours()).padStart(2, '0');
             const minutos = String(agora.getMinutes()).padStart(2, '0');
             const segundos = String(agora.getSeconds()).padStart(2, '0');
