@@ -18,8 +18,7 @@
 
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #ffffff;
-            color: #112244;
+            background-color: #f4f6f9;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -35,20 +34,26 @@
             border-radius: 12px;
             padding: 40px;
             position: relative;
-            background: #ffffff;
+            
+            /* Nova configuração: Carrega a imagem enviada como plano de fundo geral */
+            background-image: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url('fundo-painel.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             overflow: hidden;
         }
 
-        /* Detalhes de Fundo Geométricos (Simulando as texturas cinzas e verdes da foto) */
+        /* Detalhes de Fundo Geométricos (Efeito de transição nas laterais) */
         .painel-container::before {
             content: "";
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 250px;
+            width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(39, 174, 96, 0.1) 0%, transparent 70%);
+            background: linear-gradient(135deg, rgba(39, 174, 96, 0.05) 0%, transparent 50%);
             z-index: 1;
             pointer-events: none;
         }
@@ -76,6 +81,7 @@
 
         .titulo-central {
             text-align: center;
+            margin: 0 auto;
         }
 
         .titulo-central h1 {
@@ -115,8 +121,9 @@
             border-bottom-left-radius: 8px;
             border-bottom-right-radius: 8px;
             position: absolute;
-            top: -40px;
-            right: 0;
+            top: 0;
+            right: 40px;
+            z-index: 3;
         }
 
         /* Bloco dos Displays Numéricos */
@@ -171,7 +178,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 2px solid #f0f0f0;
+            border-top: 2px solid rgba(15, 45, 89, 0.1);
             padding-top: 20px;
             position: relative;
             z-index: 2;
@@ -235,6 +242,7 @@
             .logo-trilha { text-align: center; }
             .numero-digital { font-size: 90px; }
             .subtitulo::before, .subtitulo::after { width: 20px; }
+            .badge-gptw { position: relative; right: auto; top: auto; margin-bottom: 20px; }
         }
     </style>
 </head>
@@ -258,8 +266,6 @@
                 <h1>SEGURANÇA DO TRABALHO</h1>
                 <div class="subtitulo">CUIDAR HOJE PARA PROTEGER SEMPRE</div>
             </div>
-            
-            <div></div> <!-- Espaçador para alinhar o flexbox -->
         </header>
 
         <!-- Seção dos Contadores -->
@@ -328,14 +334,3 @@
             
             // Formatar Hora (HH:MM:SS)
             const horas = String(agora.getHours()).padStart(2, '0');
-            const minutos = String(agora.getMinutes()).padStart(2, '0');
-            const segundos = String(agora.getSeconds()).padStart(2, '0');
-            document.getElementById('campo-hora').textContent = `${horas}:${minutos}:${segundos}`;
-        }
-
-        // Executa a função a cada 1 segundo
-        setInterval(atualizarRelogio, 1000);
-        // Executa imediatamente ao carregar a página
-        atualizarRelogio();
-    </script>
-</body>
