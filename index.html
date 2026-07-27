@@ -40,33 +40,38 @@
             position: relative;
         }
 
-        /* Máscaras pretas aumentadas para cobrir 100% dos leds antigos embaixo */
-        .mascara-contador {
+        /* Nova Máscara Vermelha: cobre exatamente a caixa preta interna inteira */
+        .mascara-vermelha {
             position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 38%;
-            height: 20.5vh; /* Aumentado para cobrir as bordinhas que vazavam */
-            background-color: #061325; /* Preto exato dos painéis */
+            top: 24.3%;
+            left: 28.5%;
+            width: 43.1%;
+            height: 17.5vh;
+            background-color: #061325; /* Cor idêntica interna */
             display: flex;
             justify-content: center;
             align-items: center;
-            border-radius: 10px;
+            border-radius: 4px;
         }
 
-        /* Posições verticais reajustadas para baixo para tampar o fundo antigo */
-        .posicao-vermelho {
-            top: 24.5%;
-        }
-
-        .posicao-verde {
-            top: 55.5%;
+        /* Nova Máscara Verde: cobre exatamente a caixa preta interna inteira */
+        .mascara-verde {
+            position: absolute;
+            top: 55.4%;
+            left: 28.5%;
+            width: 43.1%;
+            height: 17.5vh;
+            background-color: #061325; /* Cor idêntica interna */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 4px;
         }
 
         /* Estilo dos grandes números em LED */
         .contador-digital {
             font-family: 'Orbitron', sans-serif;
-            font-size: 14.5vh; 
+            font-size: 15vh; 
             font-weight: 700;
             letter-spacing: -2px;
             line-height: 1;
@@ -82,23 +87,23 @@
             text-shadow: 0 0 25px rgba(0, 255, 102, 0.7);
         }
 
-        /* Máscaras brancas ajustadas para cobrir totalmente as escritas antigas do rodapé */
+        /* Coberturas horizontais estendidas para o rodapé (limpa os vazamentos pretos) */
         .mascara-rodape {
             position: absolute;
-            bottom: 12.2%;
-            height: 5.5vh;
-            background-color: #ffffff; /* Branco exato do rodapé */
+            bottom: 11.5%;
+            height: 6.5vh;
+            background-color: #ffffff; /* Cobre totalmente qualquer resíduo anterior */
             display: flex;
             align-items: center;
         }
 
         .posicao-data {
-            left: 17%;
-            width: 17%;
+            left: 17.5%;
+            width: 15%;
         }
 
         .posicao-hora {
-            right: 10.5%;
+            right: 10.2%;
             width: 15%;
             justify-content: flex-end;
         }
@@ -117,22 +122,22 @@
 
     <div class="painel-fundo">
         
-        <!-- Blocos pretos agora cobrem perfeitamente os traços antigos -->
-        <div class="mascara-contador posicao-vermelho">
+        <!-- Blocos de máscara perfeitamente encaixados nas caixas internas -->
+        <div class="mascara-vermelha">
             <div class="contador-digital led-vermelho" id="num-dias">609</div>
         </div>
         
-        <div class="mascara-contador posicao-verde">
+        <div class="mascara-verde">
             <div class="contador-digital led-verde" id="num-recorde">609</div>
         </div>
 
-        <!-- Blocos brancos cobrindo as letras/números antigos do rodapé -->
+        <!-- Blocos higienizados do rodapé -->
         <div class="mascara-rodape posicao-data">
             <div class="texto-rodape" id="txt-data">27/07/2026</div>
         </div>
         
         <div class="mascara-rodape posicao-hora">
-            <div class="texto-rodape" id="txt-hora">12:09:15</div>
+            <div class="texto-rodape" id="txt-hora">12:11:54</div>
         </div>
 
     </div>
