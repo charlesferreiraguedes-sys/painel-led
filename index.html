@@ -26,15 +26,13 @@
             font-family: 'Ubuntu', sans-serif;
         }
 
-        /* Container proporcional travado em 16:9 chamando o seu arquivo correto */
+        /* Container proporcional travado em 16:9 */
         .painel-fundo {
             width: 100vw;
             height: 100vh;
             max-width: 1920px;
             max-height: 1080px;
             aspect-ratio: 16 / 9;
-            
-            /* Puxa exatamente o arquivo fundo-painel.jpg do seu repositório */
             background-image: url('fundo-painel.jpg');
             background-size: 100% 100%;
             background-position: center;
@@ -42,30 +40,66 @@
             position: relative;
         }
 
-        /* Estilo e tamanho dos grandes números em LED */
+        /* Máscaras pretas para cobrir os números antigos da imagem */
+        .mascara-contador {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 38%;
+            height: 16.5vh;
+            background-color: #061325; /* Preto exato dos painéis */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+        }
+
+        .posicao-vermelho {
+            top: 23%;
+        }
+
+        .posicao-verde {
+            top: 54.5%;
+        }
+
+        /* Estilo dos grandes números em LED */
         .contador-digital {
             font-family: 'Orbitron', sans-serif;
-            font-size: 19.5vh;
+            font-size: 15vh; 
             font-weight: 700;
-            position: absolute;
-            left: 51.5%;
-            transform: translateX(-50%);
             letter-spacing: -2px;
             line-height: 1;
         }
 
-        /* Alinhamento vertical do contador vermelho */
-        .dias-sem-acidente {
-            top: 24%;
+        .led-vermelho {
             color: #ff1a1a;
             text-shadow: 0 0 25px rgba(255, 26, 26, 0.7);
         }
 
-        /* Alinhamento vertical do contador verde */
-        .nosso-recorde {
-            top: 55.5%;
+        .led-verde {
             color: #00ff66;
             text-shadow: 0 0 25px rgba(0, 255, 102, 0.7);
+        }
+
+        /* Máscaras brancas para tapar os textos antigos do rodapé */
+        .mascara-rodape {
+            position: absolute;
+            bottom: 12.2%;
+            height: 5vh;
+            background-color: #ffffff; /* Branco exato do rodapé */
+            display: flex;
+            align-items: center;
+        }
+
+        .posicao-data {
+            left: 17%;
+            width: 16%;
+        }
+
+        .posicao-hora {
+            right: 11%;
+            width: 15%;
+            justify-content: flex-end;
         }
 
         /* Estilo dos textos dinâmicos do rodapé */
@@ -74,19 +108,7 @@
             font-size: 3.5vh;
             font-weight: 700;
             color: #0d2343;
-            position: absolute;
-            bottom: 12.8%;
             line-height: 1;
-        }
-
-        /* Posicionamento exato ao lado do ícone de calendário */
-        .campo-data {
-            left: 17%;
-        }
-
-        /* Posicionamento exato ao lado do ícone de relógio */
-        .campo-hora {
-            right: 14%;
         }
     </style>
 </head>
@@ -94,13 +116,23 @@
 
     <div class="painel-fundo">
         
-        <!-- Valores numéricos em tempo real -->
-        <div class="contador-digital dias-sem-acidente" id="num-dias">609</div>
-        <div class="contador-digital nosso-recorde" id="num-recorde">609</div>
+        <!-- Blocos com fundo preto cobrindo os números antigos -->
+        <div class="mascara-contador posicao-vermelho">
+            <div class="contador-digital led-vermelho" id="num-dias">609</div>
+        </div>
+        
+        <div class="mascara-contador posicao-verde">
+            <div class="contador-digital led-verde" id="num-recorde">609</div>
+        </div>
 
-        <!-- Dados dinâmicos do rodapé -->
-        <div class="texto-rodape campo-data" id="txt-data">27/07/2026</div>
-        <div class="texto-rodape campo-hora" id="txt-hora">11:58:29</div>
+        <!-- Blocos com fundo branco cobrindo os textos do rodapé -->
+        <div class="mascara-rodape posicao-data">
+            <div class="texto-rodape" id="txt-data">27/07/2026</div>
+        </div>
+        
+        <div class="mascara-rodape posicao-hora">
+            <div class="texto-rodape" id="txt-hora">12:02:17</div>
+        </div>
 
     </div>
 
@@ -108,7 +140,7 @@
         function atualizarPainel() {
             const agora = new Date();
             
-            // Atualização da Data no padrão brasileiro (DD/MM/AAAA)
+            // Atualização da Data (DD/MM/AAAA)
             const dia = String(agora.getDate()).padStart(2, '0');
             const mes = String(agora.getMonth() + 1).padStart(2, '0');
             const ano = agora.getFullYear();
