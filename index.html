@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Segurança Dinâmico</title>
-    <!-- Importação de fontes: Share Tech Mono para os segmentos de LED retos e robustos -->
+    <!-- Importação de fontes estáveis e geométricas -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Share+Tech+Mono&family=Ubuntu:wght@700&display=swap" rel="stylesheet">
@@ -49,7 +49,7 @@
             z-index: 10;
         }
 
-        /* Estrutura idêntica dos blocos escuros industriais */
+        /* Estrutura dos blocos escuros industriais */
         .quadro-display {
             width: 100%;
             height: 29.3vh;
@@ -80,55 +80,56 @@
             letter-spacing: 2px;
         }
 
-        /* Fonte LED Digital Quadrada de 7 segmentos idêntica à foto desejada */
+        /* Fonte LED Digital Real de 7 Segmentos com espaçamento calibrado */
         .contador-led {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 24vh; 
+            font-family: 'Share Tech Mono', 'Courier New', monospace;
+            font-size: 26vh; 
             font-weight: 700;
-            letter-spacing: 2px;
-            line-height: 0.8;
+            letter-spacing: 12px; /* Espaçamento entre os blocos numéricos digitais */
+            line-height: 0.75;
             text-align: center;
             width: 100%;
+            text-transform: uppercase;
         }
 
         .led-vermelho {
             color: #ff1122;
-            text-shadow: 0 0 25px rgba(255, 17, 34, 0.7);
+            text-shadow: 0 0 25px rgba(255, 17, 34, 0.8);
         }
 
         .led-verde {
             color: #00ff55;
-            text-shadow: 0 0 25px rgba(0, 255, 85, 0.7);
+            text-shadow: 0 0 25px rgba(0, 255, 85, 0.8);
         }
 
-        /* Ajuste do rodapé para preencher e tampar toda a altura da barra cinza-clara original */
+        /* Blocos do rodapé ajustados para cobrir e alinhar nas extremidades */
         .texto-dinamico-rodape {
             font-family: 'Ubuntu', sans-serif;
             font-size: 3.4vh;
             font-weight: 700;
             color: #0d2343;
             position: absolute;
-            bottom: 9.3%; /* Alinhamento rente à base da faixa branca */
-            height: 8.5vh; /* Ocupa 100% da altura da faixa para esconder vazamentos */
-            background-color: #f4f5f7; /* Cor cinza-claro exata do painel de fundo */
+            bottom: 9.3%; /* Altura rente à base branca */
+            height: 8.5vh; /* Preenche verticalmente todo o espaço cinza */
+            background-color: #f4f5f7; /* Cor cinza-claro idêntica ao painel */
             display: flex;
             align-items: center;
             z-index: 10;
         }
 
-        /* Posicionamento preciso em cima da palavra DATA */
+        /* Alinhamento empurrado mais para a esquerda perto do ícone do calendário */
         .posicao-data {
-            left: 16.5%;
-            width: 16%;
-            padding-left: 8px;
+            left: 16.2%;
+            width: 17%;
+            padding-left: 5px;
         }
 
-        /* Posicionamento preciso em cima da palavra HORÁRIO */
+        /* Alinhamento empurrado mais para a direita perto do ícone do relógio */
         .posicao-hora {
-            right: 10.5%;
-            width: 16%;
+            right: 8.2%;
+            width: 17%;
             justify-content: flex-end;
-            padding-right: 8px;
+            padding-right: 5px;
         }
     </style>
 </head>
@@ -153,9 +154,9 @@
 
         </div>
 
-        <!-- Informações dinâmicas do rodapé encaixadas perfeitamente -->
+        <!-- Informações dinâmicas do rodapé reposicionadas -->
         <div class="texto-dinamico-rodape posicao-data" id="txt-data">27/07/2026</div>
-        <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">08:43:17</div>
+        <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">13:32:16</div>
 
     </div>
 
@@ -163,20 +164,19 @@
         function atualizarPainel() {
             const agora = new Date();
             
-            // Atualização automática da Data (DD/MM/AAAA)
+            // Data Dinâmica
             const dia = String(agora.getDate()).padStart(2, '0');
             const mes = String(agora.getMonth() + 1).padStart(2, '0');
             const ano = agora.getFullYear();
             document.getElementById('txt-data').textContent = `${dia}/${mes}/${ano}`;
             
-            // Atualização automática do Horário (HH:MM:SS)
+            // Horário Dinâmico
             const horas = String(agora.getHours()).padStart(2, '0');
             const minutos = String(agora.getMinutes()).padStart(2, '0');
             const segundos = String(agora.getSeconds()).padStart(2, '0');
             document.getElementById('txt-hora').textContent = `${horas}:${minutos}:${segundos}`;
         }
 
-        // Mantém a sincronização contínua a cada segundo
         setInterval(atualizarPainel, 1000);
         atualizarPainel();
     </script>
