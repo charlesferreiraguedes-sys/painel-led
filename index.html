@@ -33,7 +33,7 @@
             background-color: #ffffff;
         }
 
-        /* Área do painel oficial - TOTALMENTE INTACTO E TRAVADO COORDENADAS DA REFERÊNCIA */
+        /* Área do painel oficial */
         .painel-fundo {
             width: 100%;
             height: 84vh;
@@ -104,14 +104,14 @@
             text-shadow: 0 0 25px rgba(0, 255, 85, 0.7);
         }
 
-        /* Posições originais da foto preservadas perfeitamente */
+        /* CORREÇÃO CRÍTICA DE ALTURA: Posicionados perfeitamente no vão livre abaixo do quadro preto */
         .texto-dinamico-rodape {
             font-family: 'Ubuntu', sans-serif;
             font-size: 3.2vh;
             font-weight: 700;
             color: #0d2343;
             position: absolute;
-            bottom: 13.8%; 
+            bottom: 4.5%; /* Descido milimetricamente para sair de trás do quadro e assentar no vão cinza */
             height: 5.5vh;
             display: flex;
             align-items: center;
@@ -124,7 +124,7 @@
         .posicao-data { left: 16.5%; }
         .posicao-hora { left: 77.0%; }
 
-        /* ESPAÇO ADICIONAL INFERIOR TOTALMENTE BRANCO SOLICITADO */
+        /* Espaço adicional inferior totalmente em branco */
         .barra-inferior-adicional {
             width: 100%;
             height: 16vh;
@@ -137,7 +137,6 @@
             z-index: 30;
         }
 
-        /* Clima alinhado na extremidade esquerda */
         .caixa-clima-externa {
             font-family: 'Ubuntu', sans-serif;
             font-size: 3.8vh;
@@ -149,7 +148,6 @@
             min-width: 35%;
         }
 
-        /* Mensagens motivacionais alinhadas na extremidade direita */
         .caixa-frase-externa {
             font-family: 'Ubuntu', sans-serif;
             font-size: 2.8vh;
@@ -165,7 +163,7 @@
 
     <div class="layout-geral">
         
-        <!-- Painel Superior Oficial (Travado e Sem Alteração) -->
+        <!-- Painel Superior Oficial -->
         <div class="painel-fundo">
             
             <div class="conteudo-displays">
@@ -180,21 +178,21 @@
                 </div>
             </div>
 
+            <!-- DATA E HORÁRIO corrigidos no centro do vão livre livre de cortes -->
             <div class="texto-dinamico-rodape posicao-data" id="txt-data">27/07/2026</div>
-            <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">15:08:10</div>
+            <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">15:36:09</div>
 
         </div>
 
-        <!-- Trabalho focado exclusivamente na barra inferior em branco -->
+        <!-- Barra inferior em branco -->
         <footer class="barra-inferior-adicional">
-            <div class="caixa-clima-externa" id="bloco-clima">☀️ 29°C - Ensolarado</div>
-            <div class="caixa-frase-externa" id="bloco-frase">A prevenção ativa evita acidentes graves, protegendo a sua vida.</div>
+            <div class="caixa-clima-externa" id="bloco-clima">☀️ 30°C - Ensolarado</div>
+            <div class="caixa-frase-externa" id="bloco-frase">A segurança diária constrói um ambiente forte, porque a vida vem sempre em primeiro lugar.</div>
         </footer>
 
     </div>
 
     <script>
-        // Estrutura combinatória interna para +1500 frases automáticas sem carregar links lentos
         const sujeitos = [
             "A prevenção ativa", "A segurança diária", "A nossa atitude cuidadosa", "O uso correto do EPI",
             "O foco absoluto nas tarefas", "O respeito às normas de vida", "A atenção contínua",
@@ -203,7 +201,7 @@
         const acoes = [
             " evita acidentes graves,", " protege você e toda a equipe,", " resguarda a saúde de todos,",
             " constrói um ambiente forte,", " garante o retorno seguro para casa,", " elimina os riscos no canteiro,",
-            " preserva o nosso maior bem,", " fortalece a cultura de prevenção,", " afasta o perigo no trabalho,"
+            " preserva o nosso maior bien,", " fortalece a cultura de prevenção,", " afasta o perigo no trabalho,"
         ];
         const complementos = [
             " porque a vida vem sempre em primeiro lugar.", " faça disso o seu maior hábito profissional.",
@@ -242,10 +240,9 @@
             document.getElementById('txt-hora').textContent = `${horas}:${minutos}:${segundos}`;
         }
 
-        // Motor autônomo estável de clima (Garante exibição imediata e evita falhas de rede)
         function rodarClimaLocal() {
             const horaAtual = new Date().getHours();
-            let temperatura = 29;
+            let temperatura = 30;
             let condicao = "Ensolarado";
             let icone = "☀️";
 
@@ -254,21 +251,19 @@
                 condicao = "Céu Limpo";
                 icone = "🌙";
             } else if (Math.random() > 0.6) {
-                temperatura = 28;
+                temperatura = 29;
                 condicao = "Parcialmente Nublado";
                 icone = "🌤️";
             }
 
-            temperatura += Math.floor(Math.random() * 3) - 1;
+            temperatura += Math.floor(Math.random() * 2) - 1;
             document.getElementById('bloco-clima').textContent = `${icone} ${temperatura}°C - ${condicao}`;
         }
 
-        // Loops de tempo precisos
         setInterval(atualizarRelogiosNativos, 1000);
-        setInterval(gerarFraseSeguranca, 60000); // 1 minuto exato por alteração de frase
+        setInterval(gerarFraseSeguranca, 60000); // 1 minuto exato por ciclo
         setInterval(rodarClimaLocal, 180000);   
         
-        // Ativação forçada imediata
         atualizarRelogiosNativos();
         gerarFraseSeguranca();
         rodarClimaLocal();
