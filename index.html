@@ -18,7 +18,7 @@
         html, body {
             width: 100%;
             height: 100%;
-            background-color: #ffffff;
+            background-color: #000000;
             overflow: hidden;
             display: flex;
             justify-content: center;
@@ -33,23 +33,23 @@
             background-color: #ffffff;
         }
 
-        /* Área do painel oficial */
-        .painel-fundo {
+        /* Área do painel superior oficial */
+        .painel-topo {
             width: 100%;
-            height: 84vh;
+            height: 74vh;
             background-image: url('fundo-painel.jpg');
-            background-size: 100% 100%;
-            background-position: center;
+            background-size: 100% auto;
+            background-position: top center;
             background-repeat: no-repeat;
             position: relative;
         }
 
         .conteudo-displays {
             position: absolute;
-            top: 17.2%;
+            top: 15%;
             left: 23.6%;
             width: 52.8%;
-            height: 61.6vh;
+            height: 56vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -58,14 +58,14 @@
 
         .quadro-display {
             width: 100%;
-            height: 29.3vh;
+            height: 26.5vh;
             background-color: #061325;
             border-radius: 22px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
-            padding: 1.8vh 0 1.2vh 0;
+            padding: 1.5vh 0 1vh 0;
             box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
             border: 3.5px solid #0f243d;
         }
@@ -76,7 +76,7 @@
 
         .titulo-interno {
             color: #ffffff;
-            font-size: 2.8vh;
+            font-size: 2.5vh;
             font-weight: 700;
             font-family: 'Ubuntu', sans-serif;
             text-transform: uppercase;
@@ -85,7 +85,7 @@
 
         .contador-led {
             font-family: 'Chakra Petch', sans-serif;
-            font-size: 25vh; 
+            font-size: 22vh; 
             font-weight: 700;
             letter-spacing: -4px;
             line-height: 0.75;
@@ -104,28 +104,75 @@
             text-shadow: 0 0 25px rgba(0, 255, 85, 0.7);
         }
 
-        /* TRAVAMENTO VERTICAL FIXO: Força os campos a subirem para o vão livre, longe das bordinhas inferiores */
-        .texto-dinamico-rodape {
-            font-family: 'Ubuntu', sans-serif;
-            font-size: 3.2vh;
-            font-weight: 700;
-            color: #0d2343;
-            position: absolute;
-            bottom: 48px; /* Alterado de % para px fixo para levantar os números e encaixar no vão */
-            height: 40px;
+        /* NOVO RODAPÉ TRAVADO NATIVAMENTE EM DESIGN SÓLIDO */
+        .painel-rodape-estavel {
+            width: 100%;
+            height: 10vh;
+            background-color: #f4f5f7; /* Cor cinza-claro idêntica ao painel original */
+            border-top: 2px solid #e2e8f0;
+            position: relative;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            background-color: #f4f5f7; 
-            padding: 0 10px;
-            border-radius: 4px;
-            z-index: 20;
+            padding: 0 6vw;
         }
 
-        /* Ajustados milimetricamente para alinhar perfeitamente com os vãos laterais */
-        .posicao-data { left: 17.5%; }
-        .posicao-hora { left: 76.5%; }
+        /* Caixas brancas dinâmicas construídas e fixadas de forma estável */
+        .caixa-dados-rodape {
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            height: 7vh;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
 
-        /* Espaço adicional inferior totalmente em branco */
+        .icone-svg {
+            width: 3.8vh;
+            height: 3.8vh;
+        }
+
+        .conteudo-texto-rodape {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .valor-dinamico {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 2.8vh;
+            font-weight: 700;
+            color: #0d2343;
+            line-height: 1.1;
+        }
+
+        .legenda-rodape {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 1.2vh;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+
+        /* Frase centralizada estável */
+        .frase-central-estavel {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 2vh;
+            font-weight: 700;
+            color: #0d2343;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Barra inferior dinâmica de clima e mensagens adicionais */
         .barra-inferior-adicional {
             width: 100%;
             height: 16vh;
@@ -164,9 +211,8 @@
 
     <div class="layout-geral">
         
-        <!-- Painel Superior Oficial -->
-        <div class="painel-fundo">
-            
+        <!-- Painel Topo com a imagem e os contadores de LED grandes -->
+        <div class="painel-topo">
             <div class="conteudo-displays">
                 <div class="quadro-display">
                     <div class="titulo-interno">Dias Sem Acidentes</div>
@@ -178,17 +224,52 @@
                     <div class="contador-led led-verde" id="num-recorde">609</div>
                 </div>
             </div>
+        </div>
 
-            <!-- DATA E HORÁRIO travados de forma independente contra distorções de tamanho -->
-            <div class="texto-dinamico-rodape posicao-data" id="txt-data">27/07/2026</div>
-            <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">15:38:22</div>
+        <!-- NOVO RODAPÉ ESTÁVEL: Nascido por código, eliminando erros de desalinhamento da imagem -->
+        <div class="painel-rodape-estavel">
+            
+            <!-- Caixa da DATA Fixa e Integrada -->
+            <div class="caixa-dados-rodape">
+                <svg class="icone-svg" viewBox="0 0 24 24" fill="none" xmlns="http://w3.org">
+                    <rect x="3" y="4" width="18" height="18" rx="4" fill="#1b8a5a"/>
+                    <rect x="6" y="8" width="12" height="11" rx="1" fill="#ffffff"/>
+                    <circle cx="9" cy="11" r="1" fill="#1b8a5a"/><circle cx="13" cy="11" r="1" fill="#1b8a5a"/>
+                    <circle cx="9" cy="14" r="1" fill="#1b8a5a"/><circle cx="13" cy="14" r="1" fill="#1b8a5a"/>
+                </svg>
+                <div class="conteudo-texto-rodape">
+                    <span class="valor-dinamico" id="txt-data">27/07/2026</span>
+                    <span class="legenda-rodape">Data</span>
+                </div>
+            </div>
+
+            <!-- Slogan Central -->
+            <div class="frase-central-estavel">
+                <svg class="icone-svg" viewBox="0 0 24 24" fill="#0d2343" xmlns="http://w3.org">
+                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 15l-4-4 1.41-1.41L11 13.17l5.59-5.59L18 9l-7 7z"/>
+                </svg>
+                <span>Segurança é valor, vida é prioridade</span>
+            </div>
+
+            <!-- Caixa do HORÁRIO Fixa e Integrada -->
+            <div class="caixa-dados-rodape">
+                <svg class="icone-svg" viewBox="0 0 24 24" fill="none" xmlns="http://w3.org">
+                    <circle cx="12" cy="12" r="10" fill="#3b82f6"/>
+                    <circle cx="12" cy="12" r="8" fill="#ffffff"/>
+                    <path d="M12 7v5l3 2" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+                <div class="conteudo-texto-rodape">
+                    <span class="valor-dinamico" id="txt-hora">15:42:58</span>
+                    <span class="legenda-rodape">Horário</span>
+                </div>
+            </div>
 
         </div>
 
-        <!-- Barra inferior em branco -->
+        <!-- Barra inferior em branco externa para Clima e Frases -->
         <footer class="barra-inferior-adicional">
-            <div class="caixa-clima-externa" id="bloco-clima">🌤️ 28°C - Parcialmente Nublado</div>
-            <div class="caixa-frase-externa" id="bloco-frase">O compromisso com as regras elimina os riscos no canteiro, valorize cada segundo de cuidado.</div>
+            <div class="caixa-clima-externa" id="bloco-clima">🌤️ 27°C - Parcialmente Nublado</div>
+            <div class="caixa-frase-externa" id="bloco-frase">O uso correto do EPI evita acidentes graves, faça disso o seu maior hábito profissional.</div>
         </footer>
 
     </div>
@@ -205,69 +286,55 @@
             " preserva o nosso maior bem,", " fortalece a cultura de prevenção,", " afasta o perigo no trabalho,"
         ];
         const complementos = [
-            " porque a vida vem sempre em primeiro lugar.", " faça disso o seu maior hábito profissional.",
-            " sua família aguarda o seu retorno com saúde.", " trabalhe focado no seu bem-estar diário.",
-            " não troque a pressa pela sua integridade física.", " valorize cada segundo de cuidado.",
-            " transforme a segurança em prioridade máxima.", " garanta uma rotina livre de riscos."
-        ];
-
-        let historicoFrases = [];
-
-        function gerarFraseSeguranca() {
-            let fraseGerada;
-            do {
-                const s = sujeitos[Math.floor(Math.random() * sujeitos.length)];
-                const a = acoes[Math.floor(Math.random() * acoes.length)];
-                const c = complementos[Math.floor(Math.random() * complementos.length)];
-                fraseGerada = `${s}${a}${c}`;
-            } while (historicoFrases.includes(fraseGerada));
-
-            historicoFrases.push(fraseGerada);
-            if (historicoFrases.length > 300) historicoFrases.shift();
-
-            document.getElementById('bloco-frase').textContent = fraseGerada;
-        }
-
-        function atualizarRelogiosNativos() {
-            const agora = new Date();
-            const dia = String(agora.getDate()).padStart(2, '0');
-            const mes = String(agora.getMonth() + 1).padStart(2, '0');
-            const ano = agora.getFullYear();
-            document.getElementById('txt-data').textContent = `${dia}/${mes}/${ano}`;
-            
-            const horas = String(agora.getHours()).padStart(2, '0');
-            const minutos = String(agora.getMinutes()).padStart(2, '0');
-            const segundos = String(agora.getSeconds()).padStart(2, '0');
-            document.getElementById('txt-hora').textContent = `${horas}:${minutos}:${segundos}`;
-        }
-
-        function rodarClimaLocal() {
-            const horaAtual = new Date().getHours();
-            let temperatura = 28;
-            let condicao = "Parcialmente Nublado";
-            let icone = "🌤️";
-
-            if (horaAtual >= 18 || horaAtual < 6) {
-                temperatura = 26;
-                condicao = "Céu Limpo";
-                icone = "🌙";
-            } else if (Math.random() > 0.6) {
-                temperatura = 30;
-                condicao = "Ensolarado";
-                icone = "☀️";
-            }
-
-            temperatura += Math.floor(Math.random() * 2) - 1;
-            document.getElementById('bloco-clima').textContent = `${icone} ${temperatura}°C - ${condicao}`;
-        }
-
-        setInterval(atualizarRelogiosNativos, 1000);
-        setInterval(gerarFraseSeguranca, 60000); 
-        setInterval(rodarClimaLocal, 180000);   
-        
-        atualizarRelogiosNativos();
-        gerarFraseSeguranca();
-        rodarClimaLocal();
-    </script>
-</body>
-</html>
+" porque a vida vem sempre em primeiro lugar.", " faça disso o seu maior hábito profissional.",
+" sua família aguarda o seu retorno com saúde.", " trabalhe focado no seu bem-estar diário.",
+" não troque a pressa pela sua integridade física.", " valorize cada segundo de cuidado.",
+" transforme a segurança em prioridade máxima.", " garanta uma rotina livre de riscos."
+];
+let historicoFrases = [];
+function gerarFraseSeguranca() {
+let fraseGerada;
+do {
+const s = sujeitos[Math.floor(Math.random() * sujeitos.length)];
+const a = acoes[Math.floor(Math.random() * acoes.length)];
+const c = complementos[Math.floor(Math.random() * complementos.length)];
+fraseGerada = ${s}${a}${c};
+} while (historicoFrases.includes(fraseGerada));
+historicoFrases.push(fraseGerada);
+if (historicoFrases.length > 300) historicoFrases.shift();
+document.getElementById('bloco-frase').textContent = fraseGerada;
+}
+function atualizarRelogiosNativos() {
+const agora = new Date();
+const dia = String(agora.getDate()).padStart(2, '0');
+const mes = String(agora.getMonth() + 1).padStart(2, '0');
+const ano = agora.getFullYear();
+document.getElementById('txt-data').textContent = ${dia}/${mes}/${ano};
+const horas = String(agora.getHours()).padStart(2, '0');
+const minutos = String(agora.getMinutes()).padStart(2, '0');
+const segundos = String(agora.getSeconds()).padStart(2, '0');
+document.getElementById('txt-hora').textContent = ${horas}:${minutos}:${segundos};
+}
+function rodarClimaLocal() {
+const horaAtual = new Date().getHours();
+let temperatura = 27;
+let condicao = "Parcialmente Nublado";
+let icone = "🌤️";
+if (horaAtual >= 18 || horaAtual < 6) {
+temperatura = 26;
+condicao = "Céu Limpo";
+icone = "🌙";
+} else if (Math.random() > 0.6) {
+temperatura = 30;
+condicao = "Ensolarado";
+icone = "☀️";
+}
+temperatura += Math.floor(Math.random() * 2) - 1;
+document.getElementById('bloco-clima').textContent = ${icone} ${temperatura}°C - ${condicao};
+}
+setInterval(atualizarRelogiosNativos, 1000);
+setInterval(gerarFraseSeguranca, 60000);
+setInterval(rodarClimaLocal, 180000);
+atualizarRelogiosNativos();
+gerarFraseSeguranca();
+rodarClimaLocal();
