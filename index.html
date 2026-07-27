@@ -25,6 +25,7 @@
             align-items: center;
         }
 
+        /* Estrutura em colunas: empilha os blocos um abaixo do outro sem sobreposição */
         .layout-geral {
             width: 100vw;
             height: 100vh;
@@ -33,10 +34,10 @@
             background-color: #ffffff;
         }
 
-        /* Área do painel oficial */
+        /* 1. PAINEL SUPERIOR: Contém apenas a imagem e os dois blocos pretos */
         .painel-fundo {
             width: 100%;
-            height: 84vh;
+            height: 74vh; /* Reduzido para não invadir o rodapé */
             background-image: url('fundo-painel.jpg');
             background-size: 100% 100%;
             background-position: center;
@@ -46,10 +47,10 @@
 
         .conteudo-displays {
             position: absolute;
-            top: 17.2%;
+            top: 5%;
             left: 23.6%;
             width: 52.8%;
-            height: 61.6vh;
+            height: 52vh; /* Altura controlada para nunca avançar para baixo */
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -58,14 +59,14 @@
 
         .quadro-display {
             width: 100%;
-            height: 29.3vh;
+            height: 24.5vh;
             background-color: #061325;
             border-radius: 22px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
-            padding: 1.8vh 0 1.2vh 0;
+            padding: 1.5vh 0 1vh 0;
             box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
             border: 3.5px solid #0f243d;
         }
@@ -76,7 +77,7 @@
 
         .titulo-interno {
             color: #ffffff;
-            font-size: 2.8vh;
+            font-size: 2.5vh;
             font-weight: 700;
             font-family: 'Ubuntu', sans-serif;
             text-transform: uppercase;
@@ -85,7 +86,7 @@
 
         .contador-led {
             font-family: 'Chakra Petch', sans-serif;
-            font-size: 25vh; 
+            font-size: 21vh; 
             font-weight: 700;
             letter-spacing: -4px;
             line-height: 0.75;
@@ -104,27 +105,30 @@
             text-shadow: 0 0 25px rgba(0, 255, 85, 0.7);
         }
 
-        /* TRAVAMENTO INALTERÁVEL COM TOP: Fixa os dados sobre a linha cinza sem flutuar */
-        .texto-dinamico-rodape {
-            font-family: 'Ubuntu', sans-serif;
-            font-size: 3.2vh;
-            font-weight: 700;
-            color: #0d2343;
-            position: absolute;
-            top: 71.5%; /* Força os números a deitarem exatamente sobre os vãos corretos */
-            height: 5.5vh;
+        /* 2. NOVO BLOCO DO RODAPÉ CINZA: Fica abaixo do painel, impedindo que fique atrás do Recorde */
+        .barra-rodape-cinza {
+            width: 100%;
+            height: 10vh;
+            background-color: #f4f5f7; /* Cor cinza exata do painel original */
+            border-top: 2px solid #e2e8f0;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            background-color: #f4f5f7; 
-            padding: 0 10px;
-            border-radius: 4px;
+            padding: 0 16.5vw; /* Alinha horizontalmente com as caixas do painel */
             z-index: 20;
         }
 
-        .posicao-data { left: 16.5%; }
-        .posicao-hora { left: 77.0%; }
+        .texto-dinamico-rodape {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 3.5vh;
+            font-weight: 700;
+            color: #0d2343;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
 
-        /* Espaço adicional inferior totalmente em branco */
+        /* 3. BARRA INFERIOR BRANCA: Fica na base total da tela para o clima e frases */
         .barra-inferior-adicional {
             width: 100%;
             height: 16vh;
@@ -163,9 +167,8 @@
 
     <div class="layout-geral">
         
-        <!-- Painel Superior Oficial -->
+        <!-- Bloco 1: Imagem de Fundo + Contadores Grandes -->
         <div class="painel-fundo">
-            
             <div class="conteudo-displays">
                 <div class="quadro-display">
                     <div class="titulo-interno">Dias Sem Acidentes</div>
@@ -177,17 +180,18 @@
                     <div class="contador-led led-verde" id="num-recorde">609</div>
                 </div>
             </div>
-
-            <!-- DATA E HORÁRIO travados verticalmente sem riscos de distorção por altura -->
-            <div class="texto-dinamico-rodape posicao-data" id="txt-data">27/07/2026</div>
-            <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">15:48:22</div>
-
         </div>
 
-        <!-- Barra inferior em branco externa para Clima e Frases -->
+        <!-- Bloco 2: Faixa Cinza Isolada (DATA e HORÁRIO Livres de Bloqueio) -->
+        <div class="barra-rodape-cinza">
+            <div class="texto-dinamico-rodape" id="txt-data">27/07/2026</div>
+            <div class="texto-dinamico-rodape" id="txt-hora">15:51:06</div>
+        </div>
+
+        <!-- Bloco 3: Barra Branca de Clima e Frases Motivacionais -->
         <footer class="barra-inferior-adicional">
             <div class="caixa-clima-externa" id="bloco-clima">☀️ 30°C - Ensolarado</div>
-            <div class="caixa-frase-externa" id="bloco-frase">A prevenção ativa preserva o nosso maior bem, valorize cada segundo de cuidado.</div>
+            <div class="caixa-frase-externa" id="bloco-frase">Cada ato seguro constrói um ambiente forte, garanta uma rotina livre de riscos.</div>
         </footer>
 
     </div>
