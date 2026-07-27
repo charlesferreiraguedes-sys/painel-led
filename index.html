@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Segurança Dinâmico</title>
-    <!-- Importação das fontes: VT323/Share Tech Mono para o LED Digital real e Ubuntu para os títulos -->
+    <!-- Importação das fontes: Orbitron para o LED Digital real e Ubuntu para os títulos -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Share+Tech+Mono&family=Ubuntu:wght@700&display=swap" rel="stylesheet">
+    <link href="https://googleapis.com/css2?family=Orbitron:wght@700&family=Ubuntu:wght@700&display=swap" rel="stylesheet">
     
     <style>
         * {
@@ -16,7 +16,6 @@
             box-sizing: border-box;
         }
 
-        /* Força o preenchimento total da tela eliminando bordas pretas externas */
         html, body {
             width: 100%;
             height: 100%;
@@ -27,7 +26,6 @@
             align-items: center;
         }
 
-        /* Container ajustado em tela cheia mapeando sua imagem de fundo limpa */
         .painel-fundo {
             width: 100vw;
             height: 100vh;
@@ -38,7 +36,7 @@
             position: relative;
         }
 
-        /* Bloco que agrupa os displays centrais - Alargado para cobrir perfeitamente as laterais */
+        /* Bloco que agrupa os displays centrais */
         .conteudo-displays {
             position: absolute;
             top: 17.2%;
@@ -51,11 +49,11 @@
             z-index: 10;
         }
 
-        /* Estrutura idêntica dos blocos escuros industriais com cantos arredondados macios */
+        /* Estrutura dos blocos escuros industriais com cantos arredondados */
         .quadro-display {
             width: 100%;
             height: 29.3vh;
-            background-color: #061325; /* Preto azulado fosco original */
+            background-color: #061325;
             border-radius: 22px;
             display: flex;
             flex-direction: column;
@@ -65,7 +63,6 @@
             box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
         }
 
-        /* Bordas sutis integradas ao design */
         .borda-vermelha {
             border: 3.5px solid #0f243d;
         }
@@ -74,7 +71,6 @@
             border: 3.5px solid #08221a;
         }
 
-        /* Títulos internos superiores em branco */
         .titulo-interno {
             color: #ffffff;
             font-size: 2.8vh;
@@ -84,12 +80,12 @@
             letter-spacing: 2px;
         }
 
-        /* Fonte LED Digital de relógio industrial de 7 segmentos */
+        /* Fonte LED Digital Orbitron para simular os 7 segmentos perfeitamente */
         .contador-led {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 23vh; 
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20vh; 
             font-weight: 700;
-            letter-spacing: 4px;
+            letter-spacing: 2px;
             line-height: 0.85;
             text-align: center;
             width: 100%;
@@ -105,12 +101,12 @@
             text-shadow: 0 0 25px rgba(0, 255, 85, 0.7);
         }
 
-        /* Estilo comum para os dados flutuantes do rodapé com fundo cinza original integrado */
+        /* Estilo comum para os dados flutuantes do rodapé */
         .texto-dinamico-rodape {
             font-family: 'Ubuntu', sans-serif;
-            font-size: 3.8vh;
+            font-size: 3.4vh;
             font-weight: 700;
-            color: #0d2343; /* Azul escuro corporativo */
+            color: #0d2343;
             position: absolute;
             bottom: 12.8%;
             line-height: 1;
@@ -119,14 +115,14 @@
             z-index: 10;
         }
 
-        /* Enquadramento exato acima da marcação "DATA" */
+        /* Alinhamento ajustado milimetricamente para o lado esquerdo */
         .posicao-data {
             left: 17.5%;
         }
 
-        /* Enquadramento exato acima da marcação "HORÁRIO" */
+        /* Alinhamento ajustado milimetricamente para o lado direito */
         .posicao-hora {
-            right: 12.2%;
+            right: 13.5%;
         }
     </style>
 </head>
