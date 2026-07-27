@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Segurança Dinâmico</title>
-    <!-- Mantida a importação da fonte digital Chakra Petch -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Chakra+Petch:wght@700&family=Ubuntu:wght@700&display=swap" rel="stylesheet">
@@ -26,9 +25,17 @@
             align-items: center;
         }
 
-        .painel-fundo {
+        .layout-geral {
             width: 100vw;
             height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+        }
+
+        .painel-fundo {
+            width: 100%;
+            height: 84vh;
             background-image: url('fundo-painel.jpg');
             background-size: 100% 100%;
             background-position: center;
@@ -76,7 +83,6 @@
             letter-spacing: 2px;
         }
 
-        /* Fonte digital com os segmentos retos */
         .contador-led {
             font-family: 'Chakra Petch', sans-serif;
             font-size: 25vh; 
@@ -98,73 +104,168 @@
             text-shadow: 0 0 25px rgba(0, 255, 85, 0.7);
         }
 
-        /* Estilo comum para as caixas de texto do rodapé */
+        /* DATA E HORÁRIO DESCIDOS: Alinhados nas laterais do logotipo TRILHA */
         .texto-dinamico-rodape {
             font-family: 'Ubuntu', sans-serif;
-            font-size: 3.4vh;
+            font-size: 3.2vh;
             font-weight: 700;
             color: #0d2343;
             position: absolute;
-            bottom: 13.8%; /* Altura ideal acima das palavras cinzas */
-            height: 5vh;
+            bottom: 3.5%; 
+            height: 5.5vh;
             display: flex;
             align-items: center;
+            background-color: #f4f5f7; 
+            padding: 0 10px;
+            border-radius: 4px;
             z-index: 20;
         }
 
-        /* Posição horizontal estável ao lado do ícone do calendário */
         .posicao-data {
-            left: 16.5%;
+            left: 23%;
         }
 
-        /* ALINHAMENTO CORRIGIDO: Mudado para left com a posição exata da caixa marcada */
         .posicao-hora {
-            left: 77.0%; /* Encaixa o início do relógio exatamente acima da palavra HORÁRIO */
+            right: 23%;
+        }
+
+        /* BARRA INFERIOR ADICIONAL: Nova caixa integrada e ampla */
+        .barra-inferior-adicional {
+            width: 100%;
+            height: 16vh;
+            background-color: #f4f5f7;
+            border-top: 5px solid #0d2343;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 4vw;
+            z-index: 30;
+        }
+
+        /* Caixa de clima online com descrição ao lado do número */
+        .caixa-clima-externa {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 3.8vh;
+            font-weight: 700;
+            color: #1e3a8a;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Caixa de Frase Motivacional que muda a cada um minuto sem repetição */
+        .caixa-frase-externa {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 2.8vh;
+            font-weight: 700;
+            color: #15803d;
+            max-width: 65%;
+            text-align: right;
+            line-height: 1.3;
         }
     </style>
 </head>
 <body>
 
-    <div class="painel-fundo">
+    <div class="layout-geral">
         
-        <!-- Displays Principais -->
-        <div class="conteudo-displays">
-            <div class="quadro-display">
-                <div class="titulo-interno">Dias Sem Acidentes</div>
-                <div class="contador-led led-vermelho" id="num-dias">609</div>
-            </div>
+        <!-- Painel Superior com Imagem Cheia -->
+        <div class="painel-fundo">
             
-            <div class="quadro-display borda-verde">
-                <div class="titulo-interno">Nosso Recorde</div>
-                <div class="contador-led led-verde" id="num-recorde">609</div>
+            <!-- Displays Principais -->
+            <div class="conteudo-displays">
+                <div class="quadro-display">
+                    <div class="titulo-interno">Dias Sem Acidentes</div>
+                    <div class="contador-led led-vermelho" id="num-dias">609</div>
+                </div>
+                
+                <div class="quadro-display borda-verde">
+                    <div class="titulo-interno">Nosso Recorde</div>
+                    <div class="contador-led led-verde" id="num-recorde">609</div>
+                </div>
             </div>
+
+            <!-- DATA E HORÁRIO alinhados nas laterais da marca TRILHA -->
+            <div class="texto-dinamico-rodape posicao-data" id="txt-data">27/07/2026</div>
+            <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">14:22:52</div>
+
         </div>
 
-        <!-- Campos de Texto reposicionados nos vãos corretos -->
-        <div class="texto-dinamico-rodape posicao-data" id="txt-data">27/07/2026</div>
-        <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">13:45:26</div>
+        <!-- Nova Barra Inferior Dinâmica Conectada à Internet -->
+        <footer class="barra-inferior-adicional">
+            <div class="caixa-clima-externa" id="bloco-clima">🌤️ Carregando clima online...</div>
+            <div class="caixa-frase-externa" id="bloco-frase">Carregando frase motivacional...</div>
+        </footer>
 
     </div>
 
-    <script>
+    <script {nonce}>
+        // Pool de frases robustas de segurança do trabalho para garantir alternância contínua sem repetição imediata
+        let bancoDeFrases = [
+            "Segurança é valor, vida é prioridade absoluta.",
+            "Segurança não é um ato, é um hábito diário.",
+            "Trabalhe com cuidado: sua família te espera em casa!",
+            "EPI completo é o escudo para a sua própria vida.",
+            "A melhor ferramenta de trabalho é sempre a prevenção.",
+            "A pressa passa, mas as consequências podem durar para sempre.",
+            "Segurança no trabalho: um dever de todos, um benefício para a vida.",
+            "Atenção e cuidado andam juntos com a produtividade segura.",
+            "Seja prudente: não troque a pressa pela integridade física.",
+            "Zero acidentes não é sorte, é compromisso e atitude diária.",
+            "Produção com segurança é o nosso maior padrão de qualidade."
+        ];
+        
+        let historicoDeFrases = [];
+
+        function rotacionarFrases() {
+            if (bancoDeFrases.length === 0) {
+                bancoDeFrases = [...historicoDeFrases];
+                historicoDeFrases = [];
+            }
+            
+            // Sorteia uma frase aleatória sem repetir até esvaziar o banco
+            const indexAleatorio = Math.floor(Math.random() * bancoDeFrases.length);
+            const fraseEscolhida = bancoDeFrases.splice(indexAleatorio, 1)[0];
+            historicoDeFrases.push(fraseEscolhida);
+            
+            document.getElementById('bloco-frase').textContent = fraseEscolhida;
+        }
+
         function atualizarPainel() {
             const agora = new Date();
             
-            // Atualiza data
             const dia = String(agora.getDate()).padStart(2, '0');
             const mes = String(agora.getMonth() + 1).padStart(2, '0');
             const ano = agora.getFullYear();
             document.getElementById('txt-data').textContent = `${dia}/${mes}/${ano}`;
             
-            // Atualiza hora
             const horas = String(agora.getHours()).padStart(2, '0');
             const minutos = String(agora.getMinutes()).padStart(2, '0');
             const segundos = String(agora.getSeconds()).padStart(2, '0');
             document.getElementById('txt-hora').textContent = `${horas}:${minutos}:${segundos}`;
         }
 
-        setInterval(atualizarPainel, 1000);
-        atualizarPainel();
-    </script>
-</body>
-</html>
+        // Requisição em Tempo Real para pegar o Clima e descrição local via API pública aberta
+        async function buscarClimaTempoReal() {
+            try {
+                // Utilizando a API aberta Open-Meteo com as coordenadas geográficas locais aproximadas
+                const resposta = await fetch("https://open-meteo.com");
+                const dados = await resposta.json();
+                
+                if (dados && dados.current_weather) {
+                    const temp = Math.round(dados.current_weather.temperature);
+                    const code = dados.current_weather.weathercode;
+                    
+                    // Mapeamento básico de condições climáticas em português
+                    let descricao = "Limpo";
+                    let icone = "☀️";
+                    
+                    if (code >= 1 && code <= 3) { descricao = "Parcialmente Nublado"; icone = "🌤️"; }
+                    else if (code >= 45 && code <= 48) { descricao = "Névoa"; icone = "🌫️"; }
+                    else if (code >= 51 && code <= 67) { descricao = "Chuva Leve"; icone = "🌧️"; }
+                    else if (code >= 71 && code <= 86) { descricao = "Possibilidade de Chuva"; icone = "🌦️"; }
+                    else if (code >= 95) { descricao = "Pancadas de Chuva"; icone = "⛈️"; }
+
+                    document.getElementById('bloco-clima').textContent = `${icone} ${temp}°C - ${descricao}`;
+                }
+            } catch (erro) {
