@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Segurança Dinâmico</title>
-    <!-- CORRIGIDO: Link de fontes estruturado corretamente com a barra -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Chakra+Petch:wght@700&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
@@ -79,7 +78,6 @@
             letter-spacing: 2px;
         }
 
-        /* Fonte digital padrão */
         .contador-led {
             font-family: 'Chakra Petch', sans-serif;
             font-size: 25vh; 
@@ -101,7 +99,7 @@
             text-shadow: 0 0 25px rgba(0, 255, 85, 0.7);
         }
 
-        /* Base para os textos flutuantes do rodapé */
+        /* Base para os textos flutuantes do rodapé (DATA e HORÁRIO) */
         .texto-dinamico-rodape {
             font-family: 'Ubuntu', sans-serif;
             font-size: 3.4vh;
@@ -119,44 +117,49 @@
             left: 16.5%;
         }
 
-        /* Posição do horário cravada em cima do retângulo marcado */
         .posicao-hora {
             left: 77.0%; 
         }
 
-        /* ESTILIZAÇÃO COMPLETA: Garante a visibilidade e o contraste das caixas adicionais */
+        /* AMPLIAÇÃO MÁXIMA DOS QUADROS ADICIONAIS: Ocupando todo o espaço entre a base cinza e as caixas de cima */
         .caixa-adicional {
             position: absolute;
             bottom: 3.5%;
-            height: 5.5vh;
-            background-color: rgba(13, 35, 67, 0.1);
-            border-left: 5px solid #0d2343;
-            border-radius: 4px;
+            height: 13.5vh; /* Altura máxima expandida para preencher o vão vertical por completo */
+            background-color: rgba(13, 35, 67, 0.12);
+            border-left: 8px solid #0d2343; /* Linha de destaque lateral mais robusta */
+            border-radius: 8px;
             display: flex;
             align-items: center;
-            padding: 0 12px;
+            padding: 0 20px;
             font-family: 'Ubuntu', sans-serif;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
             z-index: 25;
         }
 
-        /* Caixa de Clima perfeitamente alinhada sob a DATA */
+        /* Caixa de Clima expandida abaixo de DATA */
         .caixa-clima {
             left: 11.5%;
             width: 22%;
-            font-size: 2.1vh;
+            font-size: 3.4vh; /* Fonte ampliada para grande visibilidade */
             font-weight: 700;
             color: #1e3a8a;
+            justify-content: center;
+            text-align: center;
         }
 
-        /* Caixa de Frases perfeitamente alinhada sob o HORÁRIO */
+        /* Caixa de Frase Motivacional expandida abaixo de HORÁRIO */
         .caixa-frase {
             left: 71.0%;
             width: 25%;
-            font-size: 1.6vh;
+            font-size: 2.2vh; /* Fonte ampliada para grande visibilidade */
             font-weight: 700;
             color: #15803d;
-            line-height: 1.3;
+            line-height: 1.2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
     </style>
 </head>
@@ -181,13 +184,13 @@
         <div class="texto-dinamico-rodape posicao-data" id="txt-data">27/07/2026</div>
         <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">13:43:56</div>
 
-        <!-- Novas Caixas de Informações Extras Requeridas -->
-        <div class="caixa-adicional caixa-clima" id="bloco-clima">☀️ Carregando clima...</div>
+        <!-- Caixas Extras Ampliadas Ocupando Todo o Vão Livre Vertical -->
+        <div class="caixa-adicional caixa-clima" id="bloco-clima">☀️ 31°C</div>
         <div class="caixa-adicional caixa-frase" id="bloco-frase">Segurança não é um ato, é um hábito diário.</div>
 
     </div>
 
-    <script>
+    <script {nonce}>
         // Banco de dados de frases motivacionais de Segurança do Trabalho
         const frasesSeguranca = [
             "Segurança não é um ato, é um hábito diário.",
@@ -195,7 +198,7 @@
             "EPI completo é escudo para a sua vida.",
             "A melhor ferramenta de trabalho é a prevenção.",
             "Segurança é valor, vida é prioridade absoluta.",
-            "A pressa passa, as consequências podem durar para sempre."
+            "A pressa passa, as consequências duram."
         ];
 
         let indexFrase = 0;
@@ -223,7 +226,7 @@
 
         // Função de simulação do clima dinâmico local
         function atualizarClimaSimulado() {
-            const climas = ["☀️ 31°C - Ensolarado", "🌤️ 30°C - Parcialmente Nublado", "⛅ 29°C - Sol entre Nuvens"];
+            const climas = ["☀️ 31°C", "🌤️ 30°C", "⛅ 29°C"];
             const aleatorio = climas[Math.floor(Math.random() * climas.length)];
             document.getElementById('bloco-clima').textContent = aleatorio;
         }
