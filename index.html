@@ -76,7 +76,7 @@
             letter-spacing: 2px;
         }
 
-        /* Restaurada a fonte digital solicitada com os segmentos retos */
+        /* Fonte digital com os segmentos retos */
         .contador-led {
             font-family: 'Chakra Petch', sans-serif;
             font-size: 25vh; 
@@ -98,31 +98,28 @@
             text-shadow: 0 0 25px rgba(0, 255, 85, 0.7);
         }
 
-        /* ALINHAMENTO DO RODAPÉ: Ajuste fino na posição vertical (bottom) */
+        /* Estilo comum para as caixas de texto do rodapé */
         .texto-dinamico-rodape {
             font-family: 'Ubuntu', sans-serif;
             font-size: 3.4vh;
             font-weight: 700;
             color: #0d2343;
             position: absolute;
-            bottom: 13.8%; /* Subido milimetricamente para centralizar perfeitamente no espaço em branco */
+            bottom: 13.8%; /* Altura ideal acima das palavras cinzas */
             height: 5vh;
             display: flex;
             align-items: center;
             z-index: 20;
         }
 
-        /* Posição horizontal calibrada ao lado do ícone do calendário */
+        /* Posição horizontal estável ao lado do ícone do calendário */
         .posicao-data {
             left: 16.5%;
-            width: 15%;
         }
 
-        /* Posição horizontal calibrada ao lado do ícone do relógio azul */
+        /* ALINHAMENTO CORRIGIDO: Mudado para left com a posição exata da caixa marcada */
         .posicao-hora {
-            right: 9.8%; /* Ajustado para alinhar perfeitamente acima da palavra HORÁRIO */
-            width: 15%;
-            justify-content: flex-end;
+            left: 77.0%; /* Encaixa o início do relógio exatamente acima da palavra HORÁRIO */
         }
     </style>
 </head>
@@ -143,9 +140,9 @@
             </div>
         </div>
 
-        <!-- Campos de Texto alinhados e centralizados nos vãos em branco -->
+        <!-- Campos de Texto reposicionados nos vãos corretos -->
         <div class="texto-dinamico-rodape posicao-data" id="txt-data">27/07/2026</div>
-        <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">13:41:00</div>
+        <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">13:45:26</div>
 
     </div>
 
