@@ -6,7 +6,7 @@
     <title>Painel de Segurança Dinâmico</title>
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Chakra+Petch:wght@700&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://googleapis.com/css2?family=Chakra+Petch:wght@700&family=Ubuntu:wght@700&display=swap" rel="stylesheet">
     
     <style>
         * {
@@ -15,6 +15,7 @@
             box-sizing: border-box;
         }
 
+        /* Garante preenchimento total da tela e remove qualquer borda ou barra preta externa */
         html, body {
             width: 100%;
             height: 100%;
@@ -25,12 +26,19 @@
             align-items: center;
         }
 
-        .painel-fundo {
+        /* Estrutura vertical que força o painel a esticar e elimina espaços pretos */
+        .layout-geral {
             width: 100vw;
             height: 100vh;
-            max-width: 1920px;
-            max-height: 1080px;
-            aspect-ratio: 16 / 9;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+        }
+
+        /* Painel principal ocupando a maior parte do topo */
+        .painel-fundo {
+            width: 100%;
+            height: 86vh; /* Ajustado para deixar espaço para a nova barra inferior */
             background-image: url('fundo-painel.jpg');
             background-size: 100% 100%;
             background-position: center;
@@ -99,7 +107,7 @@
             text-shadow: 0 0 25px rgba(0, 255, 85, 0.7);
         }
 
-        /* Base para os textos flutuantes do rodapé (DATA e HORÁRIO) */
+        /* Posições originais da DATA e HORÁRIO travadas milimetricamente na barra branca */
         .texto-dinamico-rodape {
             font-family: 'Ubuntu', sans-serif;
             font-size: 3.4vh;
@@ -121,84 +129,85 @@
             left: 77.0%; 
         }
 
-        /* AMPLIAÇÃO MÁXIMA DOS QUADROS ADICIONAIS: Ocupando todo o espaço entre a base cinza e as caixas de cima */
-        .caixa-adicional {
-            position: absolute;
-            bottom: 3.5%;
-            height: 13.5vh; /* Altura máxima expandida para preencher o vão vertical por completo */
-            background-color: rgba(13, 35, 67, 0.12);
-            border-left: 8px solid #0d2343; /* Linha de destaque lateral mais robusta */
-            border-radius: 8px;
+        /* BARRA INFERIOR EXTERNA: Fica totalmente após a caixa branca, sem poluir a imagem */
+        .barra-inferior-adicional {
+            width: 100%;
+            height: 14vh; /* Ocupa todo o resto do monitor inferior */
+            background-color: #f4f5f7; /* Cinza claro idêntico ao rodapé do painel */
+            border-top: 4px solid #0d2343;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            padding: 0 20px;
-            font-family: 'Ubuntu', sans-serif;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            z-index: 25;
+            padding: 0 4vw;
+            z-index: 30;
         }
 
-        /* Caixa de Clima expandida abaixo de DATA */
-        .caixa-clima {
-            left: 11.5%;
-            width: 22%;
-            font-size: 3.4vh; /* Fonte ampliada para grande visibilidade */
+        /* Fonte e estilo do bloco de clima ampliado */
+        .caixa-clima-externa {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 4.5vh; /* Fonte bem grande e legível */
             font-weight: 700;
             color: #1e3a8a;
-            justify-content: center;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
-        /* Caixa de Frase Motivacional expandida abaixo de HORÁRIO */
-        .caixa-frase {
-            left: 71.0%;
-            width: 25%;
-            font-size: 2.2vh; /* Fonte ampliada para grande visibilidade */
+        /* Fonte e estilo do bloco de frases motivacionais ampliado */
+        .caixa-frase-externa {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 3vh; /* Fonte bem grande e legível */
             font-weight: 700;
             color: #15803d;
-            line-height: 1.2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+            max-width: 60%;
+            text-align: right;
+            line-height: 1.3;
         }
     </style>
 </head>
 <body>
 
-    <div class="painel-fundo">
+    <!-- Estrutura Geral Layout Total -->
+    <div class="layout-geral">
         
-        <!-- Displays Principais -->
-        <div class="conteudo-displays">
-            <div class="quadro-display">
-                <div class="titulo-interno">Dias Sem Acidentes</div>
-                <div class="contador-led led-vermelho" id="num-dias">609</div>
-            </div>
+        <!-- Painel de Imagem Superior (16:9 Limpo) -->
+        <div class="painel-fundo">
             
-            <div class="quadro-display borda-verde">
-                <div class="titulo-interno">Nosso Recorde</div>
-                <div class="contador-led led-verde" id="num-recorde">609</div>
+            <!-- Displays Principais -->
+            <div class="conteudo-displays">
+                <div class="quadro-display">
+                    <div class="titulo-interno">Dias Sem Acidentes</div>
+                    <div class="contador-led led-vermelho" id="num-dias">609</div>
+                </div>
+                
+                <div class="quadro-display borda-verde">
+                    <div class="titulo-interno">Nosso Recorde</div>
+                    <div class="contador-led led-verde" id="num-recorde">609</div>
+                </div>
             </div>
+
+            <!-- DATA e HORÁRIO estritamente em suas posições nativas originais -->
+            <div class="texto-dinamico-rodape posicao-data" id="txt-data">27/07/2026</div>
+            <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">14:18:48</div>
+
         </div>
 
-        <!-- Campos de Texto Principais do Rodapé -->
-        <div class="texto-dinamico-rodape posicao-data" id="txt-data">27/07/2026</div>
-        <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">13:43:56</div>
-
-        <!-- Caixas Extras Ampliadas Ocupando Todo o Vão Livre Vertical -->
-        <div class="caixa-adicional caixa-clima" id="bloco-clima">☀️ 31°C</div>
-        <div class="caixa-adicional caixa-frase" id="bloco-frase">Segurança não é um ato, é um hábito diário.</div>
+        <!-- NOVA BARRA EXTERNA: Posicionada após o término da caixa branca -->
+        <footer class="barra-inferior-adicional">
+            <div class="caixa-clima-externa" id="bloco-clima">☀️ 31°C</div>
+            <div class="caixa-frase-externa" id="bloco-frase">Segurança não é um ato, é um hábito diário.</div>
+        </footer>
 
     </div>
 
-    <script {nonce}>
-        // Banco de dados de frases motivacionais de Segurança do Trabalho
+    <script>
         const frasesSeguranca = [
             "Segurança não é um ato, é um hábito diário.",
             "Trabalhe com cuidado: sua família te espera!",
             "EPI completo é escudo para a sua vida.",
             "A melhor ferramenta de trabalho é a prevenção.",
             "Segurança é valor, vida é prioridade absoluta.",
-            "A pressa passa, as consequências duram."
+            "A pressa passa, as consequências duram para sempre."
         ];
 
         let indexFrase = 0;
@@ -211,30 +220,26 @@
         function atualizarPainel() {
             const agora = new Date();
             
-            // Atualiza data
             const dia = String(agora.getDate()).padStart(2, '0');
             const mes = String(agora.getMonth() + 1).padStart(2, '0');
             const ano = agora.getFullYear();
             document.getElementById('txt-data').textContent = `${dia}/${mes}/${ano}`;
             
-            // Atualiza hora
             const horas = String(agora.getHours()).padStart(2, '0');
             const minutos = String(agora.getMinutes()).padStart(2, '0');
             const segundos = String(agora.getSeconds()).padStart(2, '0');
             document.getElementById('txt-hora').textContent = `${horas}:${minutos}:${segundos}`;
         }
 
-        // Função de simulação do clima dinâmico local
         function atualizarClimaSimulado() {
             const climas = ["☀️ 31°C", "🌤️ 30°C", "⛅ 29°C"];
             const aleatorio = climas[Math.floor(Math.random() * climas.length)];
             document.getElementById('bloco-clima').textContent = aleatorio;
         }
 
-        // Inicializações e intervalos de execução
         setInterval(atualizarPainel, 1000);
-        setInterval(rotacionarFrases, 7000); // Rotaciona a frase a cada 7 segundos
-        setInterval(atualizarClimaSimulado, 300000); // Atualiza dados climáticos a cada 5 minutos
+        setInterval(rotacionarFrases, 8000); // Altera a frase motivacional a cada 8 segundos
+        setInterval(atualizarClimaSimulado, 300000);
         
         atualizarPainel();
         atualizarClimaSimulado();
