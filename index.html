@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Segurança do Trabalho</title>
-    <!-- Fontes do Google para aproximar do design da Foto 2 -->
+    <!-- Fontes do Google correspondentes ao design final -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Rajdhani:wght@700&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Open+Sans:wght@700&display=swap" rel="stylesheet">
     
     <style>
         * {
@@ -17,8 +17,8 @@
         }
 
         body {
-            font-family: 'Ubuntu', sans-serif;
-            background-color: #f8fafc;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f0f2f5;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -26,198 +26,184 @@
             padding: 10px;
         }
 
-        /* Container Principal com a Imagem de Fundo Limpa */
+        /* Container Proporcional 16:9 baseado na imagem de fundo */
         .painel-container {
             width: 100%;
-            max-width: 1100px;
+            max-width: 1150px;
             aspect-ratio: 16 / 9;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 30px 40px;
+            border-radius: 20px;
             position: relative;
+            
+            /* Ajuste definitivo do plano de fundo */
             background-image: url('fundo-painel.jpg');
-            background-size: 100% 100%;
+            background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            background-color: #ffffff;
+            
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
 
-        /* Cabeçalho */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            position: relative;
-            width: 100%;
-        }
-
-        .logo-rede {
-            width: 150px;
-            visibility: hidden; /* Ocultado pois a logo já está impressa na imagem de fundo */
-        }
-
-        .titulo-central {
+        /* Título Centralizado - Movido mais para a direita para não bater no logo da ReDe */
+        .header-titulo {
+            position: absolute;
+            top: 7%;
+            left: 53%;
+            transform: translateX(-50%);
             text-align: center;
-            margin-top: 10px;
+            width: 60%;
+            z-index: 10;
         }
 
-        .titulo-central h1 {
-            font-size: 42px;
-            font-weight: 800;
-            color: #0b1a30;
+        .header-titulo h1 {
+            font-size: 38px;
+            font-weight: 900;
+            color: #0d2343;
             letter-spacing: 2px;
-            font-family: 'Ubuntu', sans-serif;
+            line-height: 1.1;
         }
 
         .subtitulo {
             font-size: 13px;
             font-weight: 700;
-            color: #1b8a4f;
+            color: #1f8249;
             letter-spacing: 3px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            margin-top: -2px;
+            gap: 12px;
+            margin-top: 5px;
         }
 
         .subtitulo::before, .subtitulo::after {
             content: "";
             display: inline-block;
-            width: 40px;
+            width: 35px;
             height: 2px;
-            background-color: #1b8a4f;
+            background-color: #1f8249;
         }
 
-        .badge-gptw {
-            width: 75px;
-            visibility: hidden; /* Ocultado pois o selo já está impresso na imagem de fundo */
-        }
-
-        /* Área Central dos Contadores */
+        /* Bloco Central dos Contadores com recuo para a direita */
         .conteudo-principal {
+            position: absolute;
+            top: 27%;
+            right: 4%;
+            width: 46%; /* Ocupa a metade direita onde há espaço em branco */
             display: flex;
             flex-direction: column;
-            gap: 18px;
-            width: 100%;
-            padding: 0 10px;
+            gap: 15px;
+            z-index: 10;
         }
 
-        /* Blocos Escuros Arredondados com Bordas Suaves */
+        /* Boxes Escuros idênticos aos da Foto 3 */
         .display-box {
-            background-color: #071424;
-            border-radius: 30px;
-            padding: 15px 20px;
+            background-color: #061325;
+            border-radius: 24px;
+            padding: 12px 20px;
             text-align: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
         }
 
         .display-label {
             color: #ffffff;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 3px;
             margin-bottom: 2px;
+            font-family: 'Open Sans', sans-serif;
         }
 
-        /* Numeração Grande e Arredondada da Foto 2 */
         .numero-digital {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 110px;
-            font-weight: 700;
-            line-height: 0.9;
+            font-size: 95px;
+            font-weight: 800;
+            line-height: 0.95;
+            letter-spacing: 2px;
         }
 
-        /* Cores exatas dos LEDs da Foto 2 */
+        /* Cores vivas dos números */
         .led-vermelho {
-            color: #ff3333;
-            text-shadow: 0 0 15px rgba(255, 51, 51, 0.6);
+            color: #ff3344;
+            text-shadow: 0 0 15px rgba(255, 51, 68, 0.5);
         }
 
         .led-verde {
-            color: #00ff88;
-            text-shadow: 0 0 15px rgba(0, 255, 136, 0.6);
+            color: #00e676;
+            text-shadow: 0 0 15px rgba(0, 230, 118, 0.5);
         }
 
-        /* Rodapé Ajustado */
-        .footer {
+        /* Alinhamento do Rodapé por cima da linha cinza */
+        .footer-dados {
+            position: absolute;
+            bottom: 4%;
+            left: 4%;
+            right: 4%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
-            padding: 0 10px;
+            z-index: 10;
         }
 
         .info-bloco {
             display: flex;
             align-items: center;
-            gap: 10px;
-            min-width: 160px;
+            gap: 8px;
         }
 
-        /* Customização dos Ícones do Rodapé */
         .icone-svg {
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
         }
 
         .info-texto h2 {
-            font-size: 24px;
-            font-weight: 700;
-            color: #071424;
+            font-size: 20px;
+            font-weight: 800;
+            color: #061325;
             line-height: 1;
         }
 
         .info-texto p {
-            font-size: 10px;
+            font-size: 9px;
             color: #64748b;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-top: 2px;
+            margin-top: 1px;
         }
 
         .frase-efeito {
-            font-size: 14px;
-            font-weight: 700;
-            color: #071424;
-            text-align: center;
-            line-height: 1.3;
+            font-size: 12px;
+            font-weight: 800;
+            color: #061325;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+            letter-spacing: 0.5px;
         }
 
-        .logo-trilha {
-            width: 150px;
-            visibility: hidden; /* Ocultado pois a logo inferior já está na imagem de fundo */
+        /* Responsividade para manter proporção em telas mobile */
+        @media (max-width: 768px) {
+            .painel-container { aspect-ratio: auto; min-height: 100vh; background-size: cover; }
+            .header-titulo { position: relative; top: 0; left: 0; transform: none; width: 100%; padding: 20px; }
+            .header-titulo h1 { font-size: 24px; }
+            .conteudo-principal { position: relative; top: 0; right: 0; width: 100%; padding: 20px; }
+            .footer-dados { position: relative; bottom: 0; left: 0; right: 0; flex-direction: column; gap: 15px; padding: 20px; }
+            .numero-digital { font-size: 70px; }
         }
     </style>
 </head>
 <body>
 
     <div class="painel-container">
-        
-        <!-- Elementos ocultados por CSS pois já fazem parte da sua imagem de fundo -->
-        <div class="badge-gptw"></div>
 
-        <!-- Cabeçalho -->
-        <header class="header">
-            <div class="logo-rede"></div>
-            
-            <div class="titulo-central">
-                <h1>SEGURANÇA DO TRABALHO</h1>
-                <div class="subtitulo">CUIDAR HOJE PARA PROTEGER SEMPRE</div>
-            </div>
-            
-            <div></div>
-        </header>
+        <!-- Cabeçalho Posicionado Baseado no Espaço da Foto 3 -->
+        <div class="header-titulo">
+            <h1>SEGURANÇA DO TRABALHO</h1>
+            <div class="subtitulo">CUIDAR HOJE PARA PROTEGER SEMPRE</div>
+        </div>
 
-        <!-- Contadores -->
+        <!-- Painéis de Contagem Deslocados para a Direita -->
         <main class="conteudo-principal">
             
             <!-- Dias Sem Acidentes -->
@@ -234,12 +220,11 @@
 
         </main>
 
-        <!-- Rodapé -->
-        <footer class="footer">
+        <!-- Rodapé Alinhado com os Ícones -->
+        <div class="footer-dados">
             
-            <!-- Data -->
+            <!-- Bloco de Data -->
             <div class="info-bloco">
-                <!-- Ícone Calendário Azul -->
                 <svg class="icone-svg" viewBox="0 0 24 24" fill="none" xmlns="http://w3.org">
                     <rect x="3" y="4" width="18" height="18" rx="4" fill="#3b82f6"/>
                     <rect x="6" y="8" width="12" height="11" rx="1" fill="#ffffff"/>
@@ -254,36 +239,34 @@
 
             <!-- Frase Central -->
             <div class="frase-efeito">
-                <!-- Ícone Escudo Azul -->
                 <svg class="icone-svg" viewBox="0 0 24 24" fill="#1e3a8a" xmlns="http://w3.org">
                     <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 15l-4-4 1.41-1.41L11 13.17l5.59-5.59L18 9l-7 7z"/>
                 </svg>
                 <span>SEGURANÇA É VALOR, VIDA É PRIORIDADE</span>
             </div>
 
-            <!-- Horário -->
+            <!-- Bloco de Horário -->
             <div class="info-bloco">
-                <!-- Ícone Relógio Azul -->
                 <svg class="icone-svg" viewBox="0 0 24 24" fill="none" xmlns="http://w3.org">
                     <circle cx="12" cy="12" r="10" fill="#3b82f6"/>
                     <circle cx="12" cy="12" r="8" fill="#ffffff"/>
                     <path d="M12 7v5l3 2" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round"/>
                 </svg>
                 <div class="info-texto">
-                    <h2 id="campo-hora">08:43:17</h2>
+                    <h2 id="campo-hora">10:29:12</h2>
                     <p>Horário</p>
                 </div>
             </div>
 
-            <div class="logo-trilha"></div>
+        </div>
 
-        </footer>
+    </div>
 
-    </footer>
-
+    <!-- Script de atualização de tempo real -->
     <script>
         function atualizarRelogio() {
             const agora = new Date();
+            
             const dia = String(agora.getDate()).padStart(2, '0');
             const mes = String(agora.getMonth() + 1).padStart(2, '0');
             const ano = agora.getFullYear();
@@ -294,6 +277,7 @@
             const segundos = String(agora.getSeconds()).padStart(2, '0');
             document.getElementById('campo-hora').textContent = `${horas}:${minutos}:${segundos}`;
         }
+
         setInterval(atualizarRelogio, 1000);
         atualizarRelogio();
     </script>
