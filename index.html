@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Segurança Dinâmico</title>
+    <!-- Mantida a importação da fonte digital Chakra Petch -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Chakra+Petch:wght@700&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://googleapis.com/css2?family=Chakra+Petch:wght@700&family=Ubuntu:wght@700&display=swap" rel="stylesheet">
     
     <style>
         * {
@@ -18,26 +19,16 @@
         html, body {
             width: 100%;
             height: 100%;
-            background-color: #ffffff;
+            background-color: #000000;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* Estrutura em colunas: empilha os blocos um abaixo do outro sem sobreposição */
-        .layout-geral {
+        .painel-fundo {
             width: 100vw;
             height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background-color: #ffffff;
-        }
-
-        /* 1. PAINEL SUPERIOR: Contém apenas a imagem e os dois blocos pretos */
-        .painel-fundo {
-            width: 100%;
-            height: 74vh; /* Reduzido para não invadir o rodapé */
             background-image: url('fundo-painel.jpg');
             background-size: 100% 100%;
             background-position: center;
@@ -45,12 +36,13 @@
             position: relative;
         }
 
+        /* Área central dos grandes contadores */
         .conteudo-displays {
             position: absolute;
-            top: 5%;
+            top: 17.2%;
             left: 23.6%;
             width: 52.8%;
-            height: 52vh; /* Altura controlada para nunca avançar para baixo */
+            height: 61.6vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -59,14 +51,14 @@
 
         .quadro-display {
             width: 100%;
-            height: 24.5vh;
+            height: 29.3vh;
             background-color: #061325;
             border-radius: 22px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
-            padding: 1.5vh 0 1vh 0;
+            padding: 1.8vh 0 1.2vh 0;
             box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
             border: 3.5px solid #0f243d;
         }
@@ -77,16 +69,17 @@
 
         .titulo-interno {
             color: #ffffff;
-            font-size: 2.5vh;
+            font-size: 2.8vh;
             font-weight: 700;
             font-family: 'Ubuntu', sans-serif;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
 
+        /* Fonte digital com os segmentos retos */
         .contador-led {
             font-family: 'Chakra Petch', sans-serif;
-            font-size: 21vh; 
+            font-size: 25vh; 
             font-weight: 700;
             letter-spacing: -4px;
             line-height: 0.75;
@@ -105,172 +98,73 @@
             text-shadow: 0 0 25px rgba(0, 255, 85, 0.7);
         }
 
-        /* 2. NOVO BLOCO DO RODAPÉ CINZA: Fica abaixo do painel, impedindo que fique atrás do Recorde */
-        .barra-rodape-cinza {
-            width: 100%;
-            height: 10vh;
-            background-color: #f4f5f7; /* Cor cinza exata do painel original */
-            border-top: 2px solid #e2e8f0;
+        /* Estilo comum para as caixas de texto do rodapé */
+        .texto-dinamico-rodape {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 3.4vh;
+            font-weight: 700;
+            color: #0d2343;
+            position: absolute;
+            bottom: 13.8%; /* Altura ideal acima das palavras cinzas */
+            height: 5vh;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 0 16.5vw; /* Alinha horizontalmente com as caixas do painel */
             z-index: 20;
         }
 
-        .texto-dinamico-rodape {
-            font-family: 'Ubuntu', sans-serif;
-            font-size: 3.5vh;
-            font-weight: 700;
-            color: #0d2343;
-            height: 100%;
-            display: flex;
-            align-items: center;
+        /* Posição horizontal estável ao lado do ícone do calendário */
+        .posicao-data {
+            left: 16.5%;
         }
 
-        /* 3. BARRA INFERIOR BRANCA: Fica na base total da tela para o clima e frases */
-        .barra-inferior-adicional {
-            width: 100%;
-            height: 16vh;
-            background-color: #ffffff;
-            border-top: 4px solid #0d2343;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 4vw;
-            z-index: 30;
-        }
-
-        .caixa-clima-externa {
-            font-family: 'Ubuntu', sans-serif;
-            font-size: 3.8vh;
-            font-weight: 700;
-            color: #1e3a8a;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            min-width: 35%;
-        }
-
-        .caixa-frase-externa {
-            font-family: 'Ubuntu', sans-serif;
-            font-size: 2.8vh;
-            font-weight: 700;
-            color: #15803d;
-            max-width: 60%;
-            text-align: right;
-            line-height: 1.3;
+        /* ALINHAMENTO CORRIGIDO: Mudado para left com a posição exata da caixa marcada */
+        .posicao-hora {
+            left: 77.0%; /* Encaixa o início do relógio exatamente acima da palavra HORÁRIO */
         }
     </style>
 </head>
 <body>
 
-    <div class="layout-geral">
+    <div class="painel-fundo">
         
-        <!-- Bloco 1: Imagem de Fundo + Contadores Grandes -->
-        <div class="painel-fundo">
-            <div class="conteudo-displays">
-                <div class="quadro-display">
-                    <div class="titulo-interno">Dias Sem Acidentes</div>
-                    <div class="contador-led led-vermelho" id="num-dias">609</div>
-                </div>
-                
-                <div class="quadro-display borda-verde">
-                    <div class="titulo-interno">Nosso Recorde</div>
-                    <div class="contador-led led-verde" id="num-recorde">609</div>
-                </div>
+        <!-- Displays Principais -->
+        <div class="conteudo-displays">
+            <div class="quadro-display">
+                <div class="titulo-interno">Dias Sem Acidentes</div>
+                <div class="contador-led led-vermelho" id="num-dias">609</div>
+            </div>
+            
+            <div class="quadro-display borda-verde">
+                <div class="titulo-interno">Nosso Recorde</div>
+                <div class="contador-led led-verde" id="num-recorde">609</div>
             </div>
         </div>
 
-        <!-- Bloco 2: Faixa Cinza Isolada (DATA e HORÁRIO Livres de Bloqueio) -->
-        <div class="barra-rodape-cinza">
-            <div class="texto-dinamico-rodape" id="txt-data">27/07/2026</div>
-            <div class="texto-dinamico-rodape" id="txt-hora">15:51:06</div>
-        </div>
-
-        <!-- Bloco 3: Barra Branca de Clima e Frases Motivacionais -->
-        <footer class="barra-inferior-adicional">
-            <div class="caixa-clima-externa" id="bloco-clima">☀️ 30°C - Ensolarado</div>
-            <div class="caixa-frase-externa" id="bloco-frase">Cada ato seguro constrói um ambiente forte, garanta uma rotina livre de riscos.</div>
-        </footer>
+        <!-- Campos de Texto reposicionados nos vãos corretos -->
+        <div class="texto-dinamico-rodape posicao-data" id="txt-data">27/07/2026</div>
+        <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">13:45:26</div>
 
     </div>
 
     <script>
-        const sujeitos = [
-            "A prevenção ativa", "A segurança diária", "A nossa atitude cuidadosa", "O uso correto do EPI",
-            "O foco absoluto nas tarefas", "O respeito às normas de vida", "A atenção contínua",
-            "A conscientização coletiva", "O compromisso com as regras", "Cada ato seguro"
-        ];
-        const acoes = [
-            " evita acidentes graves,", " protege você e toda a equipe,", " resguarda a saúde de todos,",
-            " constrói um ambiente forte,", " garante o retorno seguro para casa,", " elimina os riscos no canteiro,",
-            " preserva o nosso maior bem,", " fortalece a cultura de prevenção,", " afasta o perigo no trabalho,"
-        ];
-        const complementos = [
-            " porque a vida vem sempre em primeiro lugar.", " faça disso o seu maior hábito profissional.",
-            " sua família aguarda o seu retorno com saúde.", " trabalhe focado no seu bem-estar diário.",
-            " não troque a pressa pela sua integridade física.", " valorize cada segundo de cuidado.",
-            " transforme a segurança em prioridade máxima.", " garanta uma rotina livre de riscos."
-        ];
-
-        let historicoFrases = [];
-
-        function gerarFraseSeguranca() {
-            let fraseGerada;
-            do {
-                const s = sujeitos[Math.floor(Math.random() * sujeitos.length)];
-                const a = acoes[Math.floor(Math.random() * acoes.length)];
-                const c = complementos[Math.floor(Math.random() * complementos.length)];
-                fraseGerada = `${s}${a}${c}`;
-            } while (historicoFrases.includes(fraseGerada));
-
-            historicoFrases.push(fraseGerada);
-            if (historicoFrases.length > 300) historicoFrases.shift();
-
-            document.getElementById('bloco-frase').textContent = fraseGerada;
-        }
-
-        function atualizarRelogiosNativos() {
+        function atualizarPainel() {
             const agora = new Date();
+            
+            // Atualiza data
             const dia = String(agora.getDate()).padStart(2, '0');
             const mes = String(agora.getMonth() + 1).padStart(2, '0');
             const ano = agora.getFullYear();
             document.getElementById('txt-data').textContent = `${dia}/${mes}/${ano}`;
             
+            // Atualiza hora
             const horas = String(agora.getHours()).padStart(2, '0');
             const minutos = String(agora.getMinutes()).padStart(2, '0');
             const segundos = String(agora.getSeconds()).padStart(2, '0');
             document.getElementById('txt-hora').textContent = `${horas}:${minutos}:${segundos}`;
         }
 
-        function rodarClimaLocal() {
-            const horaAtual = new Date().getHours();
-            let temperatura = 30;
-            let condicao = "Ensolarado";
-            let icone = "☀️";
-
-            if (horaAtual >= 18 || horaAtual < 6) {
-                temperatura = 26;
-                condicao = "Céu Limpo";
-                icone = "🌙";
-            } else if (Math.random() > 0.6) {
-                temperatura = 28;
-                condicao = "Parcialmente Nublado";
-                icone = "🌤️";
-            }
-
-            temperatura += Math.floor(Math.random() * 2) - 1;
-            document.getElementById('bloco-clima').textContent = `${icone} ${temperatura}°C - ${condicao}`;
-        }
-
-        setInterval(atualizarRelogiosNativos, 1000);
-        setInterval(gerarFraseSeguranca, 60000); 
-        setInterval(rodarClimaLocal, 180000);   
-        
-        atualizarRelogiosNativos();
-        gerarFraseSeguranca();
-        rodarClimaLocal();
+        setInterval(atualizarPainel, 1000);
+        atualizarPainel();
     </script>
 </body>
 </html>
