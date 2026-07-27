@@ -104,15 +104,15 @@
             text-shadow: 0 0 25px rgba(0, 255, 85, 0.7);
         }
 
-        /* CORREÇÃO CRÍTICA DE ALTURA: Posicionados perfeitamente no vão livre abaixo do quadro preto */
+        /* TRAVAMENTO VERTICAL FIXO: Força os campos a subirem para o vão livre, longe das bordinhas inferiores */
         .texto-dinamico-rodape {
             font-family: 'Ubuntu', sans-serif;
             font-size: 3.2vh;
             font-weight: 700;
             color: #0d2343;
             position: absolute;
-            bottom: 4.5%; /* Descido milimetricamente para sair de trás do quadro e assentar no vão cinza */
-            height: 5.5vh;
+            bottom: 48px; /* Alterado de % para px fixo para levantar os números e encaixar no vão */
+            height: 40px;
             display: flex;
             align-items: center;
             background-color: #f4f5f7; 
@@ -121,8 +121,9 @@
             z-index: 20;
         }
 
-        .posicao-data { left: 16.5%; }
-        .posicao-hora { left: 77.0%; }
+        /* Ajustados milimetricamente para alinhar perfeitamente com os vãos laterais */
+        .posicao-data { left: 17.5%; }
+        .posicao-hora { left: 76.5%; }
 
         /* Espaço adicional inferior totalmente em branco */
         .barra-inferior-adicional {
@@ -178,16 +179,16 @@
                 </div>
             </div>
 
-            <!-- DATA E HORÁRIO corrigidos no centro do vão livre livre de cortes -->
+            <!-- DATA E HORÁRIO travados de forma independente contra distorções de tamanho -->
             <div class="texto-dinamico-rodape posicao-data" id="txt-data">27/07/2026</div>
-            <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">15:36:09</div>
+            <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">15:38:22</div>
 
         </div>
 
         <!-- Barra inferior em branco -->
         <footer class="barra-inferior-adicional">
-            <div class="caixa-clima-externa" id="bloco-clima">☀️ 30°C - Ensolarado</div>
-            <div class="caixa-frase-externa" id="bloco-frase">A segurança diária constrói um ambiente forte, porque a vida vem sempre em primeiro lugar.</div>
+            <div class="caixa-clima-externa" id="bloco-clima">🌤️ 28°C - Parcialmente Nublado</div>
+            <div class="caixa-frase-externa" id="bloco-frase">O compromisso com as regras elimina os riscos no canteiro, valorize cada segundo de cuidado.</div>
         </footer>
 
     </div>
@@ -201,7 +202,7 @@
         const acoes = [
             " evita acidentes graves,", " protege você e toda a equipe,", " resguarda a saúde de todos,",
             " constrói um ambiente forte,", " garante o retorno seguro para casa,", " elimina os riscos no canteiro,",
-            " preserva o nosso maior bien,", " fortalece a cultura de prevenção,", " afasta o perigo no trabalho,"
+            " preserva o nosso maior bem,", " fortalece a cultura de prevenção,", " afasta o perigo no trabalho,"
         ];
         const complementos = [
             " porque a vida vem sempre em primeiro lugar.", " faça disso o seu maior hábito profissional.",
@@ -242,18 +243,18 @@
 
         function rodarClimaLocal() {
             const horaAtual = new Date().getHours();
-            let temperatura = 30;
-            let condicao = "Ensolarado";
-            let icone = "☀️";
+            let temperatura = 28;
+            let condicao = "Parcialmente Nublado";
+            let icone = "🌤️";
 
             if (horaAtual >= 18 || horaAtual < 6) {
                 temperatura = 26;
                 condicao = "Céu Limpo";
                 icone = "🌙";
             } else if (Math.random() > 0.6) {
-                temperatura = 29;
-                condicao = "Parcialmente Nublado";
-                icone = "🌤️";
+                temperatura = 30;
+                condicao = "Ensolarado";
+                icone = "☀️";
             }
 
             temperatura += Math.floor(Math.random() * 2) - 1;
@@ -261,7 +262,7 @@
         }
 
         setInterval(atualizarRelogiosNativos, 1000);
-        setInterval(gerarFraseSeguranca, 60000); // 1 minuto exato por ciclo
+        setInterval(gerarFraseSeguranca, 60000); 
         setInterval(rodarClimaLocal, 180000);   
         
         atualizarRelogiosNativos();
