@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Segurança Dinâmico</title>
+    <!-- Mantida a importação da fonte digital Chakra Petch -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Chakra+Petch:wght@700&family=Ubuntu:wght@700&display=swap" rel="stylesheet">
@@ -25,17 +26,9 @@
             align-items: center;
         }
 
-        .layout-geral {
+        .painel-fundo {
             width: 100vw;
             height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background-color: #ffffff;
-        }
-
-        .painel-fundo {
-            width: 100%;
-            height: 84vh;
             background-image: url('fundo-painel.jpg');
             background-size: 100% 100%;
             background-position: center;
@@ -83,6 +76,7 @@
             letter-spacing: 2px;
         }
 
+        /* Fonte digital com os segmentos retos */
         .contador-led {
             font-family: 'Chakra Petch', sans-serif;
             font-size: 25vh; 
@@ -104,170 +98,73 @@
             text-shadow: 0 0 25px rgba(0, 255, 85, 0.7);
         }
 
-        /* CORREÇÃO DO RODAPÉ: Posicionados bem abaixo, rente à linha escura inferior */
+        /* Estilo comum para as caixas de texto do rodapé */
         .texto-dinamico-rodape {
             font-family: 'Ubuntu', sans-serif;
-            font-size: 3.2vh;
+            font-size: 3.4vh;
             font-weight: 700;
             color: #0d2343;
             position: absolute;
-            bottom: 1.5%; /* Descido ao máximo para colar perto da linha preta */
-            height: 5.5vh;
+            bottom: 13.8%; /* Altura ideal acima das palavras cinzas */
+            height: 5vh;
             display: flex;
             align-items: center;
-            background-color: #f4f5f7; 
-            padding: 0 10px;
-            border-radius: 4px;
             z-index: 20;
         }
 
-        /* Afastados mais para as extremidades para não cobrir o centro */
+        /* Posição horizontal estável ao lado do ícone do calendário */
         .posicao-data {
-            left: 23.5%;
+            left: 16.5%;
         }
 
+        /* ALINHAMENTO CORRIGIDO: Mudado para left com a posição exata da caixa marcada */
         .posicao-hora {
-            right: 23.5%;
-        }
-
-        /* Barra Inferior Branca/Cinza */
-        .barra-inferior-adicional {
-            width: 100%;
-            height: 16vh;
-            background-color: #f4f5f7;
-            border-top: 5px solid #0d2343;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 4vw;
-            z-index: 30;
-        }
-
-        .caixa-clima-externa {
-            font-family: 'Ubuntu', sans-serif;
-            font-size: 3.8vh;
-            font-weight: 700;
-            color: #1e3a8a;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .caixa-frase-externa {
-            font-family: 'Ubuntu', sans-serif;
-            font-size: 2.8vh;
-            font-weight: 700;
-            color: #15803d;
-            max-width: 65%;
-            text-align: right;
-            line-height: 1.3;
+            left: 77.0%; /* Encaixa o início do relógio exatamente acima da palavra HORÁRIO */
         }
     </style>
 </head>
 <body>
 
-    <div class="layout-geral">
+    <div class="painel-fundo">
         
-        <!-- Painel Superior -->
-        <div class="painel-fundo">
-            
-            <!-- Displays Principais -->
-            <div class="conteudo-displays">
-                <div class="quadro-display">
-                    <div class="titulo-interno">Dias Sem Acidentes</div>
-                    <div class="contador-led led-vermelho" id="num-dias">609</div>
-                </div>
-                
-                <div class="quadro-display borda-verde">
-                    <div class="titulo-interno">Nosso Recorde</div>
-                    <div class="contador-led led-verde" id="num-recorde">609</div>
-                </div>
+        <!-- Displays Principais -->
+        <div class="conteudo-displays">
+            <div class="quadro-display">
+                <div class="titulo-interno">Dias Sem Acidentes</div>
+                <div class="contador-led led-vermelho" id="num-dias">609</div>
             </div>
-
-            <!-- DATA E HORÁRIO alinhados rente à base escura inferior -->
-            <div class="texto-dinamico-rodape posicao-data" id="txt-data">27/07/2026</div>
-            <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">14:56:24</div>
-
+            
+            <div class="quadro-display borda-verde">
+                <div class="titulo-interno">Nosso Recorde</div>
+                <div class="contador-led led-verde" id="num-recorde">609</div>
+            </div>
         </div>
 
-        <!-- Barra Inferior Ativa -->
-        <footer class="barra-inferior-adicional">
-            <div class="caixa-clima-externa" id="bloco-clima">☀️ 29°C - Ensolarado</div>
-            <div class="caixa-frase-externa" id="bloco-frase">A melhor ferramenta de trabalho é sempre a prevenção.</div>
-        </footer>
+        <!-- Campos de Texto reposicionados nos vãos corretos -->
+        <div class="texto-dinamico-rodape posicao-data" id="txt-data">27/07/2026</div>
+        <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">13:45:26</div>
 
     </div>
 
     <script>
-        let bancoDeFrases = [
-            "A melhor ferramenta de trabalho é sempre a prevenção.",
-            "Segurança é valor, vida é prioridade absoluta.",
-            "Segurança não é um ato, é um hábito diário.",
-            "Trabalhe com cuidado: sua família te espera em casa!",
-            "EPI completo é o escudo para a sua própria vida.",
-            "A pressa passa, mas as consequências podem durar para sempre.",
-            "Segurança no trabalho: um dever de todos, um benefício para a vida.",
-            "Atenção e cuidado andam juntos com a produtividade segura.",
-            "Seja prudente: não troque a pressa pela integridade física.",
-            "Zero acidentes não é sorte, é compromisso e atitude diária.",
-            "Produção com segurança é o nosso maior padrão de qualidade."
-        ];
-        
-        let historicoDeFrases = [];
-
-        function rotacionarFrases() {
-            if (bancoDeFrases.length === 0) {
-                bancoDeFrases = [...historicoDeFrases];
-                historicoDeFrases = [];
-            }
-            
-            const indexAleatorio = Math.floor(Math.random() * bancoDeFrases.length);
-            const fraseEscolhida = bancoDeFrases.splice(indexAleatorio, 1);
-            historicoDeFrases.push(fraseEscolhida);
-            
-            document.getElementById('bloco-frase').textContent = fraseEscolhida;
-        }
-
         function atualizarPainel() {
             const agora = new Date();
             
+            // Atualiza data
             const dia = String(agora.getDate()).padStart(2, '0');
             const mes = String(agora.getMonth() + 1).padStart(2, '0');
             const ano = agora.getFullYear();
             document.getElementById('txt-data').textContent = `${dia}/${mes}/${ano}`;
             
+            // Atualiza hora
             const horas = String(agora.getHours()).padStart(2, '0');
             const minutos = String(agora.getMinutes()).padStart(2, '0');
             const segundos = String(agora.getSeconds()).padStart(2, '0');
             document.getElementById('txt-hora').textContent = `${horas}:${minutos}:${segundos}`;
         }
 
-        async function buscarClimaTempo Real() {
-            try {
-                const resposta = await fetch("https://wttr.in");
-                const dados = await resposta.json();
-                
-                if (dados && dados.current_condition) {
-                    const condicao = dados.current_condition[0];
-                    const temp = condicao.temp_C;
-                    let descPT = condicao.lang_pt ? condicao.lang_pt[0].value : "Ensolarado";
-                    
-                    if (descPT.toLowerCase().includes("clear") || descPT.toLowerCase().includes("sunny")) descPT = "Ensolarado";
-                    
-                    document.getElementById('bloco-clima').textContent = `☀️ ${temp}°C - ${descPT}`;
-                }
-            } catch (erro) {
-                document.getElementById('bloco-clima').textContent = "☀️ 29°C - Ensolarado";
-            }
-        }
-
         setInterval(atualizarPainel, 1000);
-        setInterval(rotacionarFrases, 60000); 
-        setInterval(buscarClimaTempoReal, 300000); 
-        
         atualizarPainel();
-        rotacionarFrases();
-        buscarClimaTempoReal();
     </script>
 </body>
 </html>
