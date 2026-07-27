@@ -104,14 +104,14 @@
             text-shadow: 0 0 25px rgba(0, 255, 85, 0.7);
         }
 
-        /* POSIÇÃO VERTICAL CORRIGIDA PARA SUBIR E FICAR EM CIMA DA LOGO TRILHA */
+        /* CORREÇÃO DO RODAPÉ: Posicionados bem abaixo, rente à linha escura inferior */
         .texto-dinamico-rodape {
             font-family: 'Ubuntu', sans-serif;
             font-size: 3.2vh;
             font-weight: 700;
             color: #0d2343;
             position: absolute;
-            bottom: 9.5%; /* Subido milimetricamente para sair de cima dos textos cinzas */
+            bottom: 1.5%; /* Descido ao máximo para colar perto da linha preta */
             height: 5.5vh;
             display: flex;
             align-items: center;
@@ -121,12 +121,13 @@
             z-index: 20;
         }
 
+        /* Afastados mais para as extremidades para não cobrir o centro */
         .posicao-data {
-            left: 23%;
+            left: 23.5%;
         }
 
         .posicao-hora {
-            right: 23%;
+            right: 23.5%;
         }
 
         /* Barra Inferior Branca/Cinza */
@@ -183,28 +184,27 @@
                 </div>
             </div>
 
-            <!-- DATA E HORÁRIO reposicionados nas alturas corretas -->
+            <!-- DATA E HORÁRIO alinhados rente à base escura inferior -->
             <div class="texto-dinamico-rodape posicao-data" id="txt-data">27/07/2026</div>
-            <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">14:22:52</div>
+            <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">14:56:24</div>
 
         </div>
 
         <!-- Barra Inferior Ativa -->
         <footer class="barra-inferior-adicional">
-            <div class="caixa-clima-externa" id="bloco-clima">☀️ 31°C - Ensolarado</div>
-            <div class="caixa-frase-externa" id="bloco-frase">Segurança é valor, vida é prioridade absoluta.</div>
+            <div class="caixa-clima-externa" id="bloco-clima">☀️ 29°C - Ensolarado</div>
+            <div class="caixa-frase-externa" id="bloco-frase">A melhor ferramenta de trabalho é sempre a prevenção.</div>
         </footer>
 
     </div>
 
-    <script {nonce}>
-        // Pool estendido de frases aleatórias sem repetição imediata
+    <script>
         let bancoDeFrases = [
+            "A melhor ferramenta de trabalho é sempre a prevenção.",
             "Segurança é valor, vida é prioridade absoluta.",
             "Segurança não é um ato, é um hábito diário.",
             "Trabalhe com cuidado: sua família te espera em casa!",
             "EPI completo é o escudo para a sua própria vida.",
-            "A melhor ferramenta de trabalho é sempre a prevenção.",
             "A pressa passa, mas as consequências podem durar para sempre.",
             "Segurança no trabalho: um dever de todos, um benefício para a vida.",
             "Atenção e cuidado andam juntos com a produtividade segura.",
@@ -222,7 +222,7 @@
             }
             
             const indexAleatorio = Math.floor(Math.random() * bancoDeFrases.length);
-            const fraseEscolhida = bancoDeFrases.splice(indexAleatorio, 1)[0];
+            const fraseEscolhida = bancoDeFrases.splice(indexAleatorio, 1);
             historicoDeFrases.push(fraseEscolhida);
             
             document.getElementById('bloco-frase').textContent = fraseEscolhida;
@@ -237,38 +237,34 @@
             document.getElementById('txt-data').textContent = `${dia}/${mes}/${ano}`;
             
             const horas = String(agora.getHours()).padStart(2, '0');
-            const minutes = String(agora.getMinutes()).padStart(2, '0');
+            const minutos = String(agora.getMinutes()).padStart(2, '0');
             const segundos = String(agora.getSeconds()).padStart(2, '0');
-            document.getElementById('txt-hora').textContent = `${horas}:${minutes}:${segundos}`;
+            document.getElementById('txt-hora').textContent = `${horas}:${minutos}:${segundos}`;
         }
 
-        // Sistema híbrido de clima via HTTPS estável para evitar bloqueios de rede
-        async function buscarClimaTempoReal() {
+        async function buscarClimaTempo Real() {
             try {
                 const resposta = await fetch("https://wttr.in");
                 const dados = await resposta.json();
                 
-                if (dados && dados.current_condition && dados.current_condition[0]) {
+                if (dados && dados.current_condition) {
                     const condicao = dados.current_condition[0];
                     const temp = condicao.temp_C;
                     let descPT = condicao.lang_pt ? condicao.lang_pt[0].value : "Ensolarado";
                     
-                    // Tratamento amigável de strings curtas
                     if (descPT.toLowerCase().includes("clear") || descPT.toLowerCase().includes("sunny")) descPT = "Ensolarado";
                     
                     document.getElementById('bloco-clima').textContent = `☀️ ${temp}°C - ${descPT}`;
                 }
             } catch (erro) {
-                // Fallback seguro em tempo real imediato se o servidor estiver congestionado
                 document.getElementById('bloco-clima').textContent = "☀️ 29°C - Ensolarado";
             }
         }
 
         setInterval(atualizarPainel, 1000);
-        setInterval(rotacionarFrases, 60000); // 1 minuto cravado por ciclo
-        setInterval(buscarClimaTempoReal, 300000); // Atualiza clima a cada 5 minutos
+        setInterval(rotacionarFrases, 60000); 
+        setInterval(buscarClimaTempoReal, 300000); 
         
-        // Execuções imediatas na inicialização do painel
         atualizarPainel();
         rotacionarFrases();
         buscarClimaTempoReal();
