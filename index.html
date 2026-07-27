@@ -26,14 +26,16 @@
             font-family: 'Roboto', sans-serif;
         }
 
-        /* Container que usa a sua foto como fundo total */
+        /* Container que usa o link direto da imagem para garantir o carregamento */
         .painel-fundo {
             width: 100vw;
             height: 100vh;
             max-width: 1920px;
             max-height: 1080px;
             aspect-ratio: 16 / 9;
-            background-image: url('painel-completo.jpg');
+            
+            /* Usando o link público da imagem que você enviou */
+            background-image: url('https://squarespace-cdn.com');
             background-size: 100% 100%;
             background-position: center;
             background-repeat: no-repeat;
@@ -43,7 +45,7 @@
         /* Estilo comum para os grandes números do contador */
         .contador-digital {
             font-family: 'Orbitron', sans-serif;
-            font-size: 13.5vh; /* Ajusta o tamanho proporcionalmente à altura da tela */
+            font-size: 13.5vh;
             font-weight: 700;
             position: absolute;
             left: 50%;
