@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Segurança Dinâmico</title>
+    <!-- Mantida a importação da fonte digital Chakra Petch -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Chakra+Petch:wght@700&family=Ubuntu:wght@700&display=swap" rel="stylesheet">
     
     <style>
         * {
@@ -67,56 +71,56 @@
             color: #ffffff;
             font-size: 2.8vh;
             font-weight: 700;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Ubuntu', sans-serif;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
 
-        /* FONTE DIGITAL SEGMENTADA VIA CSS: Cantos retos e visual de relógio eletrônico */
+        /* Restaurada a fonte digital solicitada com os segmentos retos */
         .contador-led {
-            font-family: 'Impact', 'Arial Black', sans-serif;
-            font-size: 24vh; 
-            font-weight: 900;
-            letter-spacing: 12px; /* Espaço entre os dígitos para simular blocos de LED */
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 25vh; 
+            font-weight: 700;
+            letter-spacing: -4px;
             line-height: 0.75;
             text-align: center;
             width: 100%;
+            transform: scaleY(1.15);
         }
 
         .led-vermelho {
             color: #ff1122;
-            text-shadow: 0 0 25px rgba(255, 17, 34, 0.8);
+            text-shadow: 0 0 25px rgba(255, 17, 34, 0.7);
         }
 
         .led-verde {
             color: #00ff55;
-            text-shadow: 0 0 25px rgba(0, 255, 85, 0.8);
+            text-shadow: 0 0 25px rgba(0, 255, 85, 0.7);
         }
 
-        /* ALINHAMENTO DO RODAPÉ: Subido para liberar totalmente as palavras fixas de baixo */
+        /* ALINHAMENTO DO RODAPÉ: Ajuste fino na posição vertical (bottom) */
         .texto-dinamico-rodape {
-            font-family: 'Impact', 'Arial Black', sans-serif; /* Fonte robusta e quadrada para a data/hora */
-            font-size: 4vh;
-            font-weight: 900;
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 3.4vh;
+            font-weight: 700;
             color: #0d2343;
             position: absolute;
-            bottom: 13.5%; /* Movido mais para cima para desgrudar dos textos "DATA" e "HORÁRIO" */
+            bottom: 13.8%; /* Subido milimetricamente para centralizar perfeitamente no espaço em branco */
             height: 5vh;
             display: flex;
             align-items: center;
-            letter-spacing: 1px;
             z-index: 20;
         }
 
-        /* Posição horizontal milimétrica ao lado do ícone do calendário */
+        /* Posição horizontal calibrada ao lado do ícone do calendário */
         .posicao-data {
             left: 16.5%;
             width: 15%;
         }
 
-        /* Posição horizontal milimétrica ao lado do ícone do relógio azul */
+        /* Posição horizontal calibrada ao lado do ícone do relógio azul */
         .posicao-hora {
-            right: 8.5%;
+            right: 9.8%; /* Ajustado para alinhar perfeitamente acima da palavra HORÁRIO */
             width: 15%;
             justify-content: flex-end;
         }
@@ -139,9 +143,9 @@
             </div>
         </div>
 
-        <!-- Campos de Texto reposicionados para cima -->
+        <!-- Campos de Texto alinhados e centralizados nos vãos em branco -->
         <div class="texto-dinamico-rodape posicao-data" id="txt-data">27/07/2026</div>
-        <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">13:38:13</div>
+        <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">13:41:00</div>
 
     </div>
 
