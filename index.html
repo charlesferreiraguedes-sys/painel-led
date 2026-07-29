@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel Segurança do Trabalho</title>
-    <!-- Importação de fonte moderna e geométrica para imitar o logotipo original -->
     <link href="https://googleapis.com" rel="stylesheet">
     <style>
         * {
@@ -39,7 +38,7 @@
             width: 100%;
         }
 
-        /* Caixa de Título Preta Customizada conforme a imagem */
+        /* Caixa de Título Preta */
         .caixa-titulo-preta {
             background-color: #000000;
             border: 2px solid #112233;
@@ -51,19 +50,17 @@
             min-width: 800px;
         }
 
-        /* Estilização fiel do texto "SEGURANÇA DO TRABALHO" */
         .caixa-titulo-preta h1 {
             font-family: 'Orbitron', sans-serif;
             font-size: 3.2rem;
             font-weight: 900;
             letter-spacing: 4px;
-            color: #002d62; /* Azul escuro idêntico ao da foto original */
+            color: #002d62; 
             text-transform: uppercase;
             line-height: 1.1;
-            text-shadow: 0px 0px 1px rgba(255,255,255,0.2); /* Sutil reflexo para leitura no preto */
+            text-shadow: 0px 0px 1px rgba(255,255,255,0.2);
         }
 
-        /* Subtítulo "CUIDAR HOJE PARA PROTEGER SEMPRE" com linhas laterais */
         .subtitulo-container {
             display: flex;
             align-items: center;
@@ -73,17 +70,16 @@
         }
 
         .linha-verde {
-            flex-grow: 0;
             width: 80px;
             height: 2px;
-            background-color: #006437; /* Verde escuro institucional da imagem */
+            background-color: #006437;
         }
 
         .subtitulo-texto {
             font-family: 'Rajdhani', sans-serif;
             font-size: 1.4rem;
             font-weight: 700;
-            color: #006437; /* Mesmo verde da linha */
+            color: #006437;
             letter-spacing: 4px;
             text-transform: uppercase;
         }
@@ -135,23 +131,30 @@
             text-shadow: 0 0 20px rgba(0, 255, 102, 0.6);
         }
 
-        /* Rodapé com Fundo Totalmente Transparente */
+        /* Rodapé com Fundo Transparente reorganizado */
         footer {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* Mantém blocos nas extremidades opostas */
             align-items: center;
             width: 100%;
-            background-color: transparent; /* Fundo transparente */
+            background-color: transparent;
             padding: 25px 50px;
-            border: none; /* Remoção de bordas */
-            box-shadow: none; /* Remoção de sombras de bloco */
+            border: none;
+            box-shadow: none;
+        }
+
+        /* Agrupamento do lado esquerdo (Data + Clima) */
+        .grupo-esquerdo {
+            display: flex;
+            flex-direction: row;
+            gap: 60px; /* Distância próxima, mas nitidamente separada */
+            align-items: center;
         }
 
         .bloco-info {
             display: flex;
             align-items: center;
             gap: 25px;
-            /* Leve sombra no texto para garantir a leitura sobre qualquer parte do fundo */
             text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8), -2px -2px 4px rgba(255, 255, 255, 0.8);
         }
 
@@ -181,7 +184,7 @@
     <!-- Bloco Superior -->
     <div class="container-principal">
         
-        <!-- Caixa de Título Estilizada conforme a foto original -->
+        <!-- Título -->
         <header class="caixa-titulo-preta">
             <h1>Segurança do Trabalho</h1>
             <div class="subtitulo-container">
@@ -191,7 +194,7 @@
             </div>
         </header>
 
-        <!-- Placar Aberto (Esquerda e Direita) -->
+        <!-- Placar Lateralizado -->
         <main class="grid-contadores">
             <div class="painel-contador">
                 <h2>Dias Sem Acidentes</h2>
@@ -206,32 +209,35 @@
 
     </div>
 
-    <!-- Rodapé Totalmente Transparente -->
+    <!-- Rodapé Customizado -->
     <footer>
-        <!-- Data -->
-        <div class="bloco-info">
-            <div class="icone">📅</div>
-            <div class="texto-info">
-                <p>Data</p>
-                <h3 id="data-campo">29/07/2026</h3>
+        <!-- Lado Esquerdo: Data e Clima Lado a Lado -->
+        <div class="grupo-esquerdo">
+            <!-- Data -->
+            <div class="bloco-info">
+                <div class="icone">📅</div>
+                <div class="texto-info">
+                    <p>Data</p>
+                    <h3 id="data-campo">29/07/2026</h3>
+                </div>
+            </div>
+
+            <!-- Clima Online -->
+            <div class="bloco-info">
+                <div class="icone">☀️</div>
+                <div class="texto-info">
+                    <p>São Luís - MA</p>
+                    <h3 id="temp-campo">28°C</h3>
+                </div>
             </div>
         </div>
 
-        <!-- Clima Online -->
-        <div class="bloco-info">
-            <div class="icone">☀️</div>
-            <div class="texto-info">
-                <p>São Luís - MA</p>
-                <h3 id="temp-campo">28°C</h3>
-            </div>
-        </div>
-
-        <!-- Horário -->
+        <!-- Lado Direito: Horário -->
         <div class="bloco-info">
             <div class="icone">🕒</div>
             <div class="texto-info">
                 <p>Horário</p>
-                <h3 id="relogio-campo">09:10:00</h3>
+                <h3 id="relogio-campo">09:13:00</h3>
             </div>
         </div>
     </footer>
