@@ -22,23 +22,24 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 25px;
+            padding: 25px 40px; /* Margem lateral ajustada para o alinhamento dos cantos */
             color: #0c2340;
             overflow: hidden;
         }
 
-        /* Container Centralizador do Painel Superior */
+        /* Container que agrupa o Título e o Placar Aberto */
         .container-principal {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             flex-grow: 1;
-            gap: 5px; /* Espaço mínimo (quase encostando) entre o título e as caixas */
+            gap: 15px; /* Distância ideal mantendo a proximidade vertical */
             margin-top: 20px;
+            width: 100%;
         }
 
-        /* Caixa de Título Preta */
+        /* Caixa de Título Preta Centralizada */
         .caixa-titulo-preta {
             background-color: #000000;
             border: 2px solid #142847;
@@ -46,7 +47,7 @@
             border-radius: 12px;
             text-align: center;
             box-shadow: 0px 5px 15px rgba(0,0,0,0.4);
-            width: 700px; /* Largura ajustada para harmonia com o placar abaixo */
+            width: 700px;
         }
 
         .caixa-titulo-preta h1 {
@@ -60,26 +61,27 @@
         .subtitulo {
             font-size: 1rem;
             font-weight: bold;
-            color: #00ff66; /* Verde em destaque */
+            color: #00ff66;
             letter-spacing: 3px;
             margin-top: 3px;
         }
 
-        /* Placar Lado a Lado */
+        /* Placar Afastado para as Extremidades Esquerda e Direita */
         .grid-contadores {
             display: flex;
-            flex-direction: row; /* Coloca uma caixa ao lado da outra */
-            gap: 20px; /* Espaço horizontal entre as duas caixas */
-            justify-content: center;
+            flex-direction: row;
+            justify-content: space-between; /* Empurra uma caixa para cada extremidade lateral */
             align-items: center;
-            width: 100%;
+            width: 100%; /* Ocupa a largura total disponível da tela */
+            max-width: 100%;
+            padding: 0 10px;
         }
 
         .painel-contador {
             background-color: #030d1a;
             border: 4px solid #142847;
             border-radius: 20px;
-            width: 480px; /* Largura individual otimizada para o formato lado a lado */
+            width: 480px;
             padding: 20px 15px;
             text-align: center;
             box-shadow: 0px 10px 20px rgba(0,0,0,0.3);
@@ -154,21 +156,21 @@
     <!-- Bloco Centralizado Superior -->
     <div class="container-principal">
         
-        <!-- Caixa de Título Bem Acima -->
+        <!-- Caixa de Título Centralizada -->
         <header class="caixa-titulo-preta">
             <h1>Segurança do Trabalho</h1>
             <div class="subtitulo">CUIDAR HOJE PARA PROTEGER SEMPRE</div>
         </header>
 
-        <!-- Placar com Caixas Lado a Lado -->
+        <!-- Placar com Caixas nas Margens Opostas -->
         <main class="grid-contadores">
-            <!-- Dias Sem Acidentes -->
+            <!-- Dias Sem Acidentes (Encostado na Esquerda) -->
             <div class="painel-contador">
                 <h2>Dias Sem Acidentes</h2>
                 <div class="numero-digital vermelho">611</div>
             </div>
 
-            <!-- Nosso Recorde -->
+            <!-- Nosso Recorde (Encostado na Direita) -->
             <div class="painel-contador">
                 <h2>Nosso Recorde</h2>
                 <div class="numero-digital verde">611</div>
@@ -202,7 +204,7 @@
             <div class="icone">🕒</div>
             <div class="texto-info">
                 <p>Horário</p>
-                <h3 id="relogio-campo">08:58:28</h3>
+                <h3 id="relogio-campo">09:04:00</h3>
             </div>
         </div>
     </footer>
@@ -213,9 +215,9 @@
             const agora = new Date();
             
             const horas = String(agora.getHours()).padStart(2, '0');
-            const minutos = String(agora.getMinutes()).padStart(2, '0');
+            const minutes = String(agora.getMinutes()).padStart(2, '0');
             const segundos = String(agora.getSeconds()).padStart(2, '0');
-            document.getElementById('relogio-campo').textContent = `${horas}:${minutos}:${segundos}`;
+            document.getElementById('relogio-campo').textContent = `${horas}:${minutes}:${segundos}`;
             
             const dia = String(agora.getDate()).padStart(2, '0');
             const mes = String(agora.getMonth() + 1).padStart(2, '0');
