@@ -192,16 +192,16 @@
             </div>
         </header>
 
-        <!-- Placar Lateralizado -->
+        <!-- Placar com Contagem Automática -->
         <main class="grid-contadores">
             <div class="painel-contador">
                 <h2>Dias Sem Acidentes</h2>
-                <div class="numero-digital vermelho">611</div>
+                <div id="dias-sem-acidente" class="numero-digital vermelho">---</div>
             </div>
 
             <div class="painel-contador">
                 <h2>Nosso Recorde</h2>
-                <div class="numero-digital verde">611</div>
+                <div id="nosso-recorde" class="numero-digital verde">---</div>
             </div>
         </main>
 
@@ -239,18 +239,42 @@
         </div>
     </footer>
 
-    <!-- Scripts de Atualização Corrigidos -->
+    <!-- Scripts de Atualização e Lógica de Dias -->
     <script>
+        function calcularDias() {
+            // Define a data inicial de contagem (25 de Novembro de 2024)
+            // Nota: No JavaScript, o mês começa em 0 (0 = Janeiro, 10 = Novembro)
+            const dataInicial = new Date(2024, 10, 25); 
+            const dataAtual = new Date();
+            
+            // Zera as horas para calcular apenas a diferença de dias inteiros
+            dataInicial.setHours(0, 0, 0, 0);
+            dataAtual.setHours(0, 0, 0, 0);
+            
+            // Diferença em milissegundos
+            const diferencaTempo = dataAtual.getTime() - dataInicial.getTime();
+            
+            // Converte milissegundos em dias inteiros
+            const diferencaDias = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
+            
+            // Se o cálculo for válido e positivo, exibe nas caixas
+            if (diferencaDias >= 0) {
+                document.getElementById('dias-sem-acidente').textContent = diferencaDias;
+                document.getElementById('nosso-recorde').textContent = diferencaDias;
+            } else {
+                document.getElementById('dias-sem-acidente').textContent = 0;
+                document.getElementById('nosso-recorde').textContent = 0;
+            }
+        }
+
         function atualizarPainel() {
             const agora = new Date();
             
-            // Relógio segundo a segundo
             const horas = String(agora.getHours()).padStart(2, '0');
             const minutos = String(agora.getMinutes()).padStart(2, '0');
             const segundos = String(agora.getSeconds()).padStart(2, '0');
             document.getElementById('relogio-campo').textContent = `${horas}:${minutos}:${segundos}`;
             
-            // Data atualizada dinamicamente
             const dia = String(agora.getDate()).padStart(2, '0');
             const mes = String(agora.getMonth() + 1).padStart(2, '0');
             const ano = agora.getFullYear();
@@ -259,7 +283,6 @@
 
         async function buscarTemperaturaOnline() {
             try {
-                // Coordenadas geográficas de São Luís - MA
                 const response = await fetch('https://open-meteo.com');
                 const data = await response.json();
                 if (data && data.current_weather) {
@@ -268,17 +291,19 @@
                 }
             } catch (error) {
                 console.error("Erro ao carregar dados de temperatura online:", error);
-                document.getElementById('temp-campo').textContent = "28°C"; // Valor padrão caso caia a conexão
+                document.getElementById('temp-campo').textContent = "28°C"; 
             }
         }
 
-        // Inicialização imediata das funções
+        // Inicialização imediata
+        calcularDias();
         atualizarPainel();
         buscarTemperaturaOnline();
 
-        // Configuração correta dos intervalos de tempo
-        setInterval(atualizarPainel, 1000); // Atualiza o relógio a cada 1 segundo
-        setInterval(buscarTemperaturaOnline, 900000); // Atualiza a API do clima a cada 15 minutos
+        // Configuração dos intervalos
+        setInterval(atualizarPainel, 1000); // Relógio a cada 1 segundo
+        setInterval(calcularDias, 60000); // Recalcula os dias a cada 1 minuto (garante precisão na virada da noite)
+        setInterval(buscarTemperaturaOnline, 900000); // Clima a cada 15 minutos
     </script>
 
 </body>
