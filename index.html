@@ -3,165 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel de Segurança Dinâmico</title>
-    <!-- Links das fontes do Google corrigidos para carregar os estilos corretamente -->
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Chakra+Petch:wght@700&family=Ubuntu:wght@700&display=swap" rel="stylesheet">
+    <title>Painel Segurança do Trabalho</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
         }
-        html, body {
-            width: 100%;
-            height: 100%;
-            background-color: #000000;
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            background-image: url('URL_DA_SUA_SEGUNDA_FOTO.jpg'); /* Substitua pelo caminho da sua imagem */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 40px;
+            color: #0c2340;
             overflow: hidden;
+        }
+
+        /* Topo do Painel */
+        header {
             display: flex;
             justify-content: center;
             align-items: center;
-        }
-        .painel-fundo {
-            width: 100vw;
-            height: 100vh;
-            background-image: url('fundo-painel.jpg');
-            background-size: 100% 100%;
-            background-position: center;
-            background-repeat: no-repeat;
             position: relative;
-        }
-        /* Área central dos grandes contadores */
-        .conteudo-displays {
-            position: absolute;
-            top: 17.2%;
-            left: 23.6%;
-            width: 52.8%;
-            height: 61.6vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            z-index: 10;
-        }
-        .quadro-display {
             width: 100%;
-            height: 29.3vh;
-            background-color: #061325;
-            border-radius: 22px;
+        }
+
+        .titulo-central {
+            text-align: center;
+        }
+
+        .titulo-central h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #0c2340;
+            text-transform: uppercase;
+        }
+
+        .subtitulo {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #4b6b94;
+            letter-spacing: 3px;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .subtitulo::before, .subtitulo::after {
+            content: "";
+            display: inline-block;
+            width: 60px;
+            height: 2px;
+            background-color: #4b6b94;
+        }
+
+        .selo-gptw {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 100px;
+        }
+
+        /* Conteúdo Central - Placar */
+        main {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            padding: 1.8vh 0 1.2vh 0;
-            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
-            border: 3.5px solid #0f243d;
+            justify-content: center;
+            flex-grow: 1;
+            gap: 25px;
+            margin: 20px 0;
         }
-        .borda-verde {
-            border: 3.5px solid #08221a;
+
+        .painel-contador {
+            background-color: #030d1a;
+            border: 4px solid #142847;
+            border-radius: 20px;
+            width: 650px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0px 10px 20px rgba(0,0,0,0.3);
         }
-        .titulo-interno {
+
+        .painel-contador h2 {
             color: #ffffff;
-            font-size: 2.8vh;
-            font-weight: 700;
-            font-family: 'Ubuntu', sans-serif;
+            font-size: 1.3rem;
             text-transform: uppercase;
             letter-spacing: 2px;
+            margin-bottom: 10px;
+            font-weight: bold;
         }
-        /* Fonte digital com os segmentos retos */
-        .contador-led {
-            font-family: 'Chakra Petch', sans-serif;
-            font-size: 25vh;
-            font-weight: 700;
-            letter-spacing: -4px;
-            line-height: 0.75;
-            text-align: center;
+
+        .numero-digital {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 8.5rem;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .vermelho {
+            color: #ff1a1a;
+            text-shadow: 0 0 20px rgba(255, 26, 26, 0.6);
+        }
+
+        .verde {
+            color: #00ff66;
+            text-shadow: 0 0 20px rgba(0, 255, 102, 0.6);
+        }
+
+        /* Rodapé de Informações */
+        footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             width: 100%;
-            transform: scaleY(1.15);
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 15px 40px;
+            border: 2px solid #e0e6ed;
         }
-        .led-vermelho {
-            color: #ff1122;
-            text-shadow: 0 0 25px rgba(255, 17, 34, 0.7);
-        }
-        .led-verde {
-            color: #00ff55;
-            text-shadow: 0 0 25px rgba(0, 255, 85, 0.7);
-        }
-        /* Estilo comum para as caixas de texto do rodapé */
-        .texto-dinamico-rodape {
-            font-family: 'Ubuntu', sans-serif;
-            font-size: 3.4vh;
-            font-weight: 700;
-            color: #0d2343;
-            position: absolute;
-            bottom: 13.8%; /* Altura ideal acima das palavras cinzas */
-            height: 5vh;
+
+        .bloco-info {
             display: flex;
             align-items: center;
-            z-index: 20;
+            gap: 15px;
         }
-        /* Posição horizontal estável ao lado do ícone do calendário */
-        .posicao-data {
-            left: 16.5%;
+
+        .icone {
+            font-size: 2rem;
         }
-        /* ALINHAMENTO CORRIGIDO: Mudado para left com a posição exata da caixa marcada */
-        .posicao-hora {
-            left: 77.0%; /* Encaixa o início do relógio exatamente acima da palavra HORÁRIO */
+
+        .texto-info p {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .texto-info h3 {
+            font-size: 1.5rem;
+            color: #0c2340;
+            font-weight: bold;
+        }
+
+        .mensagem-centro {
+            text-align: center;
+            max-width: 40%;
+        }
+
+        .mensagem-centro h3 {
+            font-size: 1.2rem;
+            color: #0c2340;
+            font-weight: 900;
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
-    <div class="painel-fundo">
-        <!-- Displays Principais -->
-        <div class="conteudo-displays">
-            <div class="quadro-display">
-                <div class="titulo-interno">Dias Sem Acidentes</div>
-                <div class="contador-led led-vermelho" id="num-dias">0</div>
-            </div>
-            <div class="quadro-display borda-verde">
-                <div class="titulo-interno">Nosso Recorde</div>
-                <div class="contador-led led-verde" id="num-recorde">609</div>
+
+    <!-- Topo -->
+    <header>
+        <div class="titulo-central">
+            <h1>Segurança do Trabalho</h1>
+            <div class="subtitulo">CUIDAR HOJE PARA PROTEGER SEMPRE</div>
+        </div>
+    </header>
+
+    <!-- Placar Central -->
+    <main>
+        <!-- Dias Sem Acidentes -->
+        <div class="painel-contador">
+            <h2>Dias Sem Acidentes</h2>
+            <div class="numero-digital vermelho">611</div>
+        </div>
+
+        <!-- Nosso Recorde -->
+        <div class="painel-contador">
+            <h2>Nosso Recorde</h2>
+            <div class="numero-digital verde">611</div>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+        <!-- Data -->
+        <div class="bloco-info">
+            <div class="icone">📅</div>
+            <div class="texto-info">
+                <h3>29/07/2026</h3>
+                <p>Data</p>
             </div>
         </div>
-        <!-- Campos de Texto reposicionados nos vãos corretos -->
-        <div class="texto-dinamico-rodape posicao-data" id="txt-data">--/--/----</div>
-        <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">--:--:--</div>
-    </div>
-    <script>
-        // Configurações da lógica do painel
-        const DATA_INICIAL = new Date('2024-11-25T00:00:00');
-        const RECORDE_HISTORICO_BASE = 609;
 
-        function atualizarPainel() {
-            const agora = new Date();
+        <!-- Slogan Centralizado -->
+        <div class="mensagem-centro">
+            <h3>SEGURANÇA É VALOR,<br>VIDA É PRIORIDADE</h3>
+        </div>
 
-            // Atualiza data do rodapé
-            const dia = String(agora.getDate()).padStart(2, '0');
-            const mes = String(agora.getMonth() + 1).padStart(2, '0');
-            const ano = agora.getFullYear();
-            document.getElementById('txt-data').textContent = `${dia}/${mes}/${ano}`;
+        <!-- Horário -->
+        <div class="bloco-info">
+            <div class="icone">🕒</div>
+            <div class="texto-info">
+                <h3>08:42:30</h3>
+                <p>Horário</p>
+            </div>
+        </div>
+    </footer>
 
-            // Atualiza hora do rodapé
-            const horas = String(agora.getHours()).padStart(2, '0');
-            const minutos = String(agora.getMinutes()).padStart(2, '0');
-            const segundos = String(agora.getSeconds()).padStart(2, '0');
-            document.getElementById('txt-hora').textContent = `${horas}:${minutos}:${segundos}`;
-
-            // Calcula a diferença em dias inteiros sem acidentes
-            const diferencaTempo = agora.getTime() - DATA_INICIAL.getTime();
-            const diasSemAcidentes = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
-
-            // Atualiza o visor de dias atuais na tela
-            document.getElementById('num-dias').textContent = diasSemAcidentes;
-
-            // Mantém o recorde antigo ou acompanha os dias atuais caso ultrapasse
-            const maiorRecorde = Math.max(RECORDE_HISTORICO_BASE, diasSemAcidentes);
-            document.getElementById('num-recorde').textContent = maiorRecorde;
-        }
-
-        // Executa a atualização a cada 1 segundo e roda imediatamente no início
-        setInterval(atualizarPainel, 1000);
-        atualizarPainel();
-    </script>
 </body>
 </html>
