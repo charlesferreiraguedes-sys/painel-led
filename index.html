@@ -50,15 +50,15 @@
             min-width: 800px;
         }
 
+        /* Alterado para letras brancas (#ffffff) */
         .caixa-titulo-preta h1 {
             font-family: 'Orbitron', sans-serif;
             font-size: 3.2rem;
             font-weight: 900;
             letter-spacing: 4px;
-            color: #002d62; 
+            color: #ffffff; /* Cor corrigida para Branco */
             text-transform: uppercase;
             line-height: 1.1;
-            text-shadow: 0px 0px 1px rgba(255,255,255,0.2);
         }
 
         .subtitulo-container {
@@ -131,10 +131,10 @@
             text-shadow: 0 0 20px rgba(0, 255, 102, 0.6);
         }
 
-        /* Rodapé com Fundo Transparente reorganizado */
+        /* Rodapé Transparente */
         footer {
             display: flex;
-            justify-content: space-between; /* Mantém blocos nas extremidades opostas */
+            justify-content: space-between;
             align-items: center;
             width: 100%;
             background-color: transparent;
@@ -143,11 +143,10 @@
             box-shadow: none;
         }
 
-        /* Agrupamento do lado esquerdo (Data + Clima) */
         .grupo-esquerdo {
             display: flex;
             flex-direction: row;
-            gap: 60px; /* Distância próxima, mas nitidamente separada */
+            gap: 60px;
             align-items: center;
         }
 
@@ -184,7 +183,7 @@
     <!-- Bloco Superior -->
     <div class="container-principal">
         
-        <!-- Título -->
+        <!-- Título com Letras Brancas -->
         <header class="caixa-titulo-preta">
             <h1>Segurança do Trabalho</h1>
             <div class="subtitulo-container">
@@ -209,9 +208,8 @@
 
     </div>
 
-    <!-- Rodapé Customizado -->
+    <!-- Rodapé -->
     <footer>
-        <!-- Lado Esquerdo: Data e Clima Lado a Lado -->
         <div class="grupo-esquerdo">
             <!-- Data -->
             <div class="bloco-info">
@@ -232,12 +230,12 @@
             </div>
         </div>
 
-        <!-- Lado Direito: Horário -->
+        <!-- Horário -->
         <div class="bloco-info">
             <div class="icone">🕒</div>
             <div class="texto-info">
                 <p>Horário</p>
-                <h3 id="relogio-campo">09:13:00</h3>
+                <h3 id="relogio-campo">09:25:00</h3>
             </div>
         </div>
     </footer>
