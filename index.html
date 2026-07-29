@@ -1,21 +1,32 @@
+Ir para o conteúdo principalAjuda sobre acessibilidade
+Modo IA
+Tudo
+Produtos
+Correspondências visuais
+Fazer upgrade
+
+
+
+
+<!DOCTYPE html> <html lang="pt-BR"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Painel de Segurança Dinâmico</title> <!-- Mantida a importação da fonte digital Chakra Petch --> <link rel="preconnect" href="https://googleapis.com"> <link rel="preconnect" href="https://gstatic.com" crossorigin> <link href="https://googleapis.com/css2?family=Chakra+Petch:wght@700&family=Ubuntu:wght@700&display=swap" rel="stylesheet"> <style> * { margin: 0; padding: 0; box-sizing: border-box; } html, body { width: 100%; height: 100%; background-color: #000000; overflow: hidden; display: flex; justify-content: center; align-items: center; } .painel-fundo { width: 100vw; height: 100vh; background-image: url('fundo-painel.jpg'); background-size: 100% 100%; background-position: center; background-repeat: no-repeat; position: relative; } /* Área central dos grandes contadores */ .conteudo-displays { position: absolute; top: 17.2%; left: 23.6%; width: 52.8%; height: 61.6vh; display: flex; flex-direction: column; justify-content: space-between; z-index: 10; } .quadro-display { width: 100%; height: 29.3vh; background-color: #061325; border-radius: 22px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 1.8vh 0 1.2vh 0; box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8); border: 3.5px solid #0f243d; } .borda-verde { border: 3.5px solid #08221a; } .titulo-interno { color: #ffffff; font-size: 2.8vh; font-weight: 700; font-family: 'Ubuntu', sans-serif; text-transform: uppercase; letter-spacing: 2px; } /* Fonte digital com os segmentos retos */ .contador-led { font-family: 'Chakra Petch', sans-serif; font-size: 25vh; font-weight: 700; letter-spacing: -4px; line-height: 0.75; text-align: center; width: 100%; transform: scaleY(1.15); } .led-vermelho { color: #ff1122; text-shadow: 0 0 25px rgba(255, 17, 34, 0.7); } .led-verde { color: #00ff55; text-shadow: 0 0 25px rgba(0, 255, 85, 0.7); } /* Estilo comum para as caixas de texto do rodapé */ .texto-dinamico-rodape { font-family: 'Ubuntu', sans-serif; font-size: 3.4vh; font-weight: 700; color: #0d2343; position: absolute; bottom: 13.8%; /* Altura ideal acima das palavras cinzas */ height: 5vh; display: flex; align-items: center; z-index: 20; } /* Posição horizontal estável ao lado do ícone do calendário */ .posicao-data { left: 16.5%; } /* ALINHAMENTO CORRIGIDO: Mudado para left com a posição exata da caixa marcada */ .posicao-hora { left: 77.0%; /* Encaixa o início do relógio exatamente acima da palavra HORÁRIO */ } </style> </head> <body> <div class="painel-fundo"> <!-- Displays Principais --> <div class="conteudo-displays"> <div class="quadro-display"> <div class="titulo-interno">Dias Sem Acidentes</div> <div class="contador-led led-vermelho" id="num-dias">609</div> </div> <div class="quadro-display borda-verde"> <div class="titulo-interno">Nosso Recorde</div> <div class="contador-led led-verde" id="num-recorde">609</div> </div> </div> <!-- Campos de Texto reposicionados nos vãos corretos --> <div class="texto-dinamico-rodape posicao-data" id="txt-data">27/07/2026</div> <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">13:45:26</div> </div> <script> function atualizarPainel() { const agora = new Date(); // Atualiza data const dia = String(agora.getDate()).padStart(2, '0'); const mes = String(agora.getMonth() + 1).padStart(2, '0'); const ano = agora.getFullYear(); document.getElementById('txt-data').textContent = `${dia}/${mes}/${ano}`; // Atualiza hora const horas = String(agora.getHours()).padStart(2, '0'); const minutos = String(agora.getMinutes()).padStart(2, '0'); const segundos = String(agora.getSeconds()).padStart(2, '0'); document.getElementById('txt-hora').textContent = `${horas}:${minutos}:${segundos}`; } setInterval(atualizarPainel, 1000); atualizarPainel(); </script> </body> </html>
+Aqui está o seu arquivo HTML atualizado e corrigido: painel.html.
+O código abaixo sincroniza os dias sem acidentes de acordo com a data atual (29/07/2026), ajusta o recorde automaticamente para refletir o maior valor e melhora a responsividade da fonte digital Chakra Petch.
+html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Segurança Dinâmico</title>
-    <!-- Mantida a importação da fonte digital Chakra Petch -->
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Chakra+Petch:wght@700&family=Ubuntu:wght@700&display=swap" rel="stylesheet">
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&family=Ubuntu:wght@700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         html, body {
             width: 100%;
             height: 100%;
@@ -25,7 +36,6 @@
             justify-content: center;
             align-items: center;
         }
-
         .painel-fundo {
             width: 100vw;
             height: 100vh;
@@ -35,8 +45,6 @@
             background-repeat: no-repeat;
             position: relative;
         }
-
-        /* Área central dos grandes contadores */
         .conteudo-displays {
             position: absolute;
             top: 17.2%;
@@ -48,7 +56,6 @@
             justify-content: space-between;
             z-index: 10;
         }
-
         .quadro-display {
             width: 100%;
             height: 29.3vh;
@@ -62,11 +69,9 @@
             box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
             border: 3.5px solid #0f243d;
         }
-
         .borda-verde {
             border: 3.5px solid #08221a;
         }
-
         .titulo-interno {
             color: #ffffff;
             font-size: 2.8vh;
@@ -75,96 +80,101 @@
             text-transform: uppercase;
             letter-spacing: 2px;
         }
-
-        /* Fonte digital com os segmentos retos */
         .contador-led {
             font-family: 'Chakra Petch', sans-serif;
-            font-size: 25vh; 
+            font-size: 22vh;
             font-weight: 700;
-            letter-spacing: -4px;
-            line-height: 0.75;
+            letter-spacing: -2px;
+            line-height: 0.8;
             text-align: center;
             width: 100%;
             transform: scaleY(1.15);
         }
-
         .led-vermelho {
             color: #ff1122;
             text-shadow: 0 0 25px rgba(255, 17, 34, 0.7);
         }
-
         .led-verde {
             color: #00ff55;
             text-shadow: 0 0 25px rgba(0, 255, 85, 0.7);
         }
-
-        /* Estilo comum para as caixas de texto do rodapé */
         .texto-dinamico-rodape {
             font-family: 'Ubuntu', sans-serif;
             font-size: 3.4vh;
             font-weight: 700;
             color: #0d2343;
             position: absolute;
-            bottom: 13.8%; /* Altura ideal acima das palavras cinzas */
+            bottom: 13.8%;
             height: 5vh;
             display: flex;
             align-items: center;
             z-index: 20;
         }
-
-        /* Posição horizontal estável ao lado do ícone do calendário */
         .posicao-data {
             left: 16.5%;
         }
-
-        /* ALINHAMENTO CORRIGIDO: Mudado para left com a posição exata da caixa marcada */
         .posicao-hora {
-            left: 77.0%; /* Encaixa o início do relógio exatamente acima da palavra HORÁRIO */
+            left: 77.0%;
         }
     </style>
 </head>
 <body>
-
     <div class="painel-fundo">
-        
-        <!-- Displays Principais -->
         <div class="conteudo-displays">
             <div class="quadro-display">
                 <div class="titulo-interno">Dias Sem Acidentes</div>
-                <div class="contador-led led-vermelho" id="num-dias">609</div>
+                <div class="contador-led led-vermelho" id="num-dias">611</div>
             </div>
-            
             <div class="quadro-display borda-verde">
                 <div class="titulo-interno">Nosso Recorde</div>
-                <div class="contador-led led-verde" id="num-recorde">609</div>
+                <div class="contador-led led-verde" id="num-recorde">611</div>
             </div>
         </div>
-
-        <!-- Campos de Texto reposicionados nos vãos corretos -->
-        <div class="texto-dinamico-rodape posicao-data" id="txt-data">27/07/2026</div>
-        <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">13:45:26</div>
-
+        <div class="texto-dinamico-rodape posicao-data" id="txt-data">29/07/2026</div>
+        <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">00:00:00</div>
     </div>
-
     <script>
         function atualizarPainel() {
             const agora = new Date();
             
-            // Atualiza data
             const dia = String(agora.getDate()).padStart(2, '0');
             const mes = String(agora.getMonth() + 1).padStart(2, '0');
             const ano = agora.getFullYear();
             document.getElementById('txt-data').textContent = `${dia}/${mes}/${ano}`;
             
-            // Atualiza hora
             const horas = String(agora.getHours()).padStart(2, '0');
             const minutos = String(agora.getMinutes()).padStart(2, '0');
             const segundos = String(agora.getSeconds()).padStart(2, '0');
             document.getElementById('txt-hora').textContent = `${horas}:${minutos}:${segundos}`;
+            
+            const dataUltimoAcidente = new Date('2024-11-25T00:00:00');
+            const diferencaTempo = agora - dataUltimoAcidente;
+            const diasSemAcidentes = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
+            
+            const elementoDias = document.getElementById('num-dias');
+            const elementoRecorde = document.getElementById('num-recorde');
+            
+            elementoDias.textContent = diasSemAcidentes;
+            
+            let recordeAtual = parseInt(elementoRecorde.textContent) || 611;
+            if (diasSemAcidentes > recordeAtual) {
+                elementoRecorde.textContent = diasSemAcidentes;
+            }
         }
-
         setInterval(atualizarPainel, 1000);
         atualizarPainel();
     </script>
 </body>
 </html>
+Use o código com cuidado.
+O que foi corrigido?
+Links de Fontes: Correção dos links do Google Fonts (fonts.googleapis.com e fonts.gstatic.com) que impediam o carregamento correto da tipografia digital.
+Cálculo de Dias Automático: Adicionado o cálculo dinâmico baseado em um marco inicial (25/11/2024) para atingir os 611 dias na data atual.
+Ajuste de Escala LED: Redução sutil do font-size e letter-spacing nos contadores para evitar que números de 3 dígitos quebrem o layout ou fiquem espremidos.
+Deseja que eu crie uma lógica de persistência em LocalStorage para salvar um recorde personalizado ou quer ajustar o ponto inicial do contador de dias?
+A IA pode cometer erros. Por isso, cheque as respostas
+
+
+
+
+A resposta do Modo IA está pronta
