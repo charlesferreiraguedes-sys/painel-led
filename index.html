@@ -50,13 +50,12 @@
             min-width: 800px;
         }
 
-        /* Alterado para letras brancas (#ffffff) */
         .caixa-titulo-preta h1 {
             font-family: 'Orbitron', sans-serif;
             font-size: 3.2rem;
             font-weight: 900;
             letter-spacing: 4px;
-            color: #ffffff; /* Cor corrigida para Branco */
+            color: #ffffff; 
             text-transform: uppercase;
             line-height: 1.1;
         }
@@ -71,15 +70,16 @@
 
         .linha-verde {
             width: 80px;
-            height: 2px;
+            height: 3px; /* Sutilmente mais espessa para acompanhar o negrito */
             background-color: #006437;
         }
 
+        /* Alterado para texto branco (#ffffff) e negrito máximo (900) */
         .subtitulo-texto {
             font-family: 'Rajdhani', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #006437;
+            font-size: 1.5rem;
+            font-weight: 900; /* Força o negrito intenso */
+            color: #ffffff; /* Cor corrigida para Branco */
             letter-spacing: 4px;
             text-transform: uppercase;
         }
@@ -183,7 +183,7 @@
     <!-- Bloco Superior -->
     <div class="container-principal">
         
-        <!-- Título com Letras Brancas -->
+        <!-- Título com Dizeres Completamente Brancos -->
         <header class="caixa-titulo-preta">
             <h1>Segurança do Trabalho</h1>
             <div class="subtitulo-container">
@@ -235,7 +235,7 @@
             <div class="icone">🕒</div>
             <div class="texto-info">
                 <p>Horário</p>
-                <h3 id="relogio-campo">09:25:00</h3>
+                <h3 id="relogio-campo">09:28:00</h3>
             </div>
         </div>
     </footer>
@@ -269,6 +269,7 @@
             }
         }
 
+        setInterval(atualジナl, 1000);
         setInterval(atualizarPainel, 1000);
         atualizarPainel();
         buscarTemperaturaOnline();
