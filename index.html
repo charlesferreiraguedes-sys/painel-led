@@ -22,31 +22,35 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 30px;
+            padding: 25px;
             color: #0c2340;
             overflow: hidden;
         }
 
-        /* Topo e Título Modificados */
-        header {
+        /* Container Centralizador do Painel Superior */
+        .container-principal {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            width: 100%;
-            margin-top: 10px;
+            justify-content: center;
+            flex-grow: 1;
+            gap: 5px; /* Espaço mínimo (quase encostando) entre o título e as caixas */
+            margin-top: 20px;
         }
 
+        /* Caixa de Título Preta */
         .caixa-titulo-preta {
             background-color: #000000;
             border: 2px solid #142847;
-            padding: 15px 50px;
+            padding: 12px 60px;
             border-radius: 12px;
             text-align: center;
             box-shadow: 0px 5px 15px rgba(0,0,0,0.4);
+            width: 700px; /* Largura ajustada para harmonia com o placar abaixo */
         }
 
         .caixa-titulo-preta h1 {
-            font-size: 2.8rem;
+            font-size: 2.6rem;
             font-weight: 900;
             letter-spacing: 2px;
             color: #ffffff;
@@ -54,30 +58,29 @@
         }
 
         .subtitulo {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: bold;
-            color: #00ff66; /* Verde destacado para contrastar no fundo preto */
+            color: #00ff66; /* Verde em destaque */
             letter-spacing: 3px;
-            margin-top: 5px;
+            margin-top: 3px;
         }
 
-        /* Conteúdo Central - Placar Próximo ao Título */
-        main {
+        /* Placar Lado a Lado */
+        .grid-contadores {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            flex-direction: row; /* Coloca uma caixa ao lado da outra */
+            gap: 20px; /* Espaço horizontal entre as duas caixas */
             justify-content: center;
-            flex-grow: 1;
-            gap: 15px; /* Reduzido para aproximar as caixas */
-            margin-top: -10px; 
+            align-items: center;
+            width: 100%;
         }
 
         .painel-contador {
             background-color: #030d1a;
             border: 4px solid #142847;
             border-radius: 20px;
-            width: 700px;
-            padding: 15px;
+            width: 480px; /* Largura individual otimizada para o formato lado a lado */
+            padding: 20px 15px;
             text-align: center;
             box-shadow: 0px 10px 20px rgba(0,0,0,0.3);
         }
@@ -108,7 +111,7 @@
             text-shadow: 0 0 20px rgba(0, 255, 102, 0.6);
         }
 
-        /* Rodapé de Informações Duplicado de Tamanho */
+        /* Rodapé Ampliado */
         footer {
             display: flex;
             justify-content: space-between;
@@ -116,7 +119,7 @@
             width: 100%;
             background-color: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
-            padding: 30px 50px; /* Espaçamento interno dobrado */
+            padding: 25px 50px;
             border: 3px solid #0c2340;
             box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
         }
@@ -124,15 +127,15 @@
         .bloco-info {
             display: flex;
             align-items: center;
-            gap: 25px; /* Espaço ampliado */
+            gap: 25px;
         }
 
         .icone {
-            font-size: 4rem; /* Ícones duas vezes maiores */
+            font-size: 4rem;
         }
 
         .texto-info p {
-            font-size: 1.3rem; /* Textos de legenda ampliados */
+            font-size: 1.3rem;
             color: #5d6d7e;
             font-weight: bold;
             text-transform: uppercase;
@@ -140,51 +143,41 @@
         }
 
         .texto-info h3 {
-            font-size: 2.8rem; /* Valores (Data/Hora/Clima) duas vezes maiores */
+            font-size: 2.8rem;
             color: #0c2340;
             font-weight: 900;
-        }
-
-        .mensagem-centro {
-            text-align: center;
-            max-width: 35%;
-        }
-
-        .mensagem-centro h3 {
-            font-size: 1.6rem; /* Slogan central ampliado */
-            color: #0c2340;
-            font-weight: 900;
-            letter-spacing: 1px;
-            line-height: 1.3;
         }
     </style>
 </head>
 <body>
 
-    <!-- Topo com Caixa Preta -->
-    <header>
-        <div class="caixa-titulo-preta">
+    <!-- Bloco Centralizado Superior -->
+    <div class="container-principal">
+        
+        <!-- Caixa de Título Bem Acima -->
+        <header class="caixa-titulo-preta">
             <h1>Segurança do Trabalho</h1>
             <div class="subtitulo">CUIDAR HOJE PARA PROTEGER SEMPRE</div>
-        </div>
-    </header>
+        </header>
 
-    <!-- Placar Central Mais Próximo -->
-    <main>
-        <!-- Dias Sem Acidentes -->
-        <div class="painel-contador">
-            <h2>Dias Sem Acidentes</h2>
-            <div class="numero-digital vermelho">611</div>
-        </div>
+        <!-- Placar com Caixas Lado a Lado -->
+        <main class="grid-contadores">
+            <!-- Dias Sem Acidentes -->
+            <div class="painel-contador">
+                <h2>Dias Sem Acidentes</h2>
+                <div class="numero-digital vermelho">611</div>
+            </div>
 
-        <!-- Nosso Recorde -->
-        <div class="painel-contador">
-            <h2>Nosso Recorde</h2>
-            <div class="numero-digital verde">611</div>
-        </div>
-    </main>
+            <!-- Nosso Recorde -->
+            <div class="painel-contador">
+                <h2>Nosso Recorde</h2>
+                <div class="numero-digital verde">611</div>
+            </div>
+        </main>
 
-    <!-- Rodapé com Tamanho Dobrado e Temperatura Online -->
+    </div>
+
+    <!-- Rodapé Mantido com Tamanho Dobrado e Temperatura -->
     <footer>
         <!-- Data -->
         <div class="bloco-info">
@@ -195,47 +188,43 @@
             </div>
         </div>
 
-        <!-- Temperatura de São Luís Online -->
+        <!-- Temperatura -->
         <div class="bloco-info">
             <div class="icone">☀️</div>
             <div class="texto-info">
                 <p>São Luís - MA</p>
-                <h3 id="temp-campo">28°C</h3> <!-- Temperatura atual registrada localmente -->
+                <h3 id="temp-campo">28°C</h3>
             </div>
         </div>
 
-        <!-- Horário (Atualizado por Script) -->
+        <!-- Horário -->
         <div class="bloco-info">
             <div class="icone">🕒</div>
             <div class="texto-info">
                 <p>Horário</p>
-                <h3 id="relogio-campo">08:53:00</h3>
+                <h3 id="relogio-campo">08:58:28</h3>
             </div>
         </div>
     </footer>
 
-    <!-- Script para Relógio em Tempo Real e Data Atualizada -->
+    <!-- Scripts de Atualização Automática -->
     <script>
         function atualizarPainel() {
             const agora = new Date();
             
-            // Atualiza o Relógio
             const horas = String(agora.getHours()).padStart(2, '0');
             const minutos = String(agora.getMinutes()).padStart(2, '0');
             const segundos = String(agora.getSeconds()).padStart(2, '0');
             document.getElementById('relogio-campo').textContent = `${horas}:${minutos}:${segundos}`;
             
-            // Atualiza a Data automaticamente caso vire o dia
             const dia = String(agora.getDate()).padStart(2, '0');
             const mes = String(agora.getMonth() + 1).padStart(2, '0');
             const ano = agora.getFullYear();
             document.getElementById('data-campo').textContent = `${dia}/${mes}/${ano}`;
         }
 
-        // Script integrado para buscar a temperatura real via API pública (Open-Meteo)
         async function buscarTemperaturaOnline() {
             try {
-                // Coordenadas aproximadas de Anjo da Guarda, São Luís - MA
                 const response = await fetch('https://open-meteo.com');
                 const data = await response.json();
                 if (data && data.current_weather) {
@@ -243,16 +232,13 @@
                     document.getElementById('temp-campo').textContent = `${tempArredondada}°C`;
                 }
             } catch (error) {
-                console.log("Erro ao carregar dados de temperatura online, mantendo padrão.");
+                console.log("Erro ao carregar dados de temperatura.");
             }
         }
 
-        // Execuções automáticas
         setInterval(atualizarPainel, 1000);
         atualizarPainel();
         buscarTemperaturaOnline();
-        
-        // Atualiza a temperatura da API a cada 15 minutos
         setInterval(buscarTemperaturaOnline, 900000);
     </script>
 
