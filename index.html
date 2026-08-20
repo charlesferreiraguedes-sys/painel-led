@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel Segurança do Trabalho</title>
-    <!-- CORRIGIDO: Removido link http incompleto que causava o bloqueio de segurança do script -->
     <style>
         * {
             margin: 0;
@@ -137,7 +136,7 @@
             align-items: center;
             width: 100%;
             background-color: transparent;
-            padding: 25px 50px;
+            padding: 15px 20px;
             border: none;
             box-shadow: none;
         }
@@ -145,35 +144,38 @@
         .grupo-esquerdo {
             display: flex;
             flex-direction: row;
-            gap: 60px;
+            gap: 50px;
             align-items: center;
         }
 
         .bloco-info {
             display: flex;
             align-items: center;
-            gap: 25px;
+            gap: 15px;
             text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8), -2px -2px 4px rgba(255, 255, 255, 0.8);
         }
 
         .icone {
-            font-size: 4rem;
+            font-size: 4.5rem;
         }
 
         .texto-info p {
             font-family: 'Arial', sans-serif;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: #2c3e50;
             font-weight: bold;
             text-transform: uppercase;
-            margin-bottom: 5px;
+            margin-bottom: 2px;
         }
 
+        /* MODIFICADO: Fonte aumentada para o tamanho máximo legível na horizontal */
         .texto-info h3 {
             font-family: 'Arial', sans-serif;
-            font-size: 2.8rem;
+            font-size: 3.5rem;
             color: #0c2340;
             font-weight: 900;
+            white-space: nowrap;
+            line-height: 1;
         }
     </style>
 </head>
@@ -195,13 +197,11 @@
         <main class="grid-contadores">
             <div class="painel-contador">
                 <h2>Dias Sem Acidentes</h2>
-                <!-- VALOR PADRÃO CASO O SCRIPT TRAVE -->
                 <div id="dias-sem-acidente" class="numero-digital vermelho">633</div>
             </div>
             
             <div class="painel-contador">
                 <h2>Nosso Recorde</h2>
-                <!-- VALOR PADRÃO CASO O SCRIPT TRAVE -->
                 <div id="nosso-recorde" class="numero-digital verde">633</div>
             </div>
         </main>
@@ -308,6 +308,7 @@
                 const lon = -44.3068;
                 const url = `https://open-meteo.com{lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=America/Fortaleza`;
 
-                // Adicionado bloco de verificação HTTPS seguro
                 fetch(url)
                     .then(response => response.json())
+                    .then(data => {
+                        if (data && data.current) {
