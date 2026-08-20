@@ -208,7 +208,7 @@
     <!-- Rodapé -->
     <footer>
         <div class="grupo-esquerdo">
-            <!-- Nova Caixa de Semanas colocada no espaço marcado -->
+            <!-- Caixa de Semanas colocada no espaço marcado -->
             <div class="bloco-info">
                 <div class="icone">🗓️</div>
                 <div class="texto-info">
@@ -226,12 +226,12 @@
                 </div>
             </div>
 
-            <!-- Clima Local Autônomo -->
+            <!-- Clima Local Real -->
             <div class="bloco-info">
                 <div id="clima-icone" class="icone">☀️</div>
                 <div class="texto-info">
                     <p>São Luís - MA</p>
-                    <h3 id="temp-campo">28°C</h3>
+                    <h3 id="temp-campo">--°C</h3>
                 </div>
             </div>
         </div>
@@ -271,18 +271,13 @@
             const dataBaseSegunda = new Date(2026, 7, 17); 
             dataBaseSegunda.setHours(0, 0, 0, 0);
             
-            // Cria cópia da data atual zerando as horas para comparar apenas os dias
             const hoje = new Date(dataAtual.getTime());
             hoje.setHours(0, 0, 0, 0);
             
-            // Calcula os dias corridos desde a data base
             const diferencaTempo = hoje.getTime() - dataBaseSegunda.getTime();
             const diferencaDias = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
             
-            // Divide os dias por 7 para descobrir quantas semanas inteiras se passaram
             const semanasPassadas = Math.floor(diferencaDias / 7);
-            
-            // Soma as semanas passadas à nossa semana base (34)
             const semanaAtual = 34 + semanasPassadas;
             
             document.getElementById('semana-campo').textContent = `${semanaAtual}ª Semana`;
@@ -293,21 +288,25 @@
 
             // Relógio ativo segundo a segundo
             const horas = String(agora.getHours()).padStart(2, '0');
-            const minutos = String(agora.getMinutes()).padStart(2, '0');
+            const minutes = String(agora.getMinutes()).padStart(2, '0');
             const segundos = String(agora.getSeconds()).padStart(2, '0');
-            document.getElementById('relogio-campo').textContent = `${horas}:${minutos}:${segundos}`;
+            document.getElementById('relogio-campo').textContent = `${horas}:${minutes}:${segundos}`;
 
             // Data atualizada dinamicamente
             const dia = String(agora.getDate()).padStart(2, '0');
             const mes = String(agora.getMonth() + 1).padStart(2, '0');
             const ano = agora.getFullYear();
             document.getElementById('data-campo').textContent = `${dia}/${mes}/${ano}`;
-
-            // Atualização inteligente do clima baseado no horário de São Luís - MA
-             atualizarClimaSimulado(agora.getHours());
         }
 
-        function atualizarClimaSimulado(horaAtual) {
-            let temperatura = 27; // Padrão
-            let icone = "☀️"; // Ensolarado padrão
+        // Nova Função que consulta a temperatura real de São Luís via Open-Meteo API
+        function atualizarClimaReal() {
+            // Coordenadas geográficas exatas de São Luís - MA
+            const lat = -2.53073;
+            const lon = -44.3068;
+            const url = `https://open-meteo.com{lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=America/Fortaleza`;
 
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.current) {
