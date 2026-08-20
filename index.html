@@ -55,7 +55,7 @@
             font-size: 3.2rem;
             font-weight: 900;
             letter-spacing: 4px;
-            color: #ffffff; 
+            color: #ffffff;
             text-transform: uppercase;
             line-height: 1.1;
         }
@@ -78,7 +78,7 @@
             font-family: 'Rajdhani', sans-serif;
             font-size: 1.5rem;
             font-weight: 900;
-            color: #ffffff; 
+            color: #ffffff;
             letter-spacing: 4px;
             text-transform: uppercase;
         }
@@ -181,7 +181,6 @@
 
     <!-- Bloco Superior -->
     <div class="container-principal">
-        
         <!-- Título -->
         <header class="caixa-titulo-preta">
             <h1>Segurança do Trabalho</h1>
@@ -198,18 +197,26 @@
                 <h2>Dias Sem Acidentes</h2>
                 <div id="dias-sem-acidente" class="numero-digital vermelho">---</div>
             </div>
-
+            
             <div class="painel-contador">
                 <h2>Nosso Recorde</h2>
                 <div id="nosso-recorde" class="numero-digital verde">---</div>
             </div>
         </main>
-
     </div>
 
     <!-- Rodapé -->
     <footer>
         <div class="grupo-esquerdo">
+            <!-- Nova Caixa de Semanas colocada no espaço marcado -->
+            <div class="bloco-info">
+                <div class="icone">🗓️</div>
+                <div class="texto-info">
+                    <p>Semana Atual</p>
+                    <h3 id="semana-campo">--ª Semana</h3>
+                </div>
+            </div>
+
             <!-- Data -->
             <div class="bloco-info">
                 <div class="icone">📅</div>
@@ -244,72 +251,63 @@
         function calcularDias() {
             const dataInicial = new Date(2024, 10, 25); // 25/11/2024 (Mês no JS começa em 0)
             const dataAtual = new Date();
-            
+
             dataInicial.setHours(0, 0, 0, 0);
             dataAtual.setHours(0, 0, 0, 0);
-            
+
             const diferencaTempo = dataAtual.getTime() - dataInicial.getTime();
             const diferencaDias = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
-            
+
             if (diferencaDias >= 0) {
                 document.getElementById('dias-sem-acidente').textContent = diferencaDias;
                 document.getElementById('nosso-recorde').textContent = diferencaDias;
             }
         }
 
+        function calcularSemanas() {
+            const dataAtual = new Date();
+            
+            // Base fixada em 17/08/2026 (uma segunda-feira na qual o painel exibe a 34ª semana)
+            const dataBaseSegunda = new Date(2026, 7, 17); 
+            dataBaseSegunda.setHours(0, 0, 0, 0);
+            
+            // Cria cópia da data atual zerando as horas para comparar apenas os dias
+            const hoje = new Date(dataAtual.getTime());
+            hoje.setHours(0, 0, 0, 0);
+            
+            // Calcula os dias corridos desde a data base
+            const diferencaTempo = hoje.getTime() - dataBaseSegunda.getTime();
+            const diferencaDias = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
+            
+            // Divide os dias por 7 para descobrir quantas semanas inteiras se passaram
+            const semanasPassadas = Math.floor(diferencaDias / 7);
+            
+            // Soma as semanas passadas à nossa semana base (34)
+            const semanaAtual = 34 + semanasPassadas;
+            
+            document.getElementById('semana-campo').textContent = `${semanaAtual}ª Semana`;
+        }
+
         function atualizarPainel() {
             const agora = new Date();
-            
+
             // Relógio ativo segundo a segundo
             const horas = String(agora.getHours()).padStart(2, '0');
             const minutos = String(agora.getMinutes()).padStart(2, '0');
             const segundos = String(agora.getSeconds()).padStart(2, '0');
             document.getElementById('relogio-campo').textContent = `${horas}:${minutos}:${segundos}`;
-            
+
             // Data atualizada dinamicamente
             const dia = String(agora.getDate()).padStart(2, '0');
             const mes = String(agora.getMonth() + 1).padStart(2, '0');
             const ano = agora.getFullYear();
             document.getElementById('data-campo').textContent = `${dia}/${mes}/${ano}`;
-            
+
             // Atualização inteligente do clima baseado no horário de São Luís - MA
-            atualizarClimaSimulado(agora.getHours());
+             atualizarClimaSimulado(agora.getHours());
         }
 
         function atualizarClimaSimulado(horaAtual) {
             let temperatura = 27; // Padrão
             let icone = "☀️"; // Ensolarado padrão
-            
-            // Lógica baseada na curva de temperatura real de São Luís
-            if (horaAtual >= 0 && horaAtual < 6) {
-                temperatura = 25; // Madrugada fria/estável
-                icone = "🌙";
-            } else if (horaAtual >= 6 && horaAtual < 9) {
-                temperatura = 27; // Começo da manhã
-                icone = "⛅";
-            } else if (horaAtual >= 9 && horaAtual < 15) {
-                temperatura = 31; // Pico do calor (meio-dia)
-                icone = "☀️";
-            } else if (horaAtual >= 15 && horaAtual < 18) {
-                temperatura = 29; // Fim de tarde
-                icone = "☀️";
-            } else {
-                temperatura = 26; // Noite
-                icone = "🌙";
-            }
-            
-            document.getElementById('temp-campo').textContent = `${temperatura}°C`;
-            document.getElementById('clima-icone').textContent = icone;
-        }
 
-        // Execução imediata ao abrir o arquivo
-        calcularDias();
-        atualizarPainel();
-
-        // Loops de tempo contínuos
-        setInterval(atualizarPainel, 1000); // Força a atualização a cada 1 segundo completo
-        setInterval(calcularDias, 60000);  // Checa virada de dia a cada 1 minuto
-    </script>
-
-</body>
-</html>
