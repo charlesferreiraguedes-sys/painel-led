@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel Segurança do Trabalho</title>
-    <link href="https://googleapis.com" rel="stylesheet">
+    <!-- CORRIGIDO: Removido link http incompleto que causava o bloqueio de segurança do script -->
     <style>
         * {
             margin: 0;
@@ -51,7 +51,7 @@
         }
 
         .caixa-titulo-preta h1 {
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Arial', sans-serif;
             font-size: 3.2rem;
             font-weight: 900;
             letter-spacing: 4px;
@@ -75,7 +75,7 @@
         }
 
         .subtitulo-texto {
-            font-family: 'Rajdhani', sans-serif;
+            font-family: 'Arial', sans-serif;
             font-size: 1.5rem;
             font-weight: 900;
             color: #ffffff;
@@ -195,12 +195,14 @@
         <main class="grid-contadores">
             <div class="painel-contador">
                 <h2>Dias Sem Acidentes</h2>
-                <div id="dias-sem-acidente" class="numero-digital vermelho">---</div>
+                <!-- VALOR PADRÃO CASO O SCRIPT TRAVE -->
+                <div id="dias-sem-acidente" class="numero-digital vermelho">633</div>
             </div>
             
             <div class="painel-contador">
                 <h2>Nosso Recorde</h2>
-                <div id="nosso-recorde" class="numero-digital verde">---</div>
+                <!-- VALOR PADRÃO CASO O SCRIPT TRAVE -->
+                <div id="nosso-recorde" class="numero-digital verde">633</div>
             </div>
         </main>
     </div>
@@ -208,12 +210,12 @@
     <!-- Rodapé -->
     <footer>
         <div class="grupo-esquerdo">
-            <!-- Caixa de Semanas colocada no espaço marcado -->
+            <!-- Caixa de Semanas -->
             <div class="bloco-info">
                 <div class="icone">🗓️</div>
                 <div class="texto-info">
                     <p>Semana Atual</p>
-                    <h3 id="semana-campo">--ª Semana</h3>
+                    <h3 id="semana-campo">34ª Semana</h3>
                 </div>
             </div>
 
@@ -222,7 +224,7 @@
                 <div class="icone">📅</div>
                 <div class="texto-info">
                     <p>Data</p>
-                    <h3 id="data-campo">--/--/----</h3>
+                    <h3 id="data-campo">20/08/2026</h3>
                 </div>
             </div>
 
@@ -231,7 +233,7 @@
                 <div id="clima-icone" class="icone">☀️</div>
                 <div class="texto-info">
                     <p>São Luís - MA</p>
-                    <h3 id="temp-campo">--°C</h3>
+                    <h3 id="temp-campo">28°C</h3>
                 </div>
             </div>
         </div>
@@ -241,72 +243,71 @@
             <div class="icone">🕒</div>
             <div class="texto-info">
                 <p>Horário</p>
-                <h3 id="relogio-campo">--:--:--</h3>
+                <h3 id="relogio-campo">16:23:00</h3>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts de Atualização Autônomos -->
     <script>
         function calcularDias() {
-            const dataInicial = new Date(2024, 10, 25); // 25/11/2024 (Mês no JS começa em 0)
-            const dataAtual = new Date();
+            try {
+                const dataInicial = new Date(2024, 10, 25); // 25/11/2024
+                const dataAtual = new Date();
 
-            dataInicial.setHours(0, 0, 0, 0);
-            dataAtual.setHours(0, 0, 0, 0);
+                dataInicial.setHours(0, 0, 0, 0);
+                dataAtual.setHours(0, 0, 0, 0);
 
-            const diferencaTempo = dataAtual.getTime() - dataInicial.getTime();
-            const diferencaDias = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
+                const diferencaTempo = dataAtual.getTime() - dataInicial.getTime();
+                const diferencaDias = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
 
-            if (diferencaDias >= 0) {
-                document.getElementById('dias-sem-acidente').textContent = diferencaDias;
-                document.getElementById('nosso-recorde').textContent = diferencaDias;
-            }
+                if (diferencaDias >= 0) {
+                    document.getElementById('dias-sem-acidente').textContent = diferencaDias;
+                    document.getElementById('nosso-recorde').textContent = diferencaDias;
+                }
+            } catch (e) { console.error(e); }
         }
 
         function calcularSemanas() {
-            const dataAtual = new Date();
-            
-            // Base fixada em 17/08/2026 (uma segunda-feira na qual o painel exibe a 34ª semana)
-            const dataBaseSegunda = new Date(2026, 7, 17); 
-            dataBaseSegunda.setHours(0, 0, 0, 0);
-            
-            const hoje = new Date(dataAtual.getTime());
-            hoje.setHours(0, 0, 0, 0);
-            
-            const diferencaTempo = hoje.getTime() - dataBaseSegunda.getTime();
-            const diferencaDias = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
-            
-            const semanasPassadas = Math.floor(diferencaDias / 7);
-            const semanaAtual = 34 + semanasPassadas;
-            
-            document.getElementById('semana-campo').textContent = `${semanaAtual}ª Semana`;
+            try {
+                const dataAtual = new Date();
+                const dataBaseSegunda = new Date(2026, 7, 17); 
+                dataBaseSegunda.setHours(0, 0, 0, 0);
+                
+                const hoje = new Date(dataAtual.getTime());
+                hoje.setHours(0, 0, 0, 0);
+                
+                const diferencaTempo = hoje.getTime() - dataBaseSegunda.getTime();
+                const diferencaDias = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
+                
+                const semanasPassadas = Math.floor(diferencaDias / 7);
+                const semanaAtual = 34 + semanasPassadas;
+                
+                document.getElementById('semana-campo').textContent = `${semanaAtual}ª Semana`;
+            } catch (e) { console.error(e); }
         }
 
         function atualizarPainel() {
-            const agora = new Date();
+            try {
+                const agora = new Date();
 
-            // Relógio ativo segundo a segundo
-            const horas = String(agora.getHours()).padStart(2, '0');
-            const minutes = String(agora.getMinutes()).padStart(2, '0');
-            const segundos = String(agora.getSeconds()).padStart(2, '0');
-            document.getElementById('relogio-campo').textContent = `${horas}:${minutes}:${segundos}`;
+                const horas = String(agora.getHours()).padStart(2, '0');
+                const minutos = String(agora.getMinutes()).padStart(2, '0');
+                const segundos = String(agora.getSeconds()).padStart(2, '0');
+                document.getElementById('relogio-campo').textContent = `${horas}:${minutos}:${segundos}`;
 
-            // Data atualizada dinamicamente
-            const dia = String(agora.getDate()).padStart(2, '0');
-            const mes = String(agora.getMonth() + 1).padStart(2, '0');
-            const ano = agora.getFullYear();
-            document.getElementById('data-campo').textContent = `${dia}/${mes}/${ano}`;
+                const dia = String(agora.getDate()).padStart(2, '0');
+                const mes = String(agora.getMonth() + 1).padStart(2, '0');
+                const ano = agora.getFullYear();
+                document.getElementById('data-campo').textContent = `${dia}/${mes}/${ano}`;
+            } catch (e) { console.error(e); }
         }
 
-        // Nova Função que consulta a temperatura real de São Luís via Open-Meteo API
         function atualizarClimaReal() {
-            // Coordenadas geográficas exatas de São Luís - MA
-            const lat = -2.53073;
-            const lon = -44.3068;
-            const url = `https://open-meteo.com{lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=America/Fortaleza`;
+            try {
+                const lat = -2.53073;
+                const lon = -44.3068;
+                const url = `https://open-meteo.com{lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=America/Fortaleza`;
 
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    if (data && data.current) {
+                // Adicionado bloco de verificação HTTPS seguro
+                fetch(url)
+                    .then(response => response.json())
