@@ -168,7 +168,6 @@
             margin-bottom: 2px;
         }
 
-        /* MODIFICADO: Fonte aumentada para o tamanho máximo legível na horizontal */
         .texto-info h3 {
             font-family: 'Arial', sans-serif;
             font-size: 3.5rem;
@@ -291,7 +290,7 @@
                 const agora = new Date();
 
                 const horas = String(agora.getHours()).padStart(2, '0');
-                const minutos = String(agora.getMinutes()).padStart(2, '0');
+                const minutos = String(agora.getMinutes()).padStart(2, '0'); // CORRIGIDO: Nome unificado em português
                 const segundos = String(agora.getSeconds()).padStart(2, '0');
                 document.getElementById('relogio-campo').textContent = `${horas}:${minutos}:${segundos}`;
 
@@ -312,3 +311,4 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data && data.current) {
+                            const tempArredondada = Math.round(data.current.temperature_2m);
