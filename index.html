@@ -3,311 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Segurança do Trabalho</title>
-    <!-- CORRIGIDO: Removido link http incompleto que causava o bloqueio de segurança do script -->
+    <title>Painel de Segurança Dinâmico</title>
+    <!-- Links das fontes do Google corrigidos para carregar os estilos corretamente -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Chakra+Petch:wght@700&family=Ubuntu:wght@700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
-        body {
+        html, body {
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .painel-fundo {
             width: 100vw;
             height: 100vh;
-            background-image: url('URL_DA_SUA_SEGUNDA_FOTO.jpg'); /* Substitua pelo caminho real da imagem */
-            background-size: cover;
+            background-image: url('fundo-painel.jpg');
+            background-size: 100% 100%;
             background-position: center;
             background-repeat: no-repeat;
+            position: relative;
+        }
+        /* Área central dos grandes contadores */
+        .conteudo-displays {
+            position: absolute;
+            top: 17.2%;
+            left: 23.6%;
+            width: 52.8%;
+            height: 61.6vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 25px 40px;
-            overflow: hidden;
+            z-index: 10;
         }
-
-        /* Container Superior */
-        .container-principal {
+        .quadro-display {
+            width: 100%;
+            height: 29.3vh;
+            background-color: #061325;
+            border-radius: 22px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            flex-grow: 1;
-            gap: 15px;
-            margin-top: 20px;
-            width: 100%;
-        }
-
-        /* Caixa de Título Preta */
-        .caixa-titulo-preta {
-            background-color: #000000;
-            border: 2px solid #112233;
-            padding: 20px 60px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0px 8px 20px rgba(0,0,0,0.5);
-            width: auto;
-            min-width: 800px;
-        }
-
-        .caixa-titulo-preta h1 {
-            font-family: 'Arial', sans-serif;
-            font-size: 3.2rem;
-            font-weight: 900;
-            letter-spacing: 4px;
-            color: #ffffff;
-            text-transform: uppercase;
-            line-height: 1.1;
-        }
-
-        .subtitulo-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 12px;
-        }
-
-        .linha-verde {
-            width: 80px;
-            height: 3px;
-            background-color: #006437;
-        }
-
-        .subtitulo-texto {
-            font-family: 'Arial', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: #ffffff;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-        }
-
-        /* Placar nas Extremidades */
-        .grid-contadores {
-            display: flex;
-            flex-direction: row;
             justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            padding: 0 10px;
+            padding: 1.8vh 0 1.2vh 0;
+            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
+            border: 3.5px solid #0f243d;
         }
-
-        .painel-contador {
-            background-color: #030d1a;
-            border: 4px solid #142847;
-            border-radius: 20px;
-            width: 480px;
-            padding: 20px 15px;
-            text-align: center;
-            box-shadow: 0px 10px 20px rgba(0,0,0,0.3);
+        .borda-verde {
+            border: 3.5px solid #08221a;
         }
-
-        .painel-contador h2 {
-            font-family: 'Arial', sans-serif;
+        .titulo-interno {
             color: #ffffff;
-            font-size: 1.4rem;
+            font-size: 2.8vh;
+            font-weight: 700;
+            font-family: 'Ubuntu', sans-serif;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 5px;
-            font-weight: bold;
         }
-
-        .numero-digital {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 8.5rem;
-            font-weight: bold;
-            line-height: 1;
-        }
-
-        .vermelho {
-            color: #ff1a1a;
-            text-shadow: 0 0 20px rgba(255, 26, 26, 0.6);
-        }
-
-        .verde {
-            color: #00ff66;
-            text-shadow: 0 0 20px rgba(0, 255, 102, 0.6);
-        }
-
-        /* Rodapé Transparente */
-        footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        /* Fonte digital com os segmentos retos */
+        .contador-led {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 25vh;
+            font-weight: 700;
+            letter-spacing: -4px;
+            line-height: 0.75;
+            text-align: center;
             width: 100%;
-            background-color: transparent;
-            padding: 25px 50px;
-            border: none;
-            box-shadow: none;
+            transform: scaleY(1.15);
         }
-
-        .grupo-esquerdo {
+        .led-vermelho {
+            color: #ff1122;
+            text-shadow: 0 0 25px rgba(255, 17, 34, 0.7);
+        }
+        .led-verde {
+            color: #00ff55;
+            text-shadow: 0 0 25px rgba(0, 255, 85, 0.7);
+        }
+        /* Estilo comum para as caixas de texto do rodapé */
+        .texto-dinamico-rodape {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 3.4vh;
+            font-weight: 700;
+            color: #0d2343;
+            position: absolute;
+            bottom: 13.8%; /* Altura ideal acima das palavras cinzas */
+            height: 5vh;
             display: flex;
-            flex-direction: row;
-            gap: 60px;
             align-items: center;
+            z-index: 20;
         }
-
-        .bloco-info {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8), -2px -2px 4px rgba(255, 255, 255, 0.8);
+        /* Posição horizontal estável ao lado do ícone do calendário */
+        .posicao-data {
+            left: 16.5%;
         }
-
-        .icone {
-            font-size: 4rem;
-        }
-
-        .texto-info p {
-            font-family: 'Arial', sans-serif;
-            font-size: 1.3rem;
-            color: #2c3e50;
-            font-weight: bold;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-        }
-
-        .texto-info h3 {
-            font-family: 'Arial', sans-serif;
-            font-size: 2.8rem;
-            color: #0c2340;
-            font-weight: 900;
+        /* ALINHAMENTO CORRIGIDO: Mudado para left com a posição exata da caixa marcada */
+        .posicao-hora {
+            left: 77.0%; /* Encaixa o início do relógio exatamente acima da palavra HORÁRIO */
         }
     </style>
 </head>
 <body>
-
-    <!-- Bloco Superior -->
-    <div class="container-principal">
-        <!-- Título -->
-        <header class="caixa-titulo-preta">
-            <h1>Segurança do Trabalho</h1>
-            <div class="subtitulo-container">
-                <div class="linha-verde"></div>
-                <div class="subtitulo-texto">Cuidar Hoje para Proteger Sempre</div>
-                <div class="linha-verde"></div>
+    <div class="painel-fundo">
+        <!-- Displays Principais -->
+        <div class="conteudo-displays">
+            <div class="quadro-display">
+                <div class="titulo-interno">Dias Sem Acidentes</div>
+                <div class="contador-led led-vermelho" id="num-dias">0</div>
             </div>
-        </header>
-
-        <!-- Placar com Contagem Automática -->
-        <main class="grid-contadores">
-            <div class="painel-contador">
-                <h2>Dias Sem Acidentes</h2>
-                <!-- VALOR PADRÃO CASO O SCRIPT TRAVE -->
-                <div id="dias-sem-acidente" class="numero-digital vermelho">633</div>
+            <div class="quadro-display borda-verde">
+                <div class="titulo-interno">Nosso Recorde</div>
+                <div class="contador-led led-verde" id="num-recorde">609</div>
             </div>
-            
-            <div class="painel-contador">
-                <h2>Nosso Recorde</h2>
-                <!-- VALOR PADRÃO CASO O SCRIPT TRAVE -->
-                <div id="nosso-recorde" class="numero-digital verde">633</div>
-            </div>
-        </main>
+        </div>
+        <!-- Campos de Texto reposicionados nos vãos corretos -->
+        <div class="texto-dinamico-rodape posicao-data" id="txt-data">--/--/----</div>
+        <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">--:--:--</div>
     </div>
-
-    <!-- Rodapé -->
-    <footer>
-        <div class="grupo-esquerdo">
-            <!-- Caixa de Semanas -->
-            <div class="bloco-info">
-                <div class="icone">🗓️</div>
-                <div class="texto-info">
-                    <p>Semana Atual</p>
-                    <h3 id="semana-campo">34ª Semana</h3>
-                </div>
-            </div>
-
-            <!-- Data -->
-            <div class="bloco-info">
-                <div class="icone">📅</div>
-                <div class="texto-info">
-                    <p>Data</p>
-                    <h3 id="data-campo">20/08/2026</h3>
-                </div>
-            </div>
-
-            <!-- Clima Local Real -->
-            <div class="bloco-info">
-                <div id="clima-icone" class="icone">☀️</div>
-                <div class="texto-info">
-                    <p>São Luís - MA</p>
-                    <h3 id="temp-campo">28°C</h3>
-                </div>
-            </div>
-        </div>
-
-        <!-- Horário -->
-        <div class="bloco-info">
-            <div class="icone">🕒</div>
-            <div class="texto-info">
-                <p>Horário</p>
-                <h3 id="relogio-campo">16:23:00</h3>
-            </div>
-        </div>
-    </footer>
-
     <script>
-        function calcularDias() {
-            try {
-                const dataInicial = new Date(2024, 10, 25); // 25/11/2024
-                const dataAtual = new Date();
-
-                dataInicial.setHours(0, 0, 0, 0);
-                dataAtual.setHours(0, 0, 0, 0);
-
-                const diferencaTempo = dataAtual.getTime() - dataInicial.getTime();
-                const diferencaDias = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
-
-                if (diferencaDias >= 0) {
-                    document.getElementById('dias-sem-acidente').textContent = diferencaDias;
-                    document.getElementById('nosso-recorde').textContent = diferencaDias;
-                }
-            } catch (e) { console.error(e); }
-        }
-
-        function calcularSemanas() {
-            try {
-                const dataAtual = new Date();
-                const dataBaseSegunda = new Date(2026, 7, 17); 
-                dataBaseSegunda.setHours(0, 0, 0, 0);
-                
-                const hoje = new Date(dataAtual.getTime());
-                hoje.setHours(0, 0, 0, 0);
-                
-                const diferencaTempo = hoje.getTime() - dataBaseSegunda.getTime();
-                const diferencaDias = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
-                
-                const semanasPassadas = Math.floor(diferencaDias / 7);
-                const semanaAtual = 34 + semanasPassadas;
-                
-                document.getElementById('semana-campo').textContent = `${semanaAtual}ª Semana`;
-            } catch (e) { console.error(e); }
-        }
+        // Configurações da lógica do painel
+        const DATA_INICIAL = new Date('2024-11-25T00:00:00');
+        const RECORDE_HISTORICO_BASE = 609;
 
         function atualizarPainel() {
-            try {
-                const agora = new Date();
+            const agora = new Date();
 
-                const horas = String(agora.getHours()).padStart(2, '0');
-                const minutos = String(agora.getMinutes()).padStart(2, '0');
-                const segundos = String(agora.getSeconds()).padStart(2, '0');
-                document.getElementById('relogio-campo').textContent = `${horas}:${minutos}:${segundos}`;
+            // Atualiza data do rodapé
+            const dia = String(agora.getDate()).padStart(2, '0');
+            const mes = String(agora.getMonth() + 1).padStart(2, '0');
+            const ano = agora.getFullYear();
+            document.getElementById('txt-data').textContent = `${dia}/${mes}/${ano}`;
 
-                const dia = String(agora.getDate()).padStart(2, '0');
-                const mes = String(agora.getMonth() + 1).padStart(2, '0');
-                const ano = agora.getFullYear();
-                document.getElementById('data-campo').textContent = `${dia}/${mes}/${ano}`;
-            } catch (e) { console.error(e); }
+            // Atualiza hora do rodapé
+            const horas = String(agora.getHours()).padStart(2, '0');
+            const minutos = String(agora.getMinutes()).padStart(2, '0');
+            const segundos = String(agora.getSeconds()).padStart(2, '0');
+            document.getElementById('txt-hora').textContent = `${horas}:${minutos}:${segundos}`;
+
+            // Calcula a diferença em dias inteiros sem acidentes
+            const diferencaTempo = agora.getTime() - DATA_INICIAL.getTime();
+            const diasSemAcidentes = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
+
+            // Atualiza o visor de dias atuais na tela
+            document.getElementById('num-dias').textContent = diasSemAcidentes;
+
+            // Mantém o recorde antigo ou acompanha os dias atuais caso ultrapasse
+            const maiorRecorde = Math.max(RECORDE_HISTORICO_BASE, diasSemAcidentes);
+            document.getElementById('num-recorde').textContent = maiorRecorde;
         }
 
-        function atualizarClimaReal() {
-            try {
-                const lat = -2.53073;
-                const lon = -44.3068;
-                const url = `https://open-meteo.com{lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=America/Fortaleza`;
-
-                // Adicionado bloco de verificação HTTPS seguro
-                fetch(url)
-                    .then(response => response.json())
+        // Executa a atualização a cada 1 segundo e roda imediatamente no início
+        setInterval(atualizarPainel, 1000);
+        atualizarPainel();
+    </script>
+</body>
+</html>
