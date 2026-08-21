@@ -182,7 +182,6 @@
 
     <!-- Bloco Superior -->
     <div class="container-principal">
-        
         <!-- Título -->
         <header class="caixa-titulo-preta">
             <h1>Segurança do Trabalho</h1>
@@ -193,112 +192,97 @@
             </div>
         </header>
 
-        <!-- Placar preenchido nativamente no HTML para evitar atrasos -->
+        <!-- Placar Eletrônico -->
         <main class="grid-contadores">
             <div class="painel-contador">
                 <h2>Dias Sem Acidentes</h2>
-                <div id="dias-sem-acidente" class="numero-digital vermelho">634</div>
+                <div id="dias-sem-acidente" class="numero-digital vermelho">---</div>
             </div>
 
             <div class="painel-contador">
                 <h2>Nosso Recorde</h2>
-                <div id="nosso-recorde" class="numero-digital verde">634</div>
+                <div id="nosso-recorde" class="numero-digital verde">---</div>
             </div>
         </main>
-
     </div>
 
-    <!-- Rodapé preenchido nativamente no HTML para evitar atrasos -->
+    <!-- Rodapé Automatizado -->
     <footer>
         <div class="caixa-info-preta-rodape">
             <p>Semana Atual</p>
-            <div id="semana-campo" class="resultado-gigante-rodape">34ª Semana</div>
+            <div id="semana-campo" class="resultado-gigante-rodape">--ª Semana</div>
         </div>
 
         <div class="caixa-info-preta-rodape">
             <p>Data</p>
-            <div id="data-campo" class="resultado-gigante-rodape">21/08/2026</div>
+            <div id="data-campo" class="resultado-gigante-rodape">--/--/----</div>
         </div>
 
         <div class="caixa-info-preta-rodape">
             <p>São Luís - MA</p>
-            <div id="temp-campo" class="resultado-gigante-rodape">28°C</div>
+            <div id="temp-campo" class="resultado-gigante-rodape">--°C</div>
         </div>
 
         <div class="caixa-info-preta-rodape">
             <p>Horário</p>
-            <div id="relogio-campo" class="resultado-gigante-rodape">12:44:00</div>
+            <div id="relogio-campo" class="resultado-gigante-rodape">--:--:--</div>
         </div>
     </footer>
 
-    <!-- Scripts com travas extras contra erros de carregamento -->
     <script>
-        function calcularDias() {
-            try {
-                const dataInicial = new Date(2024, 10, 25); // 25/11/2024
-                const dataAtual = new Date();
-                
-                dataInicial.setHours(0, 0, 0, 0);
-                dataAtual.setHours(0, 0, 0, 0);
-                
-                const diferencaTempo = dataAtual.getTime() - dataInicial.getTime();
-                const diferencaDias = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
-                
-                if (diferencaDias >= 0) {
-                    document.getElementById('dias-sem-acidente').textContent = diferencaDias;
-                    document.getElementById('nosso-recorde').textContent = diferencaDias;
-                }
-            } catch (e) { console.error(e); }
-        }
-
-        function calcularSemanas() {
-            try {
-                const dataAtual = new Date();
-                const dataBaseSegunda = new Date(2026, 7, 17); // 17/08/2026
-                dataBaseSegunda.setHours(0, 0, 0, 0);
-                
-                const hoje = new Date(dataAtual.getTime());
-                hoje.setHours(0, 0, 0, 0);
-                
-                const diferencaTempo = hoje.getTime() - dataBaseSegunda.getTime();
-                const diferencaDias = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
-                
-                const semanasPassadas = Math.floor(diferencaDias / 7);
-                const semanaAtual = 34 + semanasPassadas;
-                
-                document.getElementById('semana-campo').textContent = `${semanaAtual}ª Semana`;
-            } catch (e) { console.error(e); }
-        }
-
-        function atualizarPainel() {
+        // Função unificada executada sem atrasos
+        function rodarPainelCompleto() {
             try {
                 const agora = new Date();
                 
+                // 1. Relógio atualizado segundo a segundo
                 const horas = String(agora.getHours()).padStart(2, '0');
                 const minutos = String(agora.getMinutes()).padStart(2, '0');
                 const segundos = String(agora.getSeconds()).padStart(2, '0');
                 document.getElementById('relogio-campo').textContent = `${horas}:${minutos}:${segundos}`;
                 
+                // 2. Data corrente
                 const dia = String(agora.getDate()).padStart(2, '0');
                 const mes = String(agora.getMonth() + 1).padStart(2, '0');
                 const ano = agora.getFullYear();
                 document.getElementById('data-campo').textContent = `${dia}/${mes}/${ano}`;
                 
-                atualizarClimaSimulado(agora.getHours());
-            } catch (e) { console.error(e); }
+                // 3. Dias Sem Acidente e Recorde baseados em 25/11/2024
+                const dataInicial = new Date(2024, 10, 25);
+                dataInicial.setHours(0, 0, 0, 0);
+                const hojeZerado = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate());
+                const diferencaDias = Math.floor((hojeZerado.getTime() - dataInicial.getTime()) / (1000 * 60 * 60 * 24));
+                
+                if (diferencaDias >= 0) {
+                    document.getElementById('dias-sem-acidente').textContent = diferencaDias;
+                    document.getElementById('nosso-recorde').textContent = diferencaDias;
+                }
+
+                // 4. Contador de semanas (Base fixa: 17/08/2026 = 34ª Semana)
+                const dataBaseSegunda = new Date(2026, 7, 17);
+                dataBaseSegunda.setHours(0, 0, 0, 0);
+                const diferencaIdadeSemanas = Math.floor((hojeZerado.getTime() - dataBaseSegunda.getTime()) / (1000 * 60 * 60 * 24 * 7));
+                const semanaAtual = 34 + diferencaIdadeSemanas;
+                document.getElementById('semana-campo').textContent = `${semanaAtual}ª Semana`;
+
+                // 5. Clima Inteligente Automático baseado no horário local
+                let temperatura = 28;
+                const horaAtual = agora.getHours();
+                if (horaAtual >= 18 || horaAtual < 6) {
+                    temperatura = 26; 
+                } else if (horaAtual >= 11 && horaAtual < 15) {
+                    temperatura = 31;
+                }
+                document.getElementById('temp-campo').textContent = `${temperatura}°C`;
+
+            } catch (e) { console.error("Erro na automação do painel:", e); }
         }
 
-        function atualizarClimaSimulado(horaAtual) {
-            try {
-                let temperatura = 28; 
-                if (horaAtual >= 0 && horaAtual < 6) {
-                    temperatura = 26; 
-                } else if (horaAtual >= 6 && horaAtual < 9) {
-                    temperatura = 27; 
-                } else if (horaAtual >= 9 && horaAtual < 15) {
-                    temperatura = 31; 
-                } else if (horaAtual >= 15 && horaAtual < 18) {
-                    temperatura = 29; 
-                } else {
-                    temperatura = 27; 
-                }
+        // Execução imediata ao carregar os elementos na tela
+        rodarPainelCompleto();
+
+        // Loop ativo de 1 em 1 segundo
+        setInterval(rodarPainelCompleto, 1000);
+    </script>
+</body>
+</html>
