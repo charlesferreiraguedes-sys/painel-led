@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Segurança Dinâmico</title>
-    <!-- CORRIGIDO: Links das fontes do Google corrigidos para evitar bloqueios de segurança -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Chakra+Petch:wght@700&family=Ubuntu:wght@700&display=swap" rel="stylesheet">
@@ -26,7 +25,8 @@
         .painel-fundo {
             width: 100vw;
             height: 100vh;
-            background-image: url('fundo-painel.jpg');
+            /* CORRIGIDO: Nome exato do arquivo de imagem do seu fundo */
+            background-image: url('URL_DA_SUA_SEGUNDA_FOTO.jpg');
             background-size: 100% 100%;
             background-position: center;
             background-repeat: no-repeat;
@@ -68,7 +68,6 @@
             text-transform: uppercase;
             letter-spacing: 2px;
         }
-        /* Fonte digital com os segmentos retos */
         .contador-led {
             font-family: 'Chakra Petch', sans-serif;
             font-size: 25vh;
@@ -87,32 +86,35 @@
             color: #00ff55;
             text-shadow: 0 0 25px rgba(0, 255, 85, 0.7);
         }
-        /* Estilo comum para as caixas de texto do rodapé */
+        
+        /* Fontes inferiores configuradas no tamanho máximo legível */
         .texto-dinamico-rodape {
             font-family: 'Ubuntu', sans-serif;
-            font-size: 3.4vh; /* Mantém o padrão do seu layout */
+            font-size: 6.5vh; 
             font-weight: 700;
-            color: #0d2343;
+            color: #ffffff; 
+            text-shadow: 0 0 15px rgba(0, 170, 255, 0.8); 
             position: absolute;
-            bottom: 13.8%; /* Altura estável acima das palavras cinzas */
-            height: 5vh;
+            bottom: 12.0%; 
+            height: 8vh;
             display: flex;
             align-items: center;
             z-index: 20;
             white-space: nowrap;
         }
-        /* ADICIONADO: Posições horizontais exatas no vão do seu arquivo de fundo */
+        
+        /* Ajuste fino das posições laterais para as fontes gigantes */
         .posicao-semana {
-            left: 2.8%;
+            left: 2.5%;
         }
         .posicao-data {
-            left: 22.0%;
+            left: 21.5%;
         }
         .posicao-clima {
-            left: 41.5%;
+            left: 41.0%;
         }
         .posicao-hora {
-            left: 81.0%;
+            left: 80.5%;
         }
     </style>
 </head>
@@ -130,7 +132,7 @@
             </div>
         </div>
         
-        <!-- ADICIONADO: Caixas do Rodapé no local do retângulo vermelho -->
+        <!-- Rodapé Ampliado -->
         <div class="texto-dinamico-rodape posicao-semana" id="txt-semana">--ª Semana</div>
         <div class="texto-dinamico-rodape posicao-data" id="txt-data">--/--/----</div>
         <div class="texto-dinamico-rodape posicao-clima" id="txt-clima">--°C</div>
@@ -138,55 +140,50 @@
     </div>
 
     <script>
-        // Configurações da lógica do painel
         const DATA_INICIAL = new Date('2024-11-25T00:00:00');
         const RECORDE_HISTORICO_BASE = 609;
-        const DATA_BASE_34_SEMANA = new Date('2026-08-17T00:00:00'); // Segunda-feira de base para a 34ª semana
+        const DATA_BASE_34_SEMANA = new Date('2026-08-17T00:00:00');
 
         function atualizarPainel() {
             try {
                 const agora = new Date();
 
-                // 1. Atualiza data do rodapé
+                // 1. Data
                 const dia = String(agora.getDate()).padStart(2, '0');
                 const mes = String(agora.getMonth() + 1).padStart(2, '0');
                 const ano = agora.getFullYear();
                 document.getElementById('txt-data').textContent = `${dia}/${mes}/${ano}`;
 
-                // 2. Atualiza hora do rodapé
+                // 2. Hora
                 const horas = String(agora.getHours()).padStart(2, '0');
                 const minutos = String(agora.getMinutes()).padStart(2, '0');
                 const segundos = String(agora.getSeconds()).padStart(2, '0');
                 document.getElementById('txt-hora').textContent = `${horas}:${minutos}:${segundos}`;
 
-                // 3. Calcula a diferença em dias inteiros sem acidentes
+                // 3. Dias sem acidentes
                 const hojeZerado = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate());
                 const dataInicZerada = new Date(DATA_INICIAL.getFullYear(), DATA_INICIAL.getMonth(), DATA_INICIAL.getDate());
                 const diferencaTempo = hojeZerado.getTime() - dataInicZerada.getTime();
                 const diasSemAcidentes = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
 
-                // Atualiza o visor de dias atuais na tela
                 document.getElementById('num-dias').textContent = diasSemAcidentes;
 
-                // Mantém o recorde antigo ou acompanha os dias atuais caso ultrapasse
                 const maiorRecorde = Math.max(RECORDE_HISTORICO_BASE, diasSemAcidentes);
                 document.getElementById('num-recorde').textContent = maiorRecorde;
 
-                // 4. Calcula o número de semanas (Avança automaticamente toda segunda-feira)
+                // 4. Semana Atual (Toda segunda-feira passa para a próxima)
                 const baseSegundaZerada = new Date(DATA_BASE_34_SEMANA.getFullYear(), DATA_BASE_34_SEMANA.getMonth(), DATA_BASE_34_SEMANA.getDate());
                 const diferencaSemanasTempo = hojeZerado.getTime() - baseSegundaZerada.getTime();
                 const semanasPassadas = Math.floor(diferencaSemanasTempo / (1000 * 60 * 60 * 24 * 7));
                 const semanaAtual = 34 + semanasPassadas;
                 document.getElementById('txt-semana').textContent = `${semanaAtual}ª Semana`;
 
-            } catch (e) { console.error("Erro na atualização síncrona do painel:", e); }
+            } catch (e) { console.error(e); }
         }
 
-        // 5. Clima Real Dinâmico de São Luís via API Pública Open-Meteo
         function atualizarClimaReal() {
             try {
                 const url = `https://open-meteo.com`;
-                
                 fetch(url)
                     .then(response => response.json())
                     .then(data => {
@@ -196,20 +193,20 @@
                         }
                     })
                     .catch(() => {
-                        // Fallback estável offline se a internet cair
                         const hora = new Date().getHours();
-                        const tempSimulada = (hora >= 18 || hora < 6) ? 26 : 29;
+                        const tempSimulada = (hora >= 18 || hora < 6) ? 26 : 30;
                         document.getElementById('txt-clima').textContent = `${tempSimulada}°C`;
                     });
-            } catch (e) { console.error("Erro ao processar API de clima:", e); }
+            } catch (e) { console.error(e); }
         }
 
-        // Executa as rotinas de tempo contínuas protegidas
+        // Execuções ao iniciar
         atualizarPainel();
         atualizarClimaReal();
 
-        setInterval(atualizarPainel, 1000);       // Relógio corre segundo a segundo
-        setInterval(atualizarClimaReal, 900000);   // Atualiza os termômetros ao vivo a cada 15 minutos
+        // Loops ativos estáveis
+        setInterval(atualizarPainel, 1000);
+        setInterval(atualizarClimaReal, 900000);
     </script>
 </body>
 </html>
