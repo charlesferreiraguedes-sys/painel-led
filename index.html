@@ -23,6 +23,19 @@
             justify-content: space-between;
             padding: 2vh 2vw;
             overflow: hidden;
+            position: relative;
+        }
+
+        /* ANIMAÇÃO 1: Efeito Scanline (Linha de monitor de vídeo industrial) */
+        body::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 99;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
         }
 
         /* Container Superior */
@@ -46,6 +59,7 @@
             box-shadow: 0px 8px 20px rgba(0,0,0,0.5);
             width: auto;
             min-width: 800px;
+            animation: surgirPainel 1s ease-out; /* Entrada suave */
         }
 
         .caixa-titulo-preta h1 {
@@ -103,6 +117,7 @@
             align-items: center;
             padding: 2.5vh 15px 1.5vh 15px;
             box-shadow: 0px 10px 20px rgba(0,0,0,0.3);
+            animation: surgirPainel 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Animação de entrada elástica */
         }
 
         .painel-contador h2 {
@@ -121,14 +136,15 @@
             line-height: 1;
         }
 
+        /* ANIMAÇÃO 2: Pulsação de brilho (Glow) nos LEDs centrais */
         .vermelho {
             color: #ff1a1a;
-            text-shadow: 0 0 20px rgba(255, 26, 26, 0.6);
+            animation: pulsarGlowVermelho 2.5s infinite alternate ease-in-out;
         }
 
         .verde {
             color: #00ff66;
-            text-shadow: 0 0 20px rgba(0, 255, 102, 0.6);
+            animation: pulsarGlowVerde 2.5s infinite alternate ease-in-out;
         }
 
         /* Rodapé de Caixas Pretas */
@@ -155,6 +171,7 @@
             align-items: center;
             padding: 1.5vh 10px;
             box-shadow: 0px 10px 20px rgba(0,0,0,0.3);
+            animation: surgirPainel 1.5s ease-out;
         }
 
         .caixa-info-preta-rodape p {
@@ -174,7 +191,28 @@
             font-weight: 900;
             white-space: nowrap;
             line-height: 1;
-            text-shadow: 0 0 15px rgba(0, 255, 102, 0.4);
+            animation: pulsarGlowAzul 3s infinite alternate ease-in-out;
+        }
+
+        /* CONFIGURAÇÃO DOS EFEITOS DE ANIMAÇÃO (Keyframes CSS) */
+        @keyframes surgirPainel {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulsarGlowVermelho {
+            from { text-shadow: 0 0 10px rgba(255, 26, 26, 0.4), 0 0 20px rgba(255, 26, 26, 0.2); }
+            to { text-shadow: 0 0 25px rgba(255, 26, 26, 0.8), 0 0 35px rgba(255, 26, 26, 0.5); }
+        }
+
+        @keyframes pulsarGlowVerde {
+            from { text-shadow: 0 0 10px rgba(0, 255, 102, 0.4), 0 0 20px rgba(0, 255, 102, 0.2); }
+            to { text-shadow: 0 0 25px rgba(0, 255, 102, 0.8), 0 0 35px rgba(0, 255, 102, 0.5); }
+        }
+
+        @keyframes pulsarGlowAzul {
+            from { text-shadow: 0 0 8px rgba(0, 170, 255, 0.3); }
+            to { text-shadow: 0 0 18px rgba(0, 170, 255, 0.6), 0 0 25px rgba(0, 170, 255, 0.4); }
         }
     </style>
 </head>
@@ -192,7 +230,7 @@
             </div>
         </header>
 
-        <!-- Placar Eletrônico -->
+        <!-- Placar Eletrônico Animado -->
         <main class="grid-contadores">
             <div class="painel-contador">
                 <h2>Dias Sem Acidentes</h2>
@@ -206,7 +244,7 @@
         </main>
     </div>
 
-    <!-- Rodapé Automatizado -->
+    <!-- Rodapé de Caixas Pretas -->
     <footer>
         <div class="caixa-info-preta-rodape">
             <p>Semana Atual</p>
@@ -230,24 +268,20 @@
     </footer>
 
     <script>
-        // Função unificada executada sem atrasos
         function rodarPainelCompleto() {
             try {
                 const agora = new Date();
                 
-                // 1. Relógio atualizado segundo a segundo
                 const horas = String(agora.getHours()).padStart(2, '0');
                 const minutos = String(agora.getMinutes()).padStart(2, '0');
                 const segundos = String(agora.getSeconds()).padStart(2, '0');
                 document.getElementById('relogio-campo').textContent = `${horas}:${minutos}:${segundos}`;
                 
-                // 2. Data corrente
                 const dia = String(agora.getDate()).padStart(2, '0');
                 const mes = String(agora.getMonth() + 1).padStart(2, '0');
                 const ano = agora.getFullYear();
                 document.getElementById('data-campo').textContent = `${dia}/${mes}/${ano}`;
                 
-                // 3. Dias Sem Acidente e Recorde baseados em 25/11/2024
                 const dataInicial = new Date(2024, 10, 25);
                 dataInicial.setHours(0, 0, 0, 0);
                 const hojeZerado = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate());
@@ -258,31 +292,4 @@
                     document.getElementById('nosso-recorde').textContent = diferencaDias;
                 }
 
-                // 4. Contador de semanas (Base fixa: 17/08/2026 = 34ª Semana)
                 const dataBaseSegunda = new Date(2026, 7, 17);
-                dataBaseSegunda.setHours(0, 0, 0, 0);
-                const diferencaIdadeSemanas = Math.floor((hojeZerado.getTime() - dataBaseSegunda.getTime()) / (1000 * 60 * 60 * 24 * 7));
-                const semanaAtual = 34 + diferencaIdadeSemanas;
-                document.getElementById('semana-campo').textContent = `${semanaAtual}ª Semana`;
-
-                // 5. Clima Inteligente Automático baseado no horário local
-                let temperatura = 28;
-                const horaAtual = agora.getHours();
-                if (horaAtual >= 18 || horaAtual < 6) {
-                    temperatura = 26; 
-                } else if (horaAtual >= 11 && horaAtual < 15) {
-                    temperatura = 31;
-                }
-                document.getElementById('temp-campo').textContent = `${temperatura}°C`;
-
-            } catch (e) { console.error("Erro na automação do painel:", e); }
-        }
-
-        // Execução imediata ao carregar os elementos na tela
-        rodarPainelCompleto();
-
-        // Loop ativo de 1 em 1 segundo
-        setInterval(rodarPainelCompleto, 1000);
-    </script>
-</body>
-</html>
