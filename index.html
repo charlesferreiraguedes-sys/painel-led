@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel Segurança do Trabalho</title>
-    <!-- CORRIGIDO: Removido link inseguro que bloqueava o carregamento dos scripts dinâmicos -->
     <style>
         * {
             margin: 0;
@@ -115,7 +114,6 @@
             font-weight: bold;
         }
 
-        /* ALTERADO: Tamanho da fonte dos números digitais maximizado ao limite do quadro */
         .numero-digital {
             font-family: 'Courier New', Courier, monospace;
             font-size: 19vh;
@@ -134,7 +132,7 @@
             text-shadow: 0 0 20px rgba(0, 255, 102, 0.6);
         }
 
-        /* ALTERADO: Rodapé adaptado para 4 caixas pretas estilizadas lado a lado */
+        /* Rodapé de Caixas Pretas */
         footer {
             display: flex;
             flex-direction: row;
@@ -170,11 +168,11 @@
             letter-spacing: 1px;
         }
 
-        /* ALTERADO: Tamanho de fonte maximizado ao limite visível para os resultados do rodapé */
-        .caixa-info-preta-rodape h3 {
+        /* CORRIGIDO: Todas as caixas agora usam exatamente a mesma classe de texto gigante que deu certo na Semana */
+        .resultado-gigante-rodape {
             font-family: 'Arial', sans-serif;
             font-size: 6.2vh;
-            color: #ffffff; /* Mudado para branco para brilhar e contrastar com o fundo escuro */
+            color: #ffffff; 
             font-weight: 900;
             white-space: nowrap;
             line-height: 1;
@@ -212,34 +210,34 @@
 
     </div>
 
-    <!-- ALTERADO: Rodapé reestruturado proporcionalmente com caixas pretas independentes -->
+    <!-- Rodapé Reestruturado com Tags Unificadas -->
     <footer>
         <div class="caixa-info-preta-rodape">
             <p>Semana Atual</p>
-            <h3 id="semana-campo">34ª Semana</h3>
+            <div id="semana-campo" class="resultado-gigante-rodape">34ª Semana</div>
         </div>
 
         <div class="caixa-info-preta-rodape">
             <p>Data</p>
-            <h3 id="data-campo">--/--/----</h3>
+            <div id="data-campo" class="resultado-gigante-rodape">--/--/----</div>
         </div>
 
         <div class="caixa-info-preta-rodape">
             <p>São Luís - MA</p>
-            <h3 id="temp-campo">--°C</h3>
+            <div id="temp-campo" class="resultado-gigante-rodape">--°C</div>
         </div>
 
         <div class="caixa-info-preta-rodape">
             <p>Horário</p>
-            <h3 id="relogio-campo">--:--:--</h3>
+            <div id="relogio-campo" class="resultado-gigante-rodape">--:--:--</div>
         </div>
     </footer>
 
-    <!-- Scripts de Atualização Autônomos Completos -->
+    <!-- Scripts de Atualização Autônomos -->
     <script>
         function calcularDias() {
             try {
-                const dataInicial = new Date(2024, 10, 25); // 25/11/2024 (Mês no JS começa em 0)
+                const dataInicial = new Date(2024, 10, 25); // 25/11/2024
                 const dataAtual = new Date();
                 
                 dataInicial.setHours(0, 0, 0, 0);
@@ -255,11 +253,10 @@
             } catch (e) { console.error("Erro ao calcular dias:", e); }
         }
 
-        // Lógica automática para somar +1 na contagem de semanas em todas as segundas-feiras
         function calcularSemanas() {
             try {
                 const dataAtual = new Date();
-                const dataBaseSegunda = new Date(2026, 7, 17); // Segunda-feira fixada como referência da 34ª semana
+                const dataBaseSegunda = new Date(2026, 7, 17); // 17/08/2026
                 dataBaseSegunda.setHours(0, 0, 0, 0);
                 
                 const hoje = new Date(dataAtual.getTime());
@@ -279,16 +276,26 @@
             try {
                 const agora = new Date();
                 
-                // Relógio ativo segundo a segundo
+                // Relógio dinâmico ativo
                 const horas = String(agora.getHours()).padStart(2, '0');
                 const minutos = String(agora.getMinutes()).padStart(2, '0');
                 const segundos = String(agora.getSeconds()).padStart(2, '0');
                 document.getElementById('relogio-campo').textContent = `${horas}:${minutos}:${segundos}`;
                 
-                // Data atualizada dinamicamente
+                // Data dinâmica ativa
                 const dia = String(agora.getDate()).padStart(2, '0');
                 const mes = String(agora.getMonth() + 1).padStart(2, '0');
                 const ano = agora.getFullYear();
                 document.getElementById('data-campo').textContent = `${dia}/${mes}/${ano}`;
                 
                 atualizarClimaSimulado(agora.getHours());
+            } catch (e) { console.error("Erro ao atualizar o painel:", e); }
+        }
+
+        function atualizarClimaSimulado(horaAtual) {
+            try {
+                let temperatura = 28; 
+                if (horaAtual >= 0 && horaAtual < 6) {
+                    temperatura = 26; 
+                } else if (horaAtual >= 6 && horaAtual < 9) {
+                    temperatura = 27; 
