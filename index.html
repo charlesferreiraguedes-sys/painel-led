@@ -21,7 +21,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 25px 40px;
+            padding: 2vh 2vw;
             overflow: hidden;
         }
 
@@ -32,8 +32,7 @@
             align-items: center;
             justify-content: center;
             flex-grow: 1;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 3vh;
             width: 100%;
         }
 
@@ -41,7 +40,7 @@
         .caixa-titulo-preta {
             background-color: #000000;
             border: 2px solid #112233;
-            padding: 20px 60px;
+            padding: 1.5vh 4vw;
             border-radius: 12px;
             text-align: center;
             box-shadow: 0px 8px 20px rgba(0,0,0,0.5);
@@ -51,7 +50,7 @@
 
         .caixa-titulo-preta h1 {
             font-family: 'Arial', sans-serif;
-            font-size: 3.2rem;
+            font-size: 4.5vh;
             font-weight: 900;
             letter-spacing: 4px;
             color: #ffffff; 
@@ -64,7 +63,7 @@
             align-items: center;
             justify-content: center;
             gap: 20px;
-            margin-top: 12px;
+            margin-top: 0.5vh;
         }
 
         .linha-verde {
@@ -75,7 +74,7 @@
 
         .subtitulo-texto {
             font-family: 'Arial', sans-serif;
-            font-size: 1.5rem;
+            font-size: 2vh;
             font-weight: 900;
             color: #ffffff; 
             letter-spacing: 4px;
@@ -96,23 +95,25 @@
             background-color: #030d1a;
             border: 4px solid #142847;
             border-radius: 20px;
-            width: 480px;
-            padding: 20px 15px;
-            text-align: center;
+            width: 44vw;
+            height: 32vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2.5vh 15px 1.5vh 15px;
             box-shadow: 0px 10px 20px rgba(0,0,0,0.3);
         }
 
         .painel-contador h2 {
             font-family: 'Arial', sans-serif;
             color: #ffffff;
-            font-size: 1.4rem;
+            font-size: 3vh;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 5px;
             font-weight: bold;
         }
 
-        /* MODIFICADO: Fonte alterada para Arial e tamanho maximizado */
         .numero-digital {
             font-family: 'Arial', sans-serif;
             font-size: 12rem;
@@ -130,7 +131,7 @@
             text-shadow: 0 0 20px rgba(0, 255, 102, 0.6);
         }
 
-        /* MODIFICADO: Rodapé estruturado com caixas pretas proporcionais lado a lado */
+        /* Rodapé de Caixas Pretas */
         footer {
             display: flex;
             flex-direction: row;
@@ -138,8 +139,8 @@
             align-items: center;
             width: 100%;
             background-color: transparent;
-            padding: 0;
-            gap: 20px;
+            padding: 1vh 0;
+            gap: 1.5vw;
         }
 
         .caixa-info-preta-rodape {
@@ -152,24 +153,23 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 15px 10px;
+            padding: 1.5vh 10px;
             box-shadow: 0px 10px 20px rgba(0,0,0,0.3);
         }
 
         .caixa-info-preta-rodape p {
             font-family: 'Arial', sans-serif;
-            font-size: 1.3rem;
+            font-size: 1.8vh;
             color: #a2b4c7;
             font-weight: bold;
             text-transform: uppercase;
-            margin-bottom: 5px;
+            margin-bottom: 0.5vh;
             letter-spacing: 1px;
         }
 
-        /* MODIFICADO: Resultados em tamanho máximo absoluto dentro das caixas */
         .resultado-gigante-rodape {
             font-family: 'Arial', sans-serif;
-            font-size: 5.2vh;
+            font-size: 6.2vh;
             color: #ffffff; 
             font-weight: 900;
             white-space: nowrap;
@@ -193,22 +193,22 @@
             </div>
         </header>
 
-        <!-- Placar com Contagem Automática -->
+        <!-- Placar preenchido nativamente no HTML para evitar atrasos -->
         <main class="grid-contadores">
             <div class="painel-contador">
                 <h2>Dias Sem Acidentes</h2>
-                <div id="dias-sem-acidente" class="numero-digital vermelho">---</div>
+                <div id="dias-sem-acidente" class="numero-digital vermelho">634</div>
             </div>
 
             <div class="painel-contador">
                 <h2>Nosso Recorde</h2>
-                <div id="nosso-recorde" class="numero-digital verde">---</div>
+                <div id="nosso-recorde" class="numero-digital verde">634</div>
             </div>
         </main>
 
     </div>
 
-    <!-- MODIFICADO: Rodapé com caixas pretas estruturadas lado a lado -->
+    <!-- Rodapé preenchido nativamente no HTML para evitar atrasos -->
     <footer>
         <div class="caixa-info-preta-rodape">
             <p>Semana Atual</p>
@@ -217,21 +217,21 @@
 
         <div class="caixa-info-preta-rodape">
             <p>Data</p>
-            <div id="data-campo" class="resultado-gigante-rodape">--/--/----</div>
+            <div id="data-campo" class="resultado-gigante-rodape">21/08/2026</div>
         </div>
 
         <div class="caixa-info-preta-rodape">
             <p>São Luís - MA</p>
-            <div id="temp-campo" class="resultado-gigante-rodape">--°C</div>
+            <div id="temp-campo" class="resultado-gigante-rodape">28°C</div>
         </div>
 
         <div class="caixa-info-preta-rodape">
             <p>Horário</p>
-            <div id="relogio-campo" class="resultado-gigante-rodape">--:--:--</div>
+            <div id="relogio-campo" class="resultado-gigante-rodape">12:44:00</div>
         </div>
     </footer>
 
-    <!-- Scripts de Atualização Autônomos Corrigidos -->
+    <!-- Scripts com travas extras contra erros de carregamento -->
     <script>
         function calcularDias() {
             try {
@@ -254,7 +254,7 @@
         function calcularSemanas() {
             try {
                 const dataAtual = new Date();
-                const dataBaseSegunda = new Date(2026, 7, 17); // Segunda-feira da 34ª semana
+                const dataBaseSegunda = new Date(2026, 7, 17); // 17/08/2026
                 dataBaseSegunda.setHours(0, 0, 0, 0);
                 
                 const hoje = new Date(dataAtual.getTime());
@@ -274,13 +274,11 @@
             try {
                 const agora = new Date();
                 
-                // Relógio ativo segundo a segundo
                 const horas = String(agora.getHours()).padStart(2, '0');
                 const minutos = String(agora.getMinutes()).padStart(2, '0');
                 const segundos = String(agora.getSeconds()).padStart(2, '0');
                 document.getElementById('relogio-campo').textContent = `${horas}:${minutos}:${segundos}`;
                 
-                // Data atualizada dinamicamente
                 const dia = String(agora.getDate()).padStart(2, '0');
                 const mes = String(agora.getMonth() + 1).padStart(2, '0');
                 const ano = agora.getFullYear();
@@ -292,10 +290,15 @@
 
         function atualizarClimaSimulado(horaAtual) {
             try {
-                let temperatura = 27; 
-                
+                let temperatura = 28; 
                 if (horaAtual >= 0 && horaAtual < 6) {
-                    temperatura = 25; 
+                    temperatura = 26; 
                 } else if (horaAtual >= 6 && horaAtual < 9) {
                     temperatura = 27; 
                 } else if (horaAtual >= 9 && horaAtual < 15) {
+                    temperatura = 31; 
+                } else if (horaAtual >= 15 && horaAtual < 18) {
+                    temperatura = 29; 
+                } else {
+                    temperatura = 27; 
+                }
