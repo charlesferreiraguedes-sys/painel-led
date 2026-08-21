@@ -25,35 +25,36 @@
         .painel-fundo {
             width: 100vw;
             height: 100vh;
-            /* CORRIGIDO: Nome exato do arquivo de imagem do seu fundo */
             background-image: url('URL_DA_SUA_SEGUNDA_FOTO.jpg');
             background-size: 100% 100%;
             background-position: center;
             background-repeat: no-repeat;
             position: relative;
         }
-        /* Área central dos grandes contadores */
+        
+        /* ALTERADO: Área dos displays configurada na horizontal (lado a lado) */
         .conteudo-displays {
             position: absolute;
-            top: 17.2%;
-            left: 23.6%;
-            width: 52.8%;
-            height: 61.6vh;
+            top: 22%;
+            left: 5%;
+            width: 90%;
+            height: 40vh;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             justify-content: space-between;
+            gap: 5%;
             z-index: 10;
         }
         .quadro-display {
-            width: 100%;
-            height: 29.3vh;
+            width: 47.5%;
+            height: 100%;
             background-color: #061325;
             border-radius: 22px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
-            padding: 1.8vh 0 1.2vh 0;
+            padding: 2.5vh 0;
             box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
             border: 3.5px solid #0f243d;
         }
@@ -62,7 +63,7 @@
         }
         .titulo-interno {
             color: #ffffff;
-            font-size: 2.8vh;
+            font-size: 3vh;
             font-weight: 700;
             font-family: 'Ubuntu', sans-serif;
             text-transform: uppercase;
@@ -70,9 +71,9 @@
         }
         .contador-led {
             font-family: 'Chakra Petch', sans-serif;
-            font-size: 25vh;
+            font-size: 20vh;
             font-weight: 700;
-            letter-spacing: -4px;
+            letter-spacing: -2px;
             line-height: 0.75;
             text-align: center;
             width: 100%;
@@ -87,40 +88,63 @@
             text-shadow: 0 0 25px rgba(0, 255, 85, 0.7);
         }
         
-        /* Fontes inferiores configuradas no tamanho máximo legível */
-        .texto-dinamico-rodape {
-            font-family: 'Ubuntu', sans-serif;
-            font-size: 6.5vh; 
-            font-weight: 700;
-            color: #ffffff; 
-            text-shadow: 0 0 15px rgba(0, 170, 255, 0.8); 
+        /* ALTERADO: Novo Rodapé com títulos fixos e resultados pretos gigantes */
+        .novo-rodape-container {
             position: absolute;
-            bottom: 12.0%; 
-            height: 8vh;
+            bottom: 3vh;
+            left: 3%;
+            width: 94%;
+            height: 18vh;
             display: flex;
+            flex-direction: row;
+            justify-content: space-between;
             align-items: center;
             z-index: 20;
-            white-space: nowrap;
         }
         
-        /* Ajuste fino das posições laterais para as fontes gigantes */
-        .posicao-semana {
-            left: 2.5%;
+        .bloco-estatistica {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
         }
-        .posicao-data {
-            left: 21.5%;
+        
+        /* Alinhamento à direita exclusivo para o horário ficar correto na extremidade */
+        .bloco-estatistica.alinhar-direita {
+            align-items: flex-end;
         }
-        .posicao-clima {
-            left: 41.0%;
+        
+        .titulo-estatistica {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 2.2vh;
+            font-weight: 700;
+            color: #556677;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5vh;
         }
-        .posicao-hora {
-            left: 80.5%;
+        
+        .resultado-estatistica {
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 6.8vh; /* Tamanho massivo para máxima leitura */
+            font-weight: 700;
+            color: #000000; /* Cor alterada para preto puro conforme solicitado */
+            white-space: nowrap;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            gap: 1.5vh;
+        }
+        
+        .icone-clima-led {
+            font-size: 7.5vh;
+            line-height: 1;
         }
     </style>
 </head>
 <body>
     <div class="painel-fundo">
-        <!-- Displays Principais -->
+        <!-- Displays Principais Lado a Lado -->
         <div class="conteudo-displays">
             <div class="quadro-display">
                 <div class="titulo-interno">Dias Sem Acidentes</div>
@@ -132,11 +156,31 @@
             </div>
         </div>
         
-        <!-- Rodapé Ampliado -->
-        <div class="texto-dinamico-rodape posicao-semana" id="txt-semana">--ª Semana</div>
-        <div class="texto-dinamico-rodape posicao-data" id="txt-data">--/--/----</div>
-        <div class="texto-dinamico-rodape posicao-clima" id="txt-clima">--°C</div>
-        <div class="texto-dinamico-rodape posicao-hora" id="txt-hora">--:--:--</div>
+        <!-- Rodapé Reestruturado com Títulos e Dados Independentes -->
+        <div class="novo-rodape-container">
+            <div class="bloco-estatistica">
+                <div class="titulo-estatistica">Semana Atual</div>
+                <div class="resultado-estatistica" id="txt-semana">--ª Semana</div>
+            </div>
+            
+            <div class="bloco-estatistica">
+                <div class="titulo-estatistica">Data</div>
+                <div class="resultado-estatistica" id="txt-data">--/--/----</div>
+            </div>
+            
+            <div class="bloco-estatistica">
+                <div class="titulo-estatistica">Clima</div>
+                <div class="resultado-estatistica">
+                    <span id="clima-icone" class="icone-clima-led">☀️</span>
+                    <span id="txt-clima">--°C</span>
+                </div>
+            </div>
+            
+            <div class="bloco-estatistica alinhar-direita">
+                <div class="titulo-estatistica">Horário</div>
+                <div class="resultado-estatistica" id="txt-hora">--:--:--</div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -148,19 +192,19 @@
             try {
                 const agora = new Date();
 
-                // 1. Data
+                // 1. Atualização da Data
                 const dia = String(agora.getDate()).padStart(2, '0');
                 const mes = String(agora.getMonth() + 1).padStart(2, '0');
                 const ano = agora.getFullYear();
                 document.getElementById('txt-data').textContent = `${dia}/${mes}/${ano}`;
 
-                // 2. Hora
+                // 2. Atualização da Hora
                 const horas = String(agora.getHours()).padStart(2, '0');
                 const minutos = String(agora.getMinutes()).padStart(2, '0');
                 const segundos = String(agora.getSeconds()).padStart(2, '0');
                 document.getElementById('txt-hora').textContent = `${horas}:${minutos}:${segundos}`;
 
-                // 3. Dias sem acidentes
+                // 3. Dias sem acidentes e Recorde
                 const hojeZerado = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate());
                 const dataInicZerada = new Date(DATA_INICIAL.getFullYear(), DATA_INICIAL.getMonth(), DATA_INICIAL.getDate());
                 const diferencaTempo = hojeZerado.getTime() - dataInicZerada.getTime();
@@ -171,16 +215,17 @@
                 const maiorRecorde = Math.max(RECORDE_HISTORICO_BASE, diasSemAcidentes);
                 document.getElementById('num-recorde').textContent = maiorRecorde;
 
-                // 4. Semana Atual (Toda segunda-feira passa para a próxima)
+                // 4. Cálculo Automático da Semana
                 const baseSegundaZerada = new Date(DATA_BASE_34_SEMANA.getFullYear(), DATA_BASE_34_SEMANA.getMonth(), DATA_BASE_34_SEMANA.getDate());
                 const diferencaSemanasTempo = hojeZerado.getTime() - baseSegundaZerada.getTime();
                 const semanasPassadas = Math.floor(diferencaSemanasTempo / (1000 * 60 * 60 * 24 * 7));
                 const semanaAtual = 34 + semanasPassadas;
                 document.getElementById('txt-semana').textContent = `${semanaAtual}ª Semana`;
 
-            } catch (e) { console.error(e); }
+            } catch (e) { console.error("Erro na atualização:", e); }
         }
 
+        // 5. Clima online real de São Luís com mapeamento automático de ícones
         function atualizarClimaReal() {
             try {
                 const url = `https://open-meteo.com`;
@@ -189,24 +234,15 @@
                     .then(data => {
                         if (data && data.current) {
                             const tempArredondada = Math.round(data.current.temperature_2m);
+                            const codigoClima = data.current.weather_code;
+                            
                             document.getElementById('txt-clima').textContent = `${tempArredondada}°C`;
-                        }
-                    })
-                    .catch(() => {
-                        const hora = new Date().getHours();
-                        const tempSimulada = (hora >= 18 || hora < 6) ? 26 : 30;
-                        document.getElementById('txt-clima').textContent = `${tempSimulada}°C`;
-                    });
-            } catch (e) { console.error(e); }
-        }
-
-        // Execuções ao iniciar
-        atualizarPainel();
-        atualizarClimaReal();
-
-        // Loops ativos estáveis
-        setInterval(atualizarPainel, 1000);
-        setInterval(atualizarClimaReal, 900000);
-    </script>
-</body>
-</html>
+                            
+                            // Define o ícone de acordo com as condições meteorológicas reais
+                            let icone = "☀️"; 
+                            if (codigoClima >= 1 && codigoClima <= 3) icone = "⛅";
+                            else if (codigoClima >= 45 && codigoClima <= 48) icone = "洛";
+                            else if (codigoClima >= 51 && codigoClima <= 67) icone = "🌧️";
+                            else if (codigoClima >= 80 && codigoClima <= 82) icone = "🌦️";
+                            else if (codigoClima >= 95) icone = "⛈️";
+                            else {
