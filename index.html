@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel Segurança do Trabalho</title>
-    <!-- CORRIGIDO: Links das fontes do Google corrigidos para evitar bloqueios de segurança -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Chakra+Petch:wght@700&family=Ubuntu:wght@700&display=swap" rel="stylesheet">
@@ -27,6 +26,7 @@
             justify-content: space-between;
             padding: 2vh 2vw;
             overflow: hidden;
+            font-family: 'Ubuntu', sans-serif;
         }
 
         /* Container Superior */
@@ -36,7 +36,7 @@
             align-items: center;
             justify-content: center;
             flex-grow: 1;
-            gap: 3vh;
+            gap: 2.5vh;
             width: 100%;
         }
 
@@ -48,13 +48,11 @@
             border-radius: 12px;
             text-align: center;
             box-shadow: 0px 8px 20px rgba(0,0,0,0.5);
-            width: auto;
             min-width: 45vw;
         }
 
         .caixa-titulo-preta h1 {
-            font-family: 'Ubuntu', sans-serif;
-            font-size: 4vh;
+            font-size: 3.8vh;
             font-weight: 900;
             letter-spacing: 4px;
             color: #ffffff; 
@@ -77,7 +75,6 @@
         }
 
         .subtitulo-texto {
-            font-family: 'Ubuntu', sans-serif;
             font-size: 1.8vh;
             font-weight: 900;
             color: #ffffff; 
@@ -85,7 +82,7 @@
             text-transform: uppercase;
         }
 
-        /* Placar nas Extremidades */
+        /* Placares Grandes Superiores */
         .grid-contadores {
             display: flex;
             flex-direction: row;
@@ -97,31 +94,29 @@
 
         .painel-contador {
             background-color: #030d1a;
-            border: 5px solid #142847;
-            border-radius: 25px;
-            width: 35vw;
-            height: 32vh;
+            border: 4px solid #142847;
+            border-radius: 20px;
+            width: 36vw;
+            height: 28vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 2.5vh 1vw 1.5vh 1vw;
+            padding: 2vh 1vw 1.5vh 1vw;
             box-shadow: 0px 10px 25px rgba(0,0,0,0.4);
         }
 
         .painel-contador h2 {
-            font-family: 'Ubuntu', sans-serif;
             color: #ffffff;
-            font-size: 2.8vh;
+            font-size: 2.6vh;
             text-transform: uppercase;
             letter-spacing: 2px;
             font-weight: bold;
         }
 
-        /* TAMANHO MÁXIMO DOS CONTADORES: Uso de fonte digital Chakra Petch esticada na vertical */
         .numero-digital {
             font-family: 'Chakra Petch', sans-serif;
-            font-size: 22vh;
+            font-size: 16vh;
             font-weight: 700;
             line-height: 0.8;
             letter-spacing: -2px;
@@ -140,62 +135,51 @@
             text-shadow: 0 0 25px rgba(0, 255, 102, 0.7);
         }
 
-        /* Rodapé Estruturado e Protegido */
-        footer {
+        /* NOVO: Rodapé com Caixas Pretas Proporcionais lado a lado */
+        .grid-rodape-caixas {
             display: flex;
+            flex-direction: row;
             justify-content: space-between;
             align-items: center;
             width: 100%;
-            background-color: transparent;
-            padding: 1vh 1vw;
-            margin-bottom: 1vh;
+            gap: 1.5vw;
+            padding: 0 1vw;
+            margin-bottom: 1.5vh;
             z-index: 100;
         }
 
-        .grupo-esquerdo {
-            display: flex;
-            flex-direction: row;
-            gap: 4vw;
-            align-items: center;
-        }
-
-        .bloco-info {
-            display: flex;
-            align-items: center;
-            gap: 0.8vw;
-            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8), -2px -2px 4px rgba(255, 255, 255, 0.8);
-        }
-
-        .icone {
-            font-size: 6.5vh;
-            display: flex;
-            align-items: center;
-        }
-
-        .texto-info {
+        .caixa-info-preta {
+            background-color: #030d1a;
+            border: 3px solid #142847;
+            border-radius: 15px;
+            flex: 1;
+            height: 15vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center;
+            padding: 1vh 0.5vw;
+            box-shadow: 0px 8px 20px rgba(0,0,0,0.4);
         }
 
-        .texto-info p {
-            font-family: 'Ubuntu', sans-serif;
-            font-size: 1.8vh;
-            color: #2c3e50;
+        .caixa-info-preta p {
+            font-size: 1.6vh;
+            color: #a0b0c5;
             font-weight: bold;
             text-transform: uppercase;
-            margin-bottom: 2px;
-            line-height: 1;
+            letter-spacing: 1px;
+            margin-bottom: 0.5vh;
         }
 
-        /* TAMANHO GIGANTE DO RODAPÉ: Redimensionado para o limite máximo físico */
-        .texto-info h3, .texto-info div.resultado-semana {
-            font-family: 'Ubuntu', sans-serif;
-            font-size: 5.8vh;
-            color: #0c2340;
+        /* TAMANHO MÁXIMO DOS RESULTADOS: Letras pretas de alta definição digital */
+        .resultado-texto-led {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 6.2vh;
+            color: #ffffff; /* Ajustado para branco para brilhar dentro da caixa escura */
             font-weight: 700;
             white-space: nowrap;
             line-height: 1;
+            text-shadow: 0 0 15px rgba(0, 170, 255, 0.6);
         }
     </style>
 </head>
@@ -203,7 +187,6 @@
 
     <!-- Bloco Superior -->
     <div class="container-principal">
-        
         <!-- Título -->
         <header class="caixa-titulo-preta">
             <h1>Segurança do Trabalho</h1>
@@ -214,101 +197,88 @@
             </div>
         </header>
 
-        <!-- Placar com Contagem Automática -->
+        <!-- Placar Superior Lado a Lado -->
         <main class="grid-contadores">
             <div class="painel-contador">
                 <h2>Dias Sem Acidentes</h2>
-                <div id="dias-sem-acidente" class="numero-digital vermelho">---</div>
+                <div class="numero-digital vermelho">---</div>
             </div>
 
             <div class="painel-contador">
                 <h2>Nosso Recorde</h2>
-                <div id="nosso-recorde" class="numero-digital verde">---</div>
+                <div class="numero-digital verde">---</div>
             </div>
         </main>
-
     </div>
 
-    <!-- Rodapé Informativo -->
-    <footer>
-        <div class="grupo-esquerdo">
-            <!-- Campo Semana Atual -->
-            <div class="bloco-info">
-                <div class="icone">🗓️</div>
-                <div class="texto-info">
-                    <p>Semana Atual</p>
-                    <div id="semana-campo" class="resultado-semana">--ª Semana</div>
-                </div>
-            </div>
-
-            <!-- Data -->
-            <div class="bloco-info">
-                <div class="icone">📅</div>
-                <div class="texto-info">
-                    <p>Data</p>
-                    <h3 id="data-campo">--/--/----</h3>
-                </div>
-            </div>
-
-            <!-- Clima Local Autônomo -->
-            <div class="bloco-info">
-                <div id="clima-icone" class="icone">☀️</div>
-                <div class="texto-info">
-                    <p>São Luís - MA</p>
-                    <h3 id="temp-campo">--°C</h3>
-                </div>
-            </div>
+    <!-- MODIFICADO: Estrutura do rodapé dividida em 4 caixas eletrônicas proporcionais -->
+    <footer class="grid-rodape-caixas">
+        <div class="caixa-info-preta">
+            <p>Semana Atual</p>
+            <div class="resultado-texto-led">--ª Semana</div>
         </div>
 
-        <!-- Horário -->
-        <div class="bloco-info">
-            <div class="icone">🕒</div>
-            <div class="texto-info">
-                <p>Horário</p>
-                <h3 id="relogio-campo">--:--:--</h3>
-            </div>
+        <div class="caixa-info-preta">
+            <p>Data</p>
+            <div class="resultado-texto-led">--/--/----</div>
+        </div>
+
+        <div class="caixa-info-preta">
+            <p>Clima São Luís</p>
+            <div class="resultado-texto-led">--°C</div>
+        </div>
+
+        <div class="caixa-info-preta">
+            <p>Horário</p>
+            <div class="resultado-texto-led">--:--:--</div>
         </div>
     </footer>
 
-    <!-- Scripts de Atualização Autônomos Completos -->
+    <!-- SCRIPT BLINDADO: Sistema autônomo baseado em Varredura de Caractere Alvo -->
     <script>
-        function calcularDias() {
-            try {
-                const dataInicial = new Date(2024, 10, 25); // 25/11/2024 (Mês no JS começa em 0)
-                const dataAtual = new Date();
-                
-                dataInicial.setHours(0, 0, 0, 0);
-                dataAtual.setHours(0, 0, 0, 0);
-                
-                const diferencaTempo = dataAtual.getTime() - dataInicial.getTime();
-                const diferencaDias = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
-                
-                if (diferencaDias >= 0) {
-                    document.getElementById('dias-sem-acidente').textContent = diferencaDias;
-                    document.getElementById('nosso-recorde').textContent = diferencaDias;
-                }
-            } catch (e) { console.error("Erro ao calcular dias:", e); }
-        }
+        const DATA_INICIAL_CONTAGEM = new Date('2024-11-25T00:00:00');
+        const DATA_BASE_34_SEMANA = new Date('2026-08-17T00:00:00');
 
-        function calcularSemanas() {
-            try {
-                const dataAtual = new Date();
-                const dataBaseSegunda = new Date(2026, 7, 17); // Segunda-feira de referência para a 34ª semana
-                dataBaseSegunda.setHours(0, 0, 0, 0);
-                
-                const hoje = new Date(dataAtual.getTime());
-                hoje.setHours(0, 0, 0, 0);
-                
-                const diferencaTempo = hoje.getTime() - dataBaseSegunda.getTime();
-                const diferencaDias = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
-                
-                const semanasPassadas = Math.floor(diferencaDias / 7);
-                const semanaAtual = 34 + semanasPassadas;
-                
-                document.getElementById('semana-campo').textContent = `${semanaAtual}ª Semana`;
-            } catch (e) { console.error("Erro ao calcular semanas:", e); }
-        }
-
-        function atualizarPainel() {
+        function rodarAtualizacoesPainel() {
             try {
                 const agora = new Date();
+
+                // 1. Geração dos dados dinâmicos de tempo
+                const h = String(agora.getHours()).padStart(2, '0');
+                const m = String(agora.getMinutes()).padStart(2, '0');
+                const s = String(agora.getSeconds()).padStart(2, '0');
+                const horaFormatada = `${h}:${m}:${s}`;
+
+                const dia = String(agora.getDate()).padStart(2, '0');
+                const mes = String(agora.getMonth() + 1).padStart(2, '0');
+                const ano = agora.getFullYear();
+                const dataFormatada = `${dia}/${mes}/${ano}`;
+
+                // 2. Cálculo dos dias corridos desde 25/11/2024
+                const hojeZerado = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate());
+                const dataInicZerada = new Date(DATA_INICIAL_CONTAGEM.getFullYear(), DATA_INICIAL_CONTAGEM.getMonth(), DATA_INICIAL_CONTAGEM.getDate());
+                const diferencaTempo = hojeZerado.getTime() - dataInicZerada.getTime();
+                const diasCalculados = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
+
+                // 3. Cálculo da semana atual (Vira de domingo para segunda)
+                const baseSegundaZerada = new Date(DATA_BASE_34_SEMANA.getFullYear(), DATA_BASE_34_SEMANA.getMonth(), DATA_BASE_34_SEMANA.getDate());
+                const diferencaSemanasTempo = hojeZerado.getTime() - baseSegundaZerada.getTime();
+                const semanasPassadas = Math.floor(diferencaSemanasTempo / (1000 * 60 * 60 * 24 * 7));
+                const semanaCalculada = 34 + semanasPassadas;
+
+                // 4. Varredura Universal Cega: Atualiza varrendo o texto sem depender das IDs antigas
+                const elementosTexto = document.querySelectorAll('.numero-digital, .resultado-texto-led');
+                
+                elementosTexto.forEach(el => {
+                    let textoOriginal = el.textContent.trim();
+
+                    if (textoOriginal === '---') {
+                        el.textContent = diasCalculados;
+                    } else if (textoOriginal.includes('--:--') || (textoOriginal.includes(':') && textoOriginal.length <= 9)) {
+                        el.textContent = horaFormatada;
+                    } else if (textoOriginal.includes('--/--') || (textoOriginal.includes('/') && textoOriginal.length <= 11)) {
+                        el.textContent = dataFormatada;
+                    } else if (textoOriginal.includes('--ª') || textoOriginal.includes('Semana')) {
+                        el.textContent = `${semanaCalculada}ª Semana`;
+                    }
+                });
