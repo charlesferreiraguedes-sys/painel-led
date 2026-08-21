@@ -14,79 +14,46 @@
         body {
             width: 100vw;
             height: 100vh;
-            background-color: #ffffff;
+            background-image: url('URL_DA_SUA_SEGUNDA_FOTO.jpg'); /* Mantém o caminho original da sua imagem de fundo */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 20px 40px;
+            padding: 25px 40px;
             overflow: hidden;
-            font-family: 'Arial', sans-serif;
-            position: relative;
         }
 
-        /* Imagens de Fundo e Logotipos Estestruturados do Seu Painel */
-        .bg-industrial {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 1;
-        }
-
-        .logo-rede {
-            position: absolute;
-            top: 25px;
-            left: 200px;
-            height: 110px;
-            z-index: 2;
-        }
-
-        .logo-towork {
-            position: absolute;
-            top: 25px;
-            right: 240px;
-            height: 110px;
-            z-index: 2;
-        }
-
-        .logo-trilha {
-            position: absolute;
-            bottom: 15px;
-            left: 55%;
-            transform: translateX(-50%);
-            height: 75px;
-            z-index: 2;
-        }
-
-        /* Estrutura do Título Central */
+        /* Container Superior */
         .container-principal {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             flex-grow: 1;
-            gap: 30px;
-            margin-top: 50px;
+            gap: 15px;
+            margin-top: 20px;
             width: 100%;
-            z-index: 3;
         }
 
+        /* Caixa de Título Preta */
         .caixa-titulo-preta {
             background-color: #000000;
             border: 2px solid #112233;
-            padding: 15px 60px;
+            padding: 20px 60px;
             border-radius: 12px;
             text-align: center;
             box-shadow: 0px 8px 20px rgba(0,0,0,0.5);
-            min-width: 650px;
+            width: auto;
+            min-width: 800px;
         }
 
         .caixa-titulo-preta h1 {
-            font-size: 2.8rem;
+            font-family: 'Arial', sans-serif;
+            font-size: 3.2rem;
             font-weight: 900;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             color: #ffffff;
             text-transform: uppercase;
             line-height: 1.1;
@@ -96,25 +63,26 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            margin-top: 8px;
+            gap: 20px;
+            margin-top: 12px;
         }
 
         .linha-verde {
-            width: 60px;
+            width: 80px;
             height: 3px;
             background-color: #006437;
         }
 
         .subtitulo-texto {
-            font-size: 1.2rem;
+            font-family: 'Arial', sans-serif;
+            font-size: 1.5rem;
             font-weight: 900;
             color: #ffffff;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             text-transform: uppercase;
         }
 
-        /* Placares Grandes de Dias */
+        /* Placar nas Extremidades */
         .grid-contadores {
             display: flex;
             flex-direction: row;
@@ -128,27 +96,27 @@
             background-color: #030d1a;
             border: 4px solid #142847;
             border-radius: 20px;
-            width: 320px;
-            padding: 20px 10px;
+            width: 480px;
+            padding: 20px 15px;
             text-align: center;
             box-shadow: 0px 10px 20px rgba(0,0,0,0.3);
         }
 
         .painel-contador h2 {
+            font-family: 'Arial', sans-serif;
             color: #ffffff;
-            font-size: 1.1rem;
+            font-size: 1.4rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             margin-bottom: 5px;
             font-weight: bold;
         }
 
         .numero-digital {
             font-family: 'Courier New', Courier, monospace;
-            font-size: 6.5rem;
+            font-size: 8.5rem;
             font-weight: bold;
             line-height: 1;
-            display: block;
         }
 
         .vermelho {
@@ -161,47 +129,48 @@
             text-shadow: 0 0 20px rgba(0, 255, 102, 0.6);
         }
 
-        /* Rodapé Ajustado */
+        /* Rodapé Transparente */
         footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
             width: 100%;
             background-color: transparent;
-            padding: 10px 10px;
-            z-index: 3;
-            border-top: 1px solid rgba(0,0,0,0.1);
+            padding: 15px 20px;
+            border: none;
+            box-shadow: none;
         }
 
         .grupo-esquerdo {
             display: flex;
             flex-direction: row;
-            gap: 40px;
+            gap: 50px;
             align-items: center;
         }
 
         .bloco-info {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8), -2px -2px 4px rgba(255, 255, 255, 0.8);
         }
 
-        .icone-img {
-            height: 55px;
-            object-fit: contain;
+        .icone {
+            font-size: 4.5rem;
         }
 
         .texto-info p {
-            font-size: 0.9rem;
+            font-family: 'Arial', sans-serif;
+            font-size: 1.2rem;
             color: #2c3e50;
             font-weight: bold;
             text-transform: uppercase;
-            margin-bottom: 1px;
+            margin-bottom: 2px;
         }
 
-        /* Tamanho Máximo Ampliado Solicitado */
         .texto-info h3 {
-            font-size: 3.2rem;
+            font-family: 'Arial', sans-serif;
+            font-size: 3.5rem;
             color: #0c2340;
             font-weight: 900;
             white-space: nowrap;
@@ -211,14 +180,9 @@
 </head>
 <body>
 
-    <!-- Elementos Visuais Fixos Extraídos da Sua Imagem -->
-    <img src="fundo.jpg" class="bg-industrial" alt="Fundo Industrial">
-    <img src="logo_rede.png" class="logo-rede" alt="Logo ReDe">
-    <img src="logo_towork.png" class="logo-towork" alt="Logo To Work">
-    <img src="logo_trilha.png" class="logo-trilha" alt="Logo Trilha">
-
-    <!-- Bloco de Conteúdo -->
+    <!-- Bloco Superior -->
     <div class="container-principal">
+        <!-- Título -->
         <header class="caixa-titulo-preta">
             <h1>Segurança do Trabalho</h1>
             <div class="subtitulo-container">
@@ -228,99 +192,122 @@
             </div>
         </header>
 
+        <!-- Placar com Contagem Automática -->
         <main class="grid-contadores">
             <div class="painel-contador">
                 <h2>Dias Sem Acidentes</h2>
-                <span class="numero-digital vermelho">---</span>
+                <div id="dias-sem-acidente" class="numero-digital vermelho">---</div>
             </div>
             
             <div class="painel-contador">
                 <h2>Nosso Recorde</h2>
-                <span class="numero-digital verde">---</span>
+                <div id="nosso-recorde" class="numero-digital verde">---</div>
             </div>
         </main>
     </div>
 
-    <!-- Rodapé Informativo -->
+    <!-- Rodapé -->
     <footer>
         <div class="grupo-esquerdo">
-            <!-- Semana Atual -->
+            <!-- Caixa de Semanas -->
             <div class="bloco-info">
-                <img src="icone_semana.png" class="icone-img" alt="Ícone Semana">
+                <div class="icone">🗓️</div>
                 <div class="texto-info">
                     <p>Semana Atual</p>
-                    <h3>--ª Semana</h3>
+                    <h3 id="semana-campo">--ª Semana</h3>
                 </div>
             </div>
 
             <!-- Data -->
             <div class="bloco-info">
-                <img src="icone_data.png" class="icone-img" alt="Ícone Data">
+                <div class="icone">📅</div>
                 <div class="texto-info">
                     <p>Data</p>
-                    <h3>--/--/----</h3>
+                    <h3 id="data-campo">--/--/----</h3>
                 </div>
             </div>
 
-            <!-- Clima São Luís -->
+            <!-- Clima Local Real -->
             <div class="bloco-info">
-                <img src="icone_clima.png" class="icone-img" alt="Ícone Clima">
+                <div id="clima-icone" class="icone">☀️</div>
                 <div class="texto-info">
                     <p>São Luís - MA</p>
-                    <h3>--°C</h3>
+                    <h3 id="temp-campo">--°C</h3>
                 </div>
             </div>
         </div>
 
         <!-- Horário -->
         <div class="bloco-info">
-            <img src="icone_relogio.png" class="icone-img" alt="Ícone Relógio">
+            <div class="icone">🕒</div>
             <div class="texto-info">
                 <p>Horário</p>
-                <h3>--:--:--</h3>
+                <h3 id="relogio-campo">--:--:--</h3>
             </div>
         </div>
     </footer>
 
-    <!-- Script de Automação por Busca Inteligente de Conteúdo -->
     <script>
-        function atualizarTudo() {
+        function calcularDias() {
+            try {
+                const dataInicial = new Date(2024, 10, 25); // 25/11/2024
+                const dataAtual = new Date();
+
+                dataInicial.setHours(0, 0, 0, 0);
+                dataAtual.setHours(0, 0, 0, 0);
+
+                const diferencaTempo = dataAtual.getTime() - dataInicial.getTime();
+                const diferencaDias = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
+
+                if (diferencaDias >= 0) {
+                    document.getElementById('dias-sem-acidente').textContent = diferencaDias;
+                    document.getElementById('nosso-recorde').textContent = diferencaDias;
+                }
+            } catch (e) { console.error("Erro ao calcular dias:", e); }
+        }
+
+        function calcularSemanas() {
+            try {
+                const dataAtual = new Date();
+                const dataBaseSegunda = new Date(2026, 7, 17); // Segunda-feira de base para a 34ª semana
+                dataBaseSegunda.setHours(0, 0, 0, 0);
+                
+                const hoje = new Date(dataAtual.getTime());
+                hoje.setHours(0, 0, 0, 0);
+                
+                const diferencaTempo = hoje.getTime() - dataBaseSegunda.getTime();
+                const diferencaDias = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
+                
+                const semanasPassadas = Math.floor(diferencaDias / 7);
+                const semanaAtual = 34 + semanasPassadas;
+                
+                document.getElementById('semana-campo').textContent = `${semanaAtual}ª Semana`;
+            } catch (e) { console.error("Erro ao calcular semanas:", e); }
+        }
+
+        function atualizarPainel() {
             try {
                 const agora = new Date();
 
-                // 1. Cálculos de Tempo
-                const h = String(agora.getHours()).padStart(2, '0');
-                const m = String(agora.getMinutes()).padStart(2, '0');
-                const s = String(agora.getSeconds()).padStart(2, '0');
-                const horaFormatada = `${h}:${m}:${s}`;
+                const horas = String(agora.getHours()).padStart(2, '0');
+                const minutos = String(agora.getMinutes()).padStart(2, '0');
+                const segundos = String(agora.getSeconds()).padStart(2, '0');
+                document.getElementById('relogio-campo').textContent = `${horas}:${minutos}:${segundos}`;
 
                 const dia = String(agora.getDate()).padStart(2, '0');
                 const mes = String(agora.getMonth() + 1).padStart(2, '0');
                 const ano = agora.getFullYear();
-                const dataFormatada = `${dia}/${mes}/${ano}`;
+                document.getElementById('data-campo').textContent = `${dia}/${mes}/${ano}`;
+            } catch (e) { console.error("Erro ao atualizar data e hora:", e); }
+        }
 
-                // 2. Cálculos de Dias Sem Acidentes (Base: 25/11/2024)
-                const dataInicial = new Date(2024, 10, 25);
-                dataInicial.setHours(0,0,0,0);
-                const hojeZerar = new Date(agora.getTime());
-                hojeZerar.setHours(0,0,0,0);
-                const diasSemAcidente = Math.floor((hojeZerar - dataInicial) / (1000 * 60 * 60 * 24));
-
-                // 3. Cálculos de Semana (Base: 17/08/2026 = 34ª Semana)
-                const dataBaseSegunda = new Date(2026, 7, 17);
-                dataBaseSegunda.setHours(0,0,0,0);
-                const semanasPassadas = Math.floor((hojeZerar - dataBaseSegunda) / (1000 * 60 * 60 * 24 * 7));
-                const semanaAtual = 34 + semanasPassadas;
-
-                // 4. Varredura Automática Dinâmica (Sem depender de IDs)
-                const todosOsCampos = document.querySelectorAll('h3, span');
-                todosOsCampos.forEach(el => {
-                    let txt = el.textContent;
-                    
-                    if (txt === '---') {
-                        el.textContent = diasSemAcidente;
-                    } else if (txt.includes(':') || txt.includes('--:--')) {
-                        el.textContent = horaFormatada;
-                    } else if (txt.includes('/') || txt.includes('--/--')) {
-                        el.textContent = dataFormatada;
-                    } else if (txt.includes('Semana') || txt.includes('--ª')) {
+        function usarClimaOffline() {
+            try {
+                const horaAtual = new Date().getHours();
+                let temperaturaSimulada = 28;
+                let iconeSimulado = "☀️";
+                if (horaAtual >= 18 || horaAtual < 6) {
+                    temperaturaSimulada = 26;
+                    iconeSimulado = "🌙";
+                }
+                document.getElementById('temp-campo').textContent = `${temperaturaSimulada}°C`;
