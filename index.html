@@ -196,12 +196,12 @@
         <main class="grid-contadores">
             <div class="painel-contador">
                 <h2>Dias Sem Acidentes</h2>
-                <div id="dias-sem-acidente" class="numero-digital vermelho">633</div>
+                <div id="dias-sem-acidente" class="numero-digital vermelho">---</div>
             </div>
             
             <div class="painel-contador">
                 <h2>Nosso Recorde</h2>
-                <div id="nosso-recorde" class="numero-digital verde">633</div>
+                <div id="nosso-recorde" class="numero-digital verde">---</div>
             </div>
         </main>
     </div>
@@ -214,7 +214,7 @@
                 <div class="icone">🗓️</div>
                 <div class="texto-info">
                     <p>Semana Atual</p>
-                    <h3 id="semana-campo">34ª Semana</h3>
+                    <h3 id="semana-campo">--ª Semana</h3>
                 </div>
             </div>
 
@@ -223,7 +223,7 @@
                 <div class="icone">📅</div>
                 <div class="texto-info">
                     <p>Data</p>
-                    <h3 id="data-campo">20/08/2026</h3>
+                    <h3 id="data-campo">--/--/----</h3>
                 </div>
             </div>
 
@@ -232,7 +232,7 @@
                 <div id="clima-icone" class="icone">☀️</div>
                 <div class="texto-info">
                     <p>São Luís - MA</p>
-                    <h3 id="temp-campo">28°C</h3>
+                    <h3 id="temp-campo">--°C</h3>
                 </div>
             </div>
         </div>
@@ -242,7 +242,7 @@
             <div class="icone">🕒</div>
             <div class="texto-info">
                 <p>Horário</p>
-                <h3 id="relogio-campo">16:23:00</h3>
+                <h3 id="relogio-campo">--:--:--</h3>
             </div>
         </div>
     </footer>
@@ -263,13 +263,13 @@
                     document.getElementById('dias-sem-acidente').textContent = diferencaDias;
                     document.getElementById('nosso-recorde').textContent = diferencaDias;
                 }
-            } catch (e) { console.error(e); }
+            } catch (e) { console.error("Erro ao calcular dias:", e); }
         }
 
         function calcularSemanas() {
             try {
                 const dataAtual = new Date();
-                const dataBaseSegunda = new Date(2026, 7, 17); 
+                const dataBaseSegunda = new Date(2026, 7, 17); // Segunda-feira de base para a 34ª semana
                 dataBaseSegunda.setHours(0, 0, 0, 0);
                 
                 const hoje = new Date(dataAtual.getTime());
@@ -282,7 +282,7 @@
                 const semanaAtual = 34 + semanasPassadas;
                 
                 document.getElementById('semana-campo').textContent = `${semanaAtual}ª Semana`;
-            } catch (e) { console.error(e); }
+            } catch (e) { console.error("Erro ao calcular semanas:", e); }
         }
 
         function atualizarPainel() {
@@ -290,7 +290,7 @@
                 const agora = new Date();
 
                 const horas = String(agora.getHours()).padStart(2, '0');
-                const minutos = String(agora.getMinutes()).padStart(2, '0'); // CORRIGIDO: Nome unificado em português
+                const minutos = String(agora.getMinutes()).padStart(2, '0');
                 const segundos = String(agora.getSeconds()).padStart(2, '0');
                 document.getElementById('relogio-campo').textContent = `${horas}:${minutos}:${segundos}`;
 
@@ -298,17 +298,16 @@
                 const mes = String(agora.getMonth() + 1).padStart(2, '0');
                 const ano = agora.getFullYear();
                 document.getElementById('data-campo').textContent = `${dia}/${mes}/${ano}`;
-            } catch (e) { console.error(e); }
+            } catch (e) { console.error("Erro ao atualizar data e hora:", e); }
         }
 
-        function atualizarClimaReal() {
+        function usarClimaOffline() {
             try {
-                const lat = -2.53073;
-                const lon = -44.3068;
-                const url = `https://open-meteo.com{lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=America/Fortaleza`;
-
-                fetch(url)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data && data.current) {
-                            const tempArredondada = Math.round(data.current.temperature_2m);
+                const horaAtual = new Date().getHours();
+                let temperaturaSimulada = 28;
+                let iconeSimulado = "☀️";
+                if (horaAtual >= 18 || horaAtual < 6) {
+                    temperaturaSimulada = 26;
+                    iconeSimulado = "🌙";
+                }
+                document.getElementById('temp-campo').textContent = `${temperaturaSimulada}°C`;
