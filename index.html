@@ -32,10 +32,10 @@
             position: relative;
         }
         
-        /* ALTERADO: Área dos displays configurada na horizontal (lado a lado) */
+        /* MODIFICADO: Displays movidos para baixo (top: 27%) */
         .conteudo-displays {
             position: absolute;
-            top: 22%;
+            top: 27%;
             left: 5%;
             width: 90%;
             height: 40vh;
@@ -54,16 +54,17 @@
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
-            padding: 2.5vh 0;
+            padding: 3vh 0;
             box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
             border: 3.5px solid #0f243d;
         }
         .borda-verde {
             border: 3.5px solid #08221a;
         }
+        /* MODIFICADO: Letras do título interno aumentadas */
         .titulo-interno {
             color: #ffffff;
-            font-size: 3vh;
+            font-size: 3.8vh;
             font-weight: 700;
             font-family: 'Ubuntu', sans-serif;
             text-transform: uppercase;
@@ -88,7 +89,7 @@
             text-shadow: 0 0 25px rgba(0, 255, 85, 0.7);
         }
         
-        /* ALTERADO: Novo Rodapé com títulos fixos e resultados pretos gigantes */
+        /* Rodapé Container */
         .novo-rodape-container {
             position: absolute;
             bottom: 3vh;
@@ -109,26 +110,26 @@
             align-items: flex-start;
         }
         
-        /* Alinhamento à direita exclusivo para o horário ficar correto na extremidade */
         .bloco-estatistica.alinhar-direita {
             align-items: flex-end;
         }
         
         .titulo-estatistica {
             font-family: 'Ubuntu', sans-serif;
-            font-size: 2.2vh;
+            font-size: 2.4vh;
             font-weight: 700;
-            color: #556677;
+            color: #445566;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 0.5vh;
         }
         
+        /* MODIFICADO: Tamanho dos resultados aumentado ao limite visual */
         .resultado-estatistica {
             font-family: 'Ubuntu', sans-serif;
-            font-size: 6.8vh; /* Tamanho massivo para máxima leitura */
+            font-size: 7.2vh; 
             font-weight: 700;
-            color: #000000; /* Cor alterada para preto puro conforme solicitado */
+            color: #000000; 
             white-space: nowrap;
             line-height: 1;
             display: flex;
@@ -137,7 +138,7 @@
         }
         
         .icone-clima-led {
-            font-size: 7.5vh;
+            font-size: 8vh;
             line-height: 1;
         }
     </style>
@@ -148,27 +149,27 @@
         <div class="conteudo-displays">
             <div class="quadro-display">
                 <div class="titulo-interno">Dias Sem Acidentes</div>
-                <div class="contador-led led-vermelho" id="num-dias">0</div>
+                <div class="contador-led led-vermelho" id="num-dias">---</div>
             </div>
             <div class="quadro-display borda-verde">
                 <div class="titulo-interno">Nosso Recorde</div>
-                <div class="contador-led led-verde" id="num-recorde">609</div>
+                <div class="contador-led led-verde" id="num-recorde">---</div>
             </div>
         </div>
         
-        <!-- Rodapé Reestruturado com Títulos e Dados Independentes -->
+        <!-- Rodapé Ampliado -->
         <div class="novo-rodape-container">
-            <div class="bloco-estatistica">
+            <div class="bloco-info bloco-estatistica">
                 <div class="titulo-estatistica">Semana Atual</div>
                 <div class="resultado-estatistica" id="txt-semana">--ª Semana</div>
             </div>
             
-            <div class="bloco-estatistica">
+            <div class="bloco-info bloco-estatistica">
                 <div class="titulo-estatistica">Data</div>
                 <div class="resultado-estatistica" id="txt-data">--/--/----</div>
             </div>
             
-            <div class="bloco-estatistica">
+            <div class="bloco-info bloco-estatistica">
                 <div class="titulo-estatistica">Clima</div>
                 <div class="resultado-estatistica">
                     <span id="clima-icone" class="icone-clima-led">☀️</span>
@@ -176,7 +177,7 @@
                 </div>
             </div>
             
-            <div class="bloco-estatistica alinhar-direita">
+            <div class="bloco-info bloco-estatistica alinhar-direita">
                 <div class="titulo-estatistica">Horário</div>
                 <div class="resultado-estatistica" id="txt-hora">--:--:--</div>
             </div>
@@ -184,8 +185,8 @@
     </div>
 
     <script>
-        const DATA_INICIAL = new Date('2024-11-25T00:00:00');
-        const RECORDE_HISTORICO_BASE = 609;
+        // MODIFICADO: Contagem iniciando perfeitamente em 15 de novembro de 2024
+        const DATA_INICIAL = new Date('2024-11-15T00:00:00');
         const DATA_BASE_34_SEMANA = new Date('2026-08-17T00:00:00');
 
         function atualizarPainel() {
@@ -204,16 +205,15 @@
                 const segundos = String(agora.getSeconds()).padStart(2, '0');
                 document.getElementById('txt-hora').textContent = `${horas}:${minutos}:${segundos}`;
 
-                // 3. Dias sem acidentes e Recorde
+                // 3. Dias sem acidentes automático
                 const hojeZerado = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate());
                 const dataInicZerada = new Date(DATA_INICIAL.getFullYear(), DATA_INICIAL.getMonth(), DATA_INICIAL.getDate());
                 const diferencaTempo = hojeZerado.getTime() - dataInicZerada.getTime();
                 const diasSemAcidentes = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
 
+                // Ambos os campos passam a espelhar o mesmo valor em tempo real
                 document.getElementById('num-dias').textContent = diasSemAcidentes;
-
-                const maiorRecorde = Math.max(RECORDE_HISTORICO_BASE, diasSemAcidentes);
-                document.getElementById('num-recorde').textContent = maiorRecorde;
+                document.getElementById('num-recorde').textContent = diasSemAcidentes;
 
                 // 4. Cálculo Automático da Semana
                 const baseSegundaZerada = new Date(DATA_BASE_34_SEMANA.getFullYear(), DATA_BASE_34_SEMANA.getMonth(), DATA_BASE_34_SEMANA.getDate());
@@ -225,7 +225,7 @@
             } catch (e) { console.error("Erro na atualização:", e); }
         }
 
-        // 5. Clima online real de São Luís com mapeamento automático de ícones
+        // 5. Clima online real de São Luís
         function atualizarClimaReal() {
             try {
                 const url = `https://open-meteo.com`;
@@ -238,11 +238,13 @@
                             
                             document.getElementById('txt-clima').textContent = `${tempArredondada}°C`;
                             
-                            // Define o ícone de acordo com as condições meteorológicas reais
                             let icone = "☀️"; 
                             if (codigoClima >= 1 && codigoClima <= 3) icone = "⛅";
-                            else if (codigoClima >= 45 && codigoClima <= 48) icone = "洛";
+                            else if (codigoClima >= 45 && codigoClima <= 48) icone = "🌫️";
                             else if (codigoClima >= 51 && codigoClima <= 67) icone = "🌧️";
                             else if (codigoClima >= 80 && codigoClima <= 82) icone = "🌦️";
                             else if (codigoClima >= 95) icone = "⛈️";
                             else {
+                                const hora = new Date().getHours();
+                                if (hora >= 18 || hora < 6) icone = "🌙";
+                            }
