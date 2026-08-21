@@ -14,7 +14,7 @@
         body {
             width: 100vw;
             height: 100vh;
-            background-image: url('URL_DA_SUA_SEGUNDA_FOTO.jpg'); /* Substitua pelo caminho real da imagem */
+            background-image: url('URL_DA_SUA_SEGUNDA_FOTO.jpg'); /* Substitua pelo caminho real da sua imagem de fundo se necessário */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -23,6 +23,7 @@
             justify-content: space-between;
             padding: 25px 40px;
             overflow: hidden;
+            font-family: 'Arial', sans-serif;
         }
 
         /* Container Superior */
@@ -47,10 +48,10 @@
             box-shadow: 0px 8px 20px rgba(0,0,0,0.5);
             width: auto;
             min-width: 800px;
+            z-index: 10;
         }
 
         .caixa-titulo-preta h1 {
-            font-family: 'Arial', sans-serif;
             font-size: 3.2rem;
             font-weight: 900;
             letter-spacing: 4px;
@@ -74,7 +75,6 @@
         }
 
         .subtitulo-texto {
-            font-family: 'Arial', sans-serif;
             font-size: 1.5rem;
             font-weight: 900;
             color: #ffffff;
@@ -90,6 +90,7 @@
             align-items: center;
             width: 100%;
             padding: 0 10px;
+            z-index: 10;
         }
 
         .painel-contador {
@@ -97,18 +98,17 @@
             border: 4px solid #142847;
             border-radius: 20px;
             width: 480px;
-            padding: 20px 15px;
+            padding: 25px 15px;
             text-align: center;
             box-shadow: 0px 10px 20px rgba(0,0,0,0.3);
         }
 
         .painel-contador h2 {
-            font-family: 'Arial', sans-serif;
             color: #ffffff;
             font-size: 1.4rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             font-weight: bold;
         }
 
@@ -129,7 +129,7 @@
             text-shadow: 0 0 20px rgba(0, 255, 102, 0.6);
         }
 
-        /* Rodapé Transparente */
+        /* Rodapé Estruturado */
         footer {
             display: flex;
             justify-content: space-between;
@@ -139,6 +139,7 @@
             padding: 15px 20px;
             border: none;
             box-shadow: none;
+            z-index: 10;
         }
 
         .grupo-esquerdo {
@@ -160,7 +161,6 @@
         }
 
         .texto-info p {
-            font-family: 'Arial', sans-serif;
             font-size: 1.2rem;
             color: #2c3e50;
             font-weight: bold;
@@ -168,8 +168,8 @@
             margin-bottom: 2px;
         }
 
+        /* Fonte ampliada ao máximo para os resultados do rodapé */
         .texto-info h3 {
-            font-family: 'Arial', sans-serif;
             font-size: 3.5rem;
             color: #0c2340;
             font-weight: 900;
@@ -182,7 +182,7 @@
 
     <!-- Bloco Superior -->
     <div class="container-principal">
-        <!-- Título -->
+        <!-- Título Central -->
         <header class="caixa-titulo-preta">
             <h1>Segurança do Trabalho</h1>
             <div class="subtitulo-container">
@@ -192,7 +192,7 @@
             </div>
         </header>
 
-        <!-- Placar com Contagem Automática -->
+        <!-- Placar Eletrônico de Dias -->
         <main class="grid-contadores">
             <div class="painel-contador">
                 <h2>Dias Sem Acidentes</h2>
@@ -206,10 +206,10 @@
         </main>
     </div>
 
-    <!-- Rodapé -->
+    <!-- Rodapé de Informações -->
     <footer>
         <div class="grupo-esquerdo">
-            <!-- Caixa de Semanas -->
+            <!-- Espaço Adicionado: Semana Atual -->
             <div class="bloco-info">
                 <div class="icone">🗓️</div>
                 <div class="texto-info">
@@ -227,7 +227,7 @@
                 </div>
             </div>
 
-            <!-- Clima Local Real -->
+            <!-- Clima Tempo Real de São Luís -->
             <div class="bloco-info">
                 <div id="clima-icone" class="icone">☀️</div>
                 <div class="texto-info">
@@ -237,7 +237,7 @@
             </div>
         </div>
 
-        <!-- Horário -->
+        <!-- Horário Corrente -->
         <div class="bloco-info">
             <div class="icone">🕒</div>
             <div class="texto-info">
@@ -247,12 +247,30 @@
         </div>
     </footer>
 
+    <!-- Lógica de Automação Blindada -->
     <script>
+        // Função do Relógio e Data (Atualização contínua de 1 em 1 segundo)
+        function atualizarPainel() {
+            try {
+                const agora = new Date();
+
+                const horas = String(agora.getHours()).padStart(2, '0');
+                const minutos = String(agora.getMinutes()).padStart(2, '0');
+                const segundos = String(agora.getSeconds()).padStart(2, '0');
+                document.getElementById('relogio-campo').textContent = `${horas}:${minutos}:${segundos}`;
+
+                const dia = String(agora.getDate()).padStart(2, '0');
+                const mes = String(agora.getMonth() + 1).padStart(2, '0');
+                const ano = agora.getFullYear();
+                document.getElementById('data-campo').textContent = `${dia}/${mes}/${ano}`;
+            } catch (e) { console.error("Erro no relógio:", e); }
+        }
+
+        // Função de Dias Sem Acidente (Base fixa em 25/11/2024)
         function calcularDias() {
             try {
-                const dataInicial = new Date(2024, 10, 25); // 25/11/2024
+                const dataInicial = new Date(2024, 10, 25); 
                 const dataAtual = new Date();
-
                 dataInicial.setHours(0, 0, 0, 0);
                 dataAtual.setHours(0, 0, 0, 0);
 
@@ -263,9 +281,10 @@
                     document.getElementById('dias-sem-acidente').textContent = diferencaDias;
                     document.getElementById('nosso-recorde').textContent = diferencaDias;
                 }
-            } catch (e) { console.error(e); }
+            } catch (e) { console.error("Erro nos contadores de dias:", e); }
         }
 
+        // Função de Contador de Semanas Automático (Base em 17/08/2026 como a 34ª Semana)
         function calcularSemanas() {
             try {
                 const dataAtual = new Date();
@@ -282,33 +301,10 @@
                 const semanaAtual = 34 + semanasPassadas;
                 
                 document.getElementById('semana-campo').textContent = `${semanaAtual}ª Semana`;
-            } catch (e) { console.error(e); }
+            } catch (e) { console.error("Erro no cálculo de semanas:", e); }
         }
 
-        function atualizarPainel() {
+        // Caso a API externa falhe, assume este fallback climático inteligente baseado no horário local
+        function usarClimaOffline() {
             try {
-                const agora = new Date();
-
-                const horas = String(agora.getHours()).padStart(2, '0');
-                const minutos = String(agora.getMinutes()).padStart(2, '0');
-                const segundos = String(agora.getSeconds()).padStart(2, '0');
-                document.getElementById('relogio-campo').textContent = `${horas}:${minutos}:${segundos}`;
-
-                const dia = String(agora.getDate()).padStart(2, '0');
-                const mes = String(agora.getMonth() + 1).padStart(2, '0');
-                const ano = agora.getFullYear();
-                document.getElementById('data-campo').textContent = `${dia}/${mes}/${ano}`;
-            } catch (e) { console.error(e); }
-        }
-
-        function atualizarClimaReal() {
-            try {
-                const lat = -2.53073;
-                const lon = -44.3068;
-                const url = `https://open-meteo.com{lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=America/Fortaleza`;
-
-                fetch(url)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data && data.current) {
-                            const tempArredondada = Math.round(data.current.temperature_2m);
+                const horaAtual = new Date().getHours();
