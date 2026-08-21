@@ -32,8 +32,7 @@
             align-items: center;
             justify-content: center;
             flex-grow: 1;
-            gap: 2vh;
-            margin-top: 1vh;
+            gap: 4vh;
             width: 100%;
         }
 
@@ -41,17 +40,17 @@
         .caixa-titulo-preta {
             background-color: #000000;
             border: 2px solid #112233;
-            padding: 2vh 4vw;
+            padding: 1.5vh 3vw;
             border-radius: 12px;
             text-align: center;
             box-shadow: 0px 8px 20px rgba(0,0,0,0.5);
             width: auto;
-            min-width: 50vw;
+            min-width: 45vw;
         }
 
         .caixa-titulo-preta h1 {
             font-family: 'Arial', sans-serif;
-            font-size: 4.8vh;
+            font-size: 4vh;
             font-weight: 900;
             letter-spacing: 4px;
             color: #ffffff; 
@@ -64,21 +63,21 @@
             align-items: center;
             justify-content: center;
             gap: 1.5vw;
-            margin-top: 1vh;
+            margin-top: 0.5vh;
         }
 
         .linha-verde {
-            width: 5vw;
-            height: 4px;
+            width: 4vw;
+            height: 3px;
             background-color: #006437;
         }
 
         .subtitulo-texto {
             font-family: 'Arial', sans-serif;
-            font-size: 2.2vh;
+            font-size: 1.8vh;
             font-weight: 900;
             color: #ffffff; 
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             text-transform: uppercase;
         }
 
@@ -96,30 +95,37 @@
             background-color: #030d1a;
             border: 5px solid #142847;
             border-radius: 25px;
-            width: 32vw;
-            padding: 3vh 1.5vw;
-            text-align: center;
+            width: 35vw;
+            height: 32vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2vh 1vw;
             box-shadow: 0px 10px 25px rgba(0,0,0,0.4);
         }
 
-        /* AMPLIADO: Títulos dos contadores principais */
         .painel-contador h2 {
             font-family: 'Arial', sans-serif;
             color: #ffffff;
             font-size: 2.8vh;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 1.5vh;
+            margin-bottom: 1vh;
             font-weight: bold;
         }
 
-        /* AMPLIADO AO MÁXIMO: Números digitais gigantes */
+        /* TAMANHO MÁXIMO DOS CONTADORES: Ajustado com flex para não quebrar a tela */
         .numero-digital {
             font-family: 'Courier New', Courier, monospace;
-            font-size: 17vh;
+            font-size: 15vh;
             font-weight: bold;
-            line-height: 0.9;
+            line-height: 1;
             letter-spacing: -2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
         }
 
         .vermelho {
@@ -132,35 +138,41 @@
             text-shadow: 0 0 25px rgba(0, 255, 102, 0.7);
         }
 
-        /* Rodapé Ajustado */
+        /* Rodapé Alinhado */
         footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
             width: 100%;
             background-color: transparent;
-            padding: 2vh 2vw;
-            border: none;
-            box-shadow: none;
+            padding: 1vh 1vw;
+            margin-bottom: 1vh;
         }
 
         .grupo-esquerdo {
             display: flex;
             flex-direction: row;
-            gap: 4vw;
+            gap: 3.5vw;
             align-items: center;
         }
 
         .bloco-info {
             display: flex;
             align-items: center;
-            gap: 1vw;
+            gap: 0.8vw;
             text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8), -2px -2px 4px rgba(255, 255, 255, 0.8);
         }
 
-        /* AMPLIADO: Ícones do rodapé */
         .icone {
-            font-size: 5.5vh;
+            font-size: 6vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .texto-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .texto-info p {
@@ -170,12 +182,13 @@
             font-weight: bold;
             text-transform: uppercase;
             margin-bottom: 2px;
+            line-height: 1;
         }
 
-        /* AMPLIADO AO MÁXIMO: Resultados informativos gigantes */
-        .texto-info h3 {
+        /* TAMANHO MÁXIMO DOS RESULTADOS: Expandido com segurança anti-quebra */
+        .texto-info h3, .texto-info div.resultado-semana {
             font-family: 'Arial', sans-serif;
-            font-size: 4.8vh;
+            font-size: 5.5vh;
             color: #0c2340;
             font-weight: 900;
             white-space: nowrap;
@@ -216,12 +229,12 @@
     <!-- Rodapé -->
     <footer>
         <div class="grupo-esquerdo">
-            <!-- ADICIONADO: Campo Semana Atual -->
+            <!-- Campo Semana Atual -->
             <div class="bloco-info">
                 <div class="icone">🗓️</div>
                 <div class="texto-info">
                     <p>Semana Atual</p>
-                    <div id="semana-campo" style="font-family: 'Arial', sans-serif; font-size: 4.8vh; color: #0c2340; font-weight: 900; white-space: nowrap; line-height: 1;">34ª Semana</div>
+                    <div id="semana-campo" class="resultado-semana">34ª Semana</div>
                 </div>
             </div>
 
@@ -257,50 +270,49 @@
     <!-- Scripts de Atualização Autônomos -->
     <script>
         function calcularDias() {
-            const dataInicial = new Date(2024, 10, 25); // 25/11/2024 (Mês no JS começa em 0)
-            const dataAtual = new Date();
-            
-            dataInicial.setHours(0, 0, 0, 0);
-            dataAtual.setHours(0, 0, 0, 0);
-            
-            const diferencaTempo = dataAtual.getTime() - dataInicial.getTime();
-            const diferencaDias = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
-            
-            if (diferencaDias >= 0) {
-                document.getElementById('dias-sem-acidente').textContent = diferencaDias;
-                document.getElementById('nosso-recorde').textContent = diferencaDias;
-            }
+            try {
+                const dataInicial = new Date(2024, 10, 25); // 25/11/2024 (Mês no JS começa em 0)
+                const dataAtual = new Date();
+                
+                dataInicial.setHours(0, 0, 0, 0);
+                dataAtual.setHours(0, 0, 0, 0);
+                
+                const diferencaTempo = dataAtual.getTime() - dataInicial.getTime();
+                const diferencaDias = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
+                
+                if (diferencaDias >= 0) {
+                    document.getElementById('dias-sem-acidente').textContent = diferencaDias;
+                    document.getElementById('nosso-recorde').textContent = diferencaDias;
+                }
+            } catch (e) { console.error("Erro ao calcular dias:", e); }
         }
 
-        // LÓGICA AUTOMÁTICA DA SEMANA: Baseada na 34ª semana travada na segunda-feira correspondente (17/08/2026)
         function calcularSemanas() {
-            const dataAtual = new Date();
-            const dataBaseSegunda = new Date(2026, 7, 17); // 17/08/2026
-            dataBaseSegunda.setHours(0, 0, 0, 0);
-            
-            const hoje = new Date(dataAtual.getTime());
-            hoje.setHours(0, 0, 0, 0);
-            
-            const diferencaTempo = hoje.getTime() - dataBaseSegunda.getTime();
-            const diferencaDias = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
-            
-            // Divide por 7 para somar uma semana completa a cada segunda-feira que passa
-            const semanasPassadas = Math.floor(diferencaDias / 7);
-            const semanaAtual = 34 + semanasPassadas;
-            
-            document.getElementById('semana-campo').textContent = `${semanaAtual}ª Semana`;
+            try {
+                const dataAtual = new Date();
+                const dataBaseSegunda = new Date(2026, 7, 17); // Segunda-feira da 34ª semana
+                dataBaseSegunda.setHours(0, 0, 0, 0);
+                
+                const hoje = new Date(dataAtual.getTime());
+                hoje.setHours(0, 0, 0, 0);
+                
+                const diferencaTempo = hoje.getTime() - dataBaseSegunda.getTime();
+                const diferencaDias = Math.floor(diferencaTempo / (1000 * 60 * 60 * 24));
+                
+                const semanasPassadas = Math.floor(diferencaDias / 7);
+                const semanaAtual = 34 + semanasPassadas;
+                
+                document.getElementById('semana-campo').textContent = `${semanaAtual}ª Semana`;
+            } catch (e) { console.error("Erro ao calcular semanas:", e); }
         }
 
         function atualizarPainel() {
-            const agora = new Date();
-            
-            // Relógio ativo segundo a segundo
-            const horas = String(agora.getHours()).padStart(2, '0');
-            const minutos = String(agora.getMinutes()).padStart(2, '0');
-            const segundos = String(agora.getSeconds()).padStart(2, '0');
-            document.getElementById('relogio-campo').textContent = `${horas}:${minutos}:${segundos}`;
-            
-            // Data atualizada dinamicamente
-            const dia = String(agora.getDate()).padStart(2, '0');
-            const mes = String(agora.getMonth() + 1).padStart(2, '0');
-            const ano = agora.getFullYear();
+            try {
+                const agora = new Date();
+                
+                // Relógio ativo segundo a segundo
+                const horas = String(agora.getHours()).padStart(2, '0');
+                const minutos = String(agora.getMinutes()).padStart(2, '0');
+                const segundos = String(agora.getSeconds()).padStart(2, '0');
+                document.getElementById('relogio-campo').textContent = `${horas}:${minutos}:${segundos}`;
+                
