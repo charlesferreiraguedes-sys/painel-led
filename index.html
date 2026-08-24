@@ -231,43 +231,24 @@
     </footer>
 
     <script>
-        // Função para buscar o clima real via API Open-Meteo (Coordenadas de São Luís - MA)
-        async function atualizarClimaReal() {
-            try {
-                const url = "https://open-meteo.com";
-                const resposta = await fetch(url);
-                if (!resposta.ok) throw new Error("Erro na requisição da API");
-                
-                const dados = await resposta.json();
-                const tempReal = Math.round(dados.current_weather.temperature);
-                document.getElementById('temp-campo').textContent = `${tempReal}°C`;
-            } catch (e) {
-                console.error("Erro ao buscar temperatura em tempo real:", e);
-                // Fallback inteligente caso a rede falhe temporariamente
-                if(document.getElementById('temp-campo').textContent === "--°C") {
-                    document.getElementById('temp-campo').textContent = "28°C";
-                }
-            }
-        }
-
-        // Função unificada executada sem atrasos para os dados de tempo e datas
+        // 1. Função base interna (Roda imediatamente sem depender de servidores de terceiros)
         function rodarPainelCompleto() {
             try {
                 const agora = new Date();
                 
-                // 1. Relógio atualizado segundo a segundo
+                // Relógio atualizado segundo a segundo
                 const horas = String(agora.getHours()).padStart(2, '0');
                 const minutos = String(agora.getMinutes()).padStart(2, '0');
                 const segundos = String(agora.getSeconds()).padStart(2, '0');
                 document.getElementById('relogio-campo').textContent = `${horas}:${minutos}:${segundos}`;
                 
-                // 2. Data corrente
+                // Data corrente
                 const dia = String(agora.getDate()).padStart(2, '0');
                 const mes = String(agora.getMonth() + 1).padStart(2, '0');
                 const ano = agora.getFullYear();
                 document.getElementById('data-campo').textContent = `${dia}/${mes}/${ano}`;
                 
-                // 3. Dias Sem Acidente e Recorde baseados em 25/11/2024
+                // Dias Sem Acidente e Recorde baseados em 25/11/2024
                 const dataInicial = new Date(2024, 10, 25);
                 dataInicial.setHours(0, 0, 0, 0);
                 const hojeZerado = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate());
@@ -278,11 +259,30 @@
                     document.getElementById('nosso-recorde').textContent = diferencaDias;
                 }
 
-                // 4. Contador de semanas (Base fixa: 17/08/2026 = 34ª Semana)
+                // Contador de semanas (Base fixa: 17/08/2026 = 34ª Semana)
                 const dataBaseSegunda = new Date(2026, 7, 17);
                 dataBaseSegunda.setHours(0, 0, 0, 0);
                 const diferencaIdadeSemanas = Math.floor((hojeZerado.getTime() - dataBaseSegunda.getTime()) / (1000 * 60 * 60 * 24 * 7));
                 const semanaAtual = 34 + diferencaIdadeSemanas;
                 document.getElementById('semana-campo').textContent = `${semanaAtual}ª Semana`;
 
-            } catch (e) { console.error("Erro na automação do painel:", e); }
+            } catch (e) { console.error("Erro na automação de tempo do painel:", e); }
+        }
+
+        // 2. Função isolada do Clima em tempo real (Usa fetch tradicional para não interceptar erros globais)
+        function atualizarClimaReal() {
+            const url = "https://open-meteo.com";
+            
+            fetch(url)
+                .then(resposta => {
+                    if (!resposta.ok) throw new Error();
+                    return resposta.json();
+                })
+                .then(dados => {
+                    if (dados && dados.current_weather) {
+                        const tempReal = Math.round(dados.current_weather.temperature);
+                        document.getElementById('temp-campo').textContent = `${tempReal}°C`;
+                    }
+                })
+                .catch(erro => {
+                    console.error("Erro ao buscar temperatura da API, usando estimativa de fallback.");
