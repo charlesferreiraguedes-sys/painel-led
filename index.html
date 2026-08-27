@@ -178,43 +178,9 @@
             line-height: 1;
             text-shadow: 0 0 15px rgba(0, 255, 102, 0.4);
         }
-    
-@keyframes entradaPainel{from{opacity:0;transform:translateY(35px) scale(.96);filter:blur(5px)}to{opacity:1;transform:none;filter:blur(0)}}
-@keyframes brilhoBorda{0%,100%{box-shadow:0 10px 20px rgba(0,0,0,.3)}50%{box-shadow:0 10px 25px rgba(0,0,0,.45),0 0 18px rgba(0,100,55,.22)}}
-@keyframes linhaVerde{0%,100%{transform:scaleX(.65);opacity:.55}50%{transform:scaleX(1);opacity:1}}
-@keyframes numeroRespira{0%,100%{transform:scale(1)}50%{transform:scale(1.018)}}
-@keyframes brilhoVerde{0%,100%{text-shadow:0 0 18px rgba(0,255,102,.45)}50%{text-shadow:0 0 32px rgba(0,255,102,.85)}}
-@keyframes brilhoVermelho{0%,100%{text-shadow:0 0 18px rgba(255,26,26,.45)}50%{text-shadow:0 0 30px rgba(255,26,26,.78)}}
-@keyframes atualizaValor{0%{opacity:.35;transform:scale(.94);filter:blur(3px)}60%{opacity:1;transform:scale(1.035);filter:blur(0)}100%{opacity:1;transform:scale(1)}}
-@keyframes temperaturaMudou{0%{transform:scale(1);filter:brightness(1)}35%{transform:scale(1.10);filter:brightness(1.55)}100%{transform:scale(1);filter:brightness(1)}}
-@keyframes relogioTick{0%{opacity:.72}50%{opacity:1}100%{opacity:.92}}
-.efeito-luz{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:0;opacity:.20}
-.container-principal,footer{position:relative;z-index:2}
-.caixa-titulo-preta{animation:entradaPainel .9s ease-out both,brilhoBorda 5s ease-in-out infinite 1s}
-.painel-contador{animation:entradaPainel 1s ease-out both,brilhoBorda 4s ease-in-out infinite 1.2s}
-.painel-contador:nth-child(2){animation-delay:.18s,1.4s}
-.caixa-info-preta-rodape{animation:entradaPainel .8s ease-out both,brilhoBorda 5s ease-in-out infinite 1.8s}
-.caixa-info-preta-rodape:nth-child(1){animation-delay:.30s,2s}
-.caixa-info-preta-rodape:nth-child(2){animation-delay:.42s,2.2s}
-.caixa-info-preta-rodape:nth-child(3){animation-delay:.54s,2.4s}
-.caixa-info-preta-rodape:nth-child(4){animation-delay:.66s,2.6s}
-.linha-verde{transform-origin:center;animation:linhaVerde 2.8s ease-in-out infinite}
-.numero-digital{animation:numeroRespira 4s ease-in-out infinite}
-.vermelho{animation:numeroRespira 4s ease-in-out infinite,brilhoVermelho 3.5s ease-in-out infinite}
-.verde{animation:numeroRespira 4s ease-in-out infinite,brilhoVerde 3.5s ease-in-out infinite}
-#relogio-campo{font-variant-numeric:tabular-nums;animation:relogioTick 1s ease-in-out infinite}
-.valor-atualizado{animation:atualizaValor .55s cubic-bezier(.2,.8,.2,1)}
-.temperatura-alterada{animation:temperaturaMudou .85s cubic-bezier(.2,.8,.2,1)}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important}}
-
     </style>
 </head>
 <body>
-<svg class="efeito-luz" viewBox="0 0 1600 900" preserveAspectRatio="none" aria-hidden="true">
-<defs><radialGradient id="brilhoSvg"><stop offset="0%" stop-opacity=".75"/><stop offset="100%" stop-opacity="0"/></radialGradient></defs>
-<circle cx="180" cy="180" r="180" fill="url(#brilhoSvg)"><animate attributeName="cx" values="180;300;180" dur="12s" repeatCount="indefinite"/><animate attributeName="cy" values="180;260;180" dur="10s" repeatCount="indefinite"/></circle>
-<circle cx="1420" cy="720" r="220" fill="url(#brilhoSvg)"><animate attributeName="cx" values="1420;1280;1420" dur="14s" repeatCount="indefinite"/><animate attributeName="cy" values="720;610;720" dur="11s" repeatCount="indefinite"/></circle>
-</svg>
 
     <!-- Bloco Superior -->
     <div class="container-principal">
@@ -266,18 +232,6 @@
     </footer>
 
     <script>
-
-function definirValorAnimado(id,valor,tipo="normal"){
- const e=document.getElementById(id); if(!e)return;
- const v=String(valor);
- if(e.textContent!==v){
-  e.textContent=v;
-  e.classList.remove("valor-atualizado","temperatura-alterada");
-  void e.offsetWidth;
-  e.classList.add(tipo==="temperatura"?"temperatura-alterada":"valor-atualizado");
- }
-}
-
         // Função unificada executada sem atrasos
         function rodarPainelCompleto() {
             try {
@@ -287,13 +241,13 @@ function definirValorAnimado(id,valor,tipo="normal"){
                 const horas = String(agora.getHours()).padStart(2, '0');
                 const minutos = String(agora.getMinutes()).padStart(2, '0');
                 const segundos = String(agora.getSeconds()).padStart(2, '0');
-                definirValorAnimado('relogio-campo', `${horas}:${minutos}:${segundos}`);
+                document.getElementById('relogio-campo').textContent = `${horas}:${minutos}:${segundos}`;
                 
                 // 2. Data corrente
                 const dia = String(agora.getDate()).padStart(2, '0');
                 const mes = String(agora.getMonth() + 1).padStart(2, '0');
                 const ano = agora.getFullYear();
-                definirValorAnimado('data-campo', `${dia}/${mes}/${ano}`);
+                document.getElementById('data-campo').textContent = `${dia}/${mes}/${ano}`;
                 
                 // 3. Dias Sem Acidente e Recorde baseados em 25/11/2024
                 const dataInicial = new Date(2024, 10, 25);
@@ -302,8 +256,8 @@ function definirValorAnimado(id,valor,tipo="normal"){
                 const diferencaDias = Math.floor((hojeZerado.getTime() - dataInicial.getTime()) / (1000 * 60 * 60 * 24));
                 
                 if (diferencaDias >= 0) {
-                    definirValorAnimado('dias-sem-acidente', diferencaDias);
-                    definirValorAnimado('nosso-recorde', diferencaDias);
+                    document.getElementById('dias-sem-acidente').textContent = diferencaDias;
+                    document.getElementById('nosso-recorde').textContent = diferencaDias;
                 }
 
                 // 4. Contador de semanas (Base fixa: 17/08/2026 = 34ª Semana)
@@ -311,7 +265,7 @@ function definirValorAnimado(id,valor,tipo="normal"){
                 dataBaseSegunda.setHours(0, 0, 0, 0);
                 const diferencaIdadeSemanas = Math.floor((hojeZerado.getTime() - dataBaseSegunda.getTime()) / (1000 * 60 * 60 * 24 * 7));
                 const semanaAtual = 34 + diferencaIdadeSemanas;
-                definirValorAnimado('semana-campo', `${semanaAtual}ª Semana`);
+                document.getElementById('semana-campo').textContent = `${semanaAtual}ª Semana`;
 
                 // 5. Clima Inteligente Automático baseado no horário local
                 let temperatura = 28;
@@ -321,7 +275,7 @@ function definirValorAnimado(id,valor,tipo="normal"){
                 } else if (horaAtual >= 11 && horaAtual < 15) {
                     temperatura = 31;
                 }
-                definirValorAnimado('temp-campo', `${temperatura}°C`, 'temperatura');
+                document.getElementById('temp-campo').textContent = `${temperatura}°C`;
 
             } catch (e) { console.error("Erro na automação do painel:", e); }
         }
