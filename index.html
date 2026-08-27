@@ -222,7 +222,7 @@
 
         <div class="caixa-info-preta-rodape">
             <p>São Luís - MA</p>
-            <div id="temp-campo" class="resultado-gigante-rodape">--°C</div>
+            <div id="temp-campo" class="resultado-gigante-rodape">Buscando...</div>
         </div>
 
         <div class="caixa-info-preta-rodape">
@@ -232,29 +232,138 @@
     </footer>
 
     <script>
+        // ============================================================
+        // TEMPERATURA AUTOMÁTICA PELA LOCALIZAÇÃO REAL
+        // Usa GPS/localização do navegador + Open-Meteo.
+        // A temperatura é atualizada a cada 5 minutos.
+        // Relógio, data e contadores continuam independentes.
+        // ============================================================
+        // ============================================================
+        // TEMPERATURA AUTOMÁTICA - LOCALIZAÇÃO + FALLBACK
+        // Primeiro tenta a localização real do dispositivo.
+        // Se o navegador não liberar GPS/localização, usa as coordenadas
+        // padrão de São Luís-MA para o painel não ficar sem temperatura.
+        // ============================================================
+        let ultimaConsultaClima = 0;
+        const INTERVALO_CLIMA = 5 * 60 * 1000;
+
+        // São Luís - MA (fallback)
+        const LATITUDE_PADRAO = -2.5297;
+        const LONGITUDE_PADRAO = -44.3028;
+
+        async function consultarTemperatura(latitude, longitude) {
+            try {
+                const url =
+                    `https://api.open-meteo.com/v1/forecast?latitude=${latitude}` +
+                    `&longitude=${longitude}` +
+                    `&current=temperature_2m` +
+                    `&temperature_unit=celsius` +
+                    `&timezone=auto`;
+
+                const resposta = await fetch(url, {
+                    cache: "no-store",
+                    mode: "cors"
+                });
+
+                if (!resposta.ok) {
+                    throw new Error(`HTTP ${resposta.status}`);
+                }
+
+                const dados = await resposta.json();
+
+                if (dados.current &&
+                    typeof dados.current.temperature_2m === "number") {
+
+                    document.getElementById('temp-campo').textContent =
+                        `${dados.current.temperature_2m.toFixed(1)}°C`;
+
+                    ultimaConsultaClima = Date.now();
+                    return true;
+                }
+
+            } catch (erro) {
+                console.error("Erro na consulta da temperatura:", erro);
+            }
+
+            return false;
+        }
+
+        function atualizarTemperaturaPorLocalizacao() {
+
+            // Se houver geolocalização, tenta primeiro a posição real.
+            if (navigator.geolocation) {
+
+                navigator.geolocation.getCurrentPosition(
+                    async function(posicao) {
+
+                        const sucesso = await consultarTemperatura(
+                            posicao.coords.latitude,
+                            posicao.coords.longitude
+                        );
+
+                        // Caso a API/localização falhe, mantém o painel funcionando.
+                        if (!sucesso) {
+                            await consultarTemperatura(
+                                LATITUDE_PADRAO,
+                                LONGITUDE_PADRAO
+                            );
+                        }
+                    },
+
+                    async function(erro) {
+                        console.warn(
+                            "Localização não autorizada ou indisponível. " +
+                            "Usando São Luís-MA como referência."
+                        );
+
+                        await consultarTemperatura(
+                            LATITUDE_PADRAO,
+                            LONGITUDE_PADRAO
+                        );
+                    },
+
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 300000
+                    }
+                );
+
+            } else {
+                // Navegador sem geolocalização.
+                consultarTemperatura(
+                    LATITUDE_PADRAO,
+                    LONGITUDE_PADRAO
+                );
+            }
+        }
+
         // Função unificada executada sem atrasos
         function rodarPainelCompleto() {
             try {
                 const agora = new Date();
-                
+
                 // 1. Relógio atualizado segundo a segundo
                 const horas = String(agora.getHours()).padStart(2, '0');
                 const minutos = String(agora.getMinutes()).padStart(2, '0');
                 const segundos = String(agora.getSeconds()).padStart(2, '0');
                 document.getElementById('relogio-campo').textContent = `${horas}:${minutos}:${segundos}`;
-                
+
                 // 2. Data corrente
                 const dia = String(agora.getDate()).padStart(2, '0');
                 const mes = String(agora.getMonth() + 1).padStart(2, '0');
                 const ano = agora.getFullYear();
                 document.getElementById('data-campo').textContent = `${dia}/${mes}/${ano}`;
-                
+
                 // 3. Dias Sem Acidente e Recorde baseados em 25/11/2024
                 const dataInicial = new Date(2024, 10, 25);
                 dataInicial.setHours(0, 0, 0, 0);
                 const hojeZerado = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate());
-                const diferencaDias = Math.floor((hojeZerado.getTime() - dataInicial.getTime()) / (1000 * 60 * 60 * 24));
-                
+                const diferencaDias = Math.floor(
+                    (hojeZerado.getTime() - dataInicial.getTime()) /
+                    (1000 * 60 * 60 * 24)
+                );
+
                 if (diferencaDias >= 0) {
                     document.getElementById('dias-sem-acidente').textContent = diferencaDias;
                     document.getElementById('nosso-recorde').textContent = diferencaDias;
@@ -263,21 +372,23 @@
                 // 4. Contador de semanas (Base fixa: 17/08/2026 = 34ª Semana)
                 const dataBaseSegunda = new Date(2026, 7, 17);
                 dataBaseSegunda.setHours(0, 0, 0, 0);
-                const diferencaIdadeSemanas = Math.floor((hojeZerado.getTime() - dataBaseSegunda.getTime()) / (1000 * 60 * 60 * 24 * 7));
+                const diferencaIdadeSemanas = Math.floor(
+                    (hojeZerado.getTime() - dataBaseSegunda.getTime()) /
+                    (1000 * 60 * 60 * 24 * 7)
+                );
                 const semanaAtual = 34 + diferencaIdadeSemanas;
-                document.getElementById('semana-campo').textContent = `${semanaAtual}ª Semana`;
+                document.getElementById('semana-campo').textContent =
+                    `${semanaAtual}ª Semana`;
 
-                // 5. Clima Inteligente Automático baseado no horário local
-                let temperatura = 28;
-                const horaAtual = agora.getHours();
-                if (horaAtual >= 18 || horaAtual < 6) {
-                    temperatura = 26; 
-                } else if (horaAtual >= 11 && horaAtual < 15) {
-                    temperatura = 31;
+                // 5. Temperatura automática.
+                // Só consulta a API quando passaram 5 minutos.
+                if (Date.now() - ultimaConsultaClima >= INTERVALO_CLIMA) {
+                    atualizarTemperaturaPorLocalizacao();
                 }
-                document.getElementById('temp-campo').textContent = `${temperatura}°C`;
 
-            } catch (e) { console.error("Erro na automação do painel:", e); }
+            } catch (e) {
+                console.error("Erro na automação do painel:", e);
+            }
         }
 
         // Execução imediata ao carregar os elementos na tela
